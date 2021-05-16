@@ -1,0 +1,1 @@
+docker run -d -p 5432:5432 --name localpostgres -e POSTGRES_PASSWORD=secretpassword postgres:11.6
