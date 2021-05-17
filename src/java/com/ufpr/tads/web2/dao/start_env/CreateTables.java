@@ -9,7 +9,7 @@ public class CreateTables {
     private static Statement query = null;
     private static Connection con = null;
     
-   public static void main(String[] args) throws SQLException {
+   public static void main(String[] args) {
      try(ConnectionFactory factory = new ConnectionFactory()){
          con = factory.getConnection();
          query = con.createStatement();
@@ -33,12 +33,20 @@ public class CreateTables {
          e.printStackTrace();
      } finally {
         if (con != null){
-            con.close();
-            con = null;
+            try{
+                con.close();
+                con = null;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         if (query != null){
-            query.close();
+            try{
+                query.close();
             query = null;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
      }
    }
