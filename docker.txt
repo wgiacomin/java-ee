@@ -1,1 +1,2 @@
-docker run -d -p 5432:5432 --name localpostgres -e POSTGRES_PASSWORD=postgres postgres
+run on docker:
+   docker run -d -p 5432:5432 --name localpostgres -e POSTGRES_PASSWORD=postgres postgres
