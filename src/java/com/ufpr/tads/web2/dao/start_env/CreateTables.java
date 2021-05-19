@@ -23,10 +23,59 @@ public class CreateTables {
          query.executeUpdate("GRANT ALL ON SCHEMA public TO public;");
          
          //Creating New Tables
-         query.executeUpdate("CREATE TABLE tb_usuario (id_usuario INTEGER not NULL, "
-                 + "login_usuario VARCHAR(50), senha_usuario VARCHAR(50), "
-                 + "nome_usuario VARCHAR(100), PRIMARY KEY ( id_usuario ));");
-         
+         query.executeUpdate("CREATE TABLE IF NOT EXISTS login("
+                 + "id SERIAL UNIQUE PRIMARY KEY, "
+                 + "login varchar(50),"
+                 + "senha varchar(255));");
+         query.executeUpdate("CREATE TABLE IF NOT EXISTS perfil ("
+                 + "id SERIAL UNIQUE PRIMARY KEY, "
+                 + "descricao varchar(50));");
+         query.executeUpdate("CREATE TABLE IF NOT EXISTS cadastro ("
+                 + "fk_login int, "
+                 + "CPF varchar(11), "
+                 + "nome varchar(255),"
+                 + "email varchar(255), "
+                 + "rua varchar(255), "
+                 + "rua_numero int,"
+                 + "rua_complemento varchar(255), "
+                 + "bairro varchar(255),"
+                 + "cep varchar(8), "
+                 + "cidade varchar(100), "
+                 + "estado varchar(2), "
+                 + "telefone varchar(11),"
+                 + "fk_perfil int,   "
+                 + "foreign key (fk_login) references login(id),"
+                 + "foreign key (fk_perfil) references perfil(id));");
+         query.executeUpdate("CREATE TABLE IF NOT EXISTS produto_categoria (  "
+                  + "id SERIAL UNIQUE PRIMARY KEY,  "
+                  + "nome varchar(255) );");
+         query.executeUpdate("CREATE TABLE IF NOT EXISTS produto (  "
+                   + "id SERIAL UNIQUE PRIMARY KEY, "
+                   + "nome varchar(255),  "
+                   + "descricao varchar(255),  "
+                   + "peso float,  "
+                   + "fk_categoria int,  "
+                   + "foreign key (fk_categoria) references produto_categoria(id) );");
+         query.executeUpdate("CREATE TABLE IF NOT EXISTS tipo_atendimento (  "
+                 + "id SERIAL UNIQUE PRIMARY KEY,  "
+                 + "nome varchar(255) );");
+         query.executeUpdate("CREATE TABLE IF NOT EXISTS status (  "
+                 + "id SERIAL UNIQUE PRIMARY KEY,  "
+                 + "descricao varchar(100) );");
+         query.executeUpdate("CREATE TABLE IF NOT EXISTS atendimento (  "
+                 + "id SERIAL UNIQUE PRIMARY KEY,  "
+                 + "data_hora timestamp,  "
+                 + "descricao text,  "
+                 + "solucao text,  "
+                 + "fk_cliente int,  "
+                 + "fk_status int,  "
+                 + "fk_tipo_atendimento int,  "
+                 + "fk_produto int,  "
+                 + "foreign key (fk_cliente) references login(id),  "
+                 + "foreign key (fk_status) references status(id),  "
+                 + "foreign key (fk_tipo_atendimento) references tipo_atendimento(id),  "
+                 + "foreign key (fk_produto) references produto(id) );");
+
         System.out.println("Tabelas criadas com sucesso.");
      } catch (Exception e) {
          System.out.println("Erro ao criar ao criar tabelas.");
