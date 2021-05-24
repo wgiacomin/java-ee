@@ -2,7 +2,6 @@ package com.ufpr.tads.web2.dao.start_env;
 
 import com.ufpr.tads.web2.dao.ConnectionFactory;
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.sql.Statement;
 
 public class CreateTables {
