@@ -37,7 +37,7 @@ public class CadastroBean implements Serializable {
         this.nome = nome;
         this.fk_perfil = fk_perfil;
     }
-    
+
     public int getFk_login() {
         return fk_login;
     }
