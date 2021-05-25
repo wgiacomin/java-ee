@@ -30,7 +30,7 @@ public class CreateTables {
                  + "id SERIAL UNIQUE PRIMARY KEY, "
                  + "descricao varchar(50));");
          query.executeUpdate("CREATE TABLE IF NOT EXISTS cadastro ("
-                 + "fk_login int, "
+                 + "fk_login int UNIQUE PRIMARY KEY, "
                  + "CPF varchar(11), "
                  + "nome varchar(255),"
                  + "email varchar(255), "
