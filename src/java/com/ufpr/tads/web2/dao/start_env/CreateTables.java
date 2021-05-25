@@ -24,16 +24,16 @@ public class CreateTables {
          //Creating New Tables
          query.executeUpdate("CREATE TABLE IF NOT EXISTS login("
                  + "id SERIAL UNIQUE PRIMARY KEY, "
-                 + "login varchar(50),"
-                 + "senha varchar(255));");
+                 + "login varchar(50) UNIQUE NOT NULL,"
+                 + "senha varchar(255) NOT NULL);");
          query.executeUpdate("CREATE TABLE IF NOT EXISTS perfil ("
                  + "id SERIAL UNIQUE PRIMARY KEY, "
                  + "descricao varchar(50));");
          query.executeUpdate("CREATE TABLE IF NOT EXISTS cadastro ("
-                 + "fk_login int UNIQUE PRIMARY KEY, "
-                 + "CPF varchar(11), "
-                 + "nome varchar(255),"
-                 + "email varchar(255), "
+                 + "fk_login int, "
+                 + "CPF varchar(11) UNIQUE NOT NULL, "
+                 + "nome varchar(255) NOT NULL,"
+                 + "email varchar(255) UNIQUE NOT NULL, "
                  + "rua varchar(255), "
                  + "rua_numero int,"
                  + "rua_complemento varchar(255), "
@@ -47,7 +47,7 @@ public class CreateTables {
                  + "foreign key (fk_perfil) references perfil(id));");
          query.executeUpdate("CREATE TABLE IF NOT EXISTS produto_categoria (  "
                   + "id SERIAL UNIQUE PRIMARY KEY,  "
-                  + "nome varchar(255) );");
+                  + "nome varchar(255) UNIQUE NOT NULL );");
          query.executeUpdate("CREATE TABLE IF NOT EXISTS produto (  "
                    + "id SERIAL UNIQUE PRIMARY KEY, "
                    + "nome varchar(255),  "
@@ -57,10 +57,10 @@ public class CreateTables {
                    + "foreign key (fk_categoria) references produto_categoria(id) );");
          query.executeUpdate("CREATE TABLE IF NOT EXISTS tipo_atendimento (  "
                  + "id SERIAL UNIQUE PRIMARY KEY,  "
-                 + "nome varchar(255) );");
+                 + "nome varchar(255) UNIQUE NOT NULL );");
          query.executeUpdate("CREATE TABLE IF NOT EXISTS status (  "
                  + "id SERIAL UNIQUE PRIMARY KEY,  "
-                 + "descricao varchar(100) );");
+                 + "descricao varchar(100) UNIQUE NOT NULL );");
          query.executeUpdate("CREATE TABLE IF NOT EXISTS atendimento (  "
                  + "id SERIAL UNIQUE PRIMARY KEY,  "
                  + "data_hora timestamp,  "
