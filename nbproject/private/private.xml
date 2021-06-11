@@ -2,13 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/E:/OneDrive/Estudos/Graduação/TADS/Web2/projeto_final/src/java/com/ufpr/tads/web2/dao/DAOInterface.java</file>
-            <file>file:/E:/OneDrive/Estudos/Graduação/TADS/Web2/projeto_final/src/java/com/ufpr/tads/web2/dao/start_env/CreateData.java</file>
-            <file>file:/E:/OneDrive/Estudos/Graduação/TADS/Web2/projeto_final/src/java/com/ufpr/tads/web2/dao/start_env/CreateTables.java</file>
-            <file>file:/E:/OneDrive/Estudos/Graduação/TADS/Web2/projeto_final/src/java/com/ufpr/tads/web2/dao/LoginDAO.java</file>
-            <file>file:/E:/OneDrive/Estudos/Graduação/TADS/Web2/projeto_final/test/com/ufpr/tads/web2/dao/LoginDAOTest.java</file>
-            <file>file:/E:/OneDrive/Estudos/Graduação/TADS/Web2/projeto_final/test/com/ufpr/tads/web2/dao/ConnectionFactoryTest.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>
