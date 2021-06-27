@@ -1,5 +1,3 @@
-![](RackMultipart20210627-4-5lqfsj_html_4b07c7b46b91852b.png) ![](RackMultipart20210627-4-5lqfsj_html_55e1343fc9cb09a6.png)
-
 **BEIBE - Beauty Embuste Indústria de Beleza e Estética**
 
 Rua do Embuste, 1313
