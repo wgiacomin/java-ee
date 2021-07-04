@@ -1,11 +1,11 @@
-package com.ufpr.tads.web2.dao.start_env;
+package com.ufpr.tads.web2.dao.start_env.data;
 
 import com.ufpr.tads.web2.dao.ConnectionFactory;
 import java.sql.Connection;
 import java.sql.Statement;
 import org.apache.commons.codec.digest.DigestUtils;
 
-public class CreateData {
+public class CreateLogins {
 
     private static Statement query = null;
     private static Connection con = null;
@@ -22,9 +22,9 @@ public class CreateData {
                     + "1, 'wgiacomin', '"
                     + sha256hex + "');");
 
-            System.out.println("Dados criados com sucesso.");
+            System.out.println("Logins criados com sucesso.");
         } catch (Exception e) {
-            System.out.println("Erro ao criar ao criar dados.");
+            System.out.println("Erro ao criar ao criar Logins.");
             e.printStackTrace();
         } finally {
             if (con != null) {
