@@ -5,27 +5,27 @@ import java.io.Serializable;
 public class ProdutoCategoriaBean implements Serializable {
 
     private int id;
-    private String nome;
+    private String descricao;
 
     public ProdutoCategoriaBean(int id, String nome) {
         this.id = id;
-        this.nome = nome;
+        this.descricao = nome;
     }
 
     public ProdutoCategoriaBean(String nome) {
-        this.nome = nome;
+        this.descricao = nome;
     }
 
     public int getId() {
         return id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setDescricao(String nome) {
+        this.descricao = nome;
     }
 
 }
