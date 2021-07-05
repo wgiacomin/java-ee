@@ -8,17 +8,17 @@ public class ProdutoBean implements Serializable {
     private String nome;
     private String descricao;
     private double peso;
-    private ProdutoCategoriaBean produto_categoria;
+    private ProdutoCategoriaBean produtoCategoria;
 
 	public ProdutoBean() {
 	}
 
-    public ProdutoBean(int id, String nome, String descricao, double peso, ProdutoCategoriaBean produto_categoria) {
+    public ProdutoBean(int id, String nome, String descricao, double peso, ProdutoCategoriaBean produtoCategoria) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
         this.peso = peso;
-        this.produto_categoria = produto_categoria;
+        this.produtoCategoria = produtoCategoria;
     }
 	
     public int getId() {
@@ -49,12 +49,12 @@ public class ProdutoBean implements Serializable {
         this.peso = peso;
     }
 
-	public ProdutoCategoriaBean getProduto_categoria() {
-		return produto_categoria;
+	public ProdutoCategoriaBean getProdutoCategoria() {
+		return produtoCategoria;
 	}
 
-	public void setProduto_categoria(ProdutoCategoriaBean produto_categoria) {
-		this.produto_categoria = produto_categoria;
+	public void setProdutoCategoria(ProdutoCategoriaBean produtoCategoria) {
+		this.produtoCategoria = produtoCategoria;
 	}
 	
 	

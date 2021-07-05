@@ -14,8 +14,8 @@ public class CadastroBean extends LoginBean{
 	private String nome;
 	private String email;
 	private String rua;
-	private int rua_numero;
-	private String rua_complemento;
+	private int ruaNumero;
+	private String ruaComplemento;
 	private String bairro;
 	private String cep;
 	private String telefone;
@@ -25,13 +25,13 @@ public class CadastroBean extends LoginBean{
 	public CadastroBean() {
 	}
 	
-	public CadastroBean(String cpf, String nome, String email, String rua, int rua_numero, String rua_complemento, String bairro, String cep, String telefone, CidadeBean cidade, PerfilBean perfil) {
+	public CadastroBean(String cpf, String nome, String email, String rua, int ruaNumero, String ruaComplemento, String bairro, String cep, String telefone, CidadeBean cidade, PerfilBean perfil) {
 		this.cpf = cpf;
 		this.nome = nome;
 		this.email = email;
 		this.rua = rua;
-		this.rua_numero = rua_numero;
-		this.rua_complemento = rua_complemento;
+		this.ruaNumero = ruaNumero;
+		this.ruaComplemento = ruaComplemento;
 		this.bairro = bairro;
 		this.cep = cep;
 		this.telefone = telefone;
@@ -71,20 +71,20 @@ public class CadastroBean extends LoginBean{
 		this.rua = rua;
 	}
 
-	public int getRua_numero() {
-		return rua_numero;
+	public int getRuaNumero() {
+		return ruaNumero;
 	}
 
-	public void setRua_numero(int rua_numero) {
-		this.rua_numero = rua_numero;
+	public void setRuaNumero(int ruaNumero) {
+		this.ruaNumero = ruaNumero;
 	}
 
-	public String getRua_complemento() {
-		return rua_complemento;
+	public String getRuaComplemento() {
+		return ruaComplemento;
 	}
 
-	public void setRua_complemento(String rua_complemento) {
-		this.rua_complemento = rua_complemento;
+	public void setRuaComplemento(String ruaComplemento) {
+		this.ruaComplemento = ruaComplemento;
 	}
 
 	public String getBairro() {

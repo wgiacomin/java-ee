@@ -6,24 +6,24 @@ import java.sql.Timestamp;
 public class AtendimentoBean implements Serializable {
 
     private int id;
-    private Timestamp data_hora;
+    private Timestamp dataHora;
     private String descricao;
     private String solucao;
     private LoginBean login;
     private StatusBean status;
-    private TipoAtendimentoBean tipo_atendimento;
+    private TipoAtendimentoBean tipoAtendimento;
 
 	public AtendimentoBean() {
 	}
 
-	public AtendimentoBean(int id, Timestamp data_hora, String descricao, String solucao, LoginBean login, StatusBean status, TipoAtendimentoBean tipo_atendimento, ProdutoBean produto) {
+	public AtendimentoBean(int id, Timestamp dataHora, String descricao, String solucao, LoginBean login, StatusBean status, TipoAtendimentoBean tipoAtendimento, ProdutoBean produto) {
 		this.id = id;
-		this.data_hora = data_hora;
+		this.dataHora = dataHora;
 		this.descricao = descricao;
 		this.solucao = solucao;
 		this.login = login;
 		this.status = status;
-		this.tipo_atendimento = tipo_atendimento;
+		this.tipoAtendimento = tipoAtendimento;
 		this.produto = produto;
 	}
     private ProdutoBean produto;
@@ -36,12 +36,12 @@ public class AtendimentoBean implements Serializable {
 		this.id = id;
 	}
 
-	public Timestamp getData_hora() {
-		return data_hora;
+	public Timestamp getDataHora() {
+		return dataHora;
 	}
 
-	public void setData_hora(Timestamp data_hora) {
-		this.data_hora = data_hora;
+	public void setDataHora(Timestamp dataHora) {
+		this.dataHora = dataHora;
 	}
 
 	public String getDescricao() {
@@ -76,12 +76,12 @@ public class AtendimentoBean implements Serializable {
 		this.status = status;
 	}
 
-	public TipoAtendimentoBean getTipo_atendimento() {
-		return tipo_atendimento;
+	public TipoAtendimentoBean getTipoAtendimento() {
+		return tipoAtendimento;
 	}
 
-	public void setTipo_atendimento(TipoAtendimentoBean tipo_atendimento) {
-		this.tipo_atendimento = tipo_atendimento;
+	public void setTipoAtendimento(TipoAtendimentoBean tipoAtendimento) {
+		this.tipoAtendimento = tipoAtendimento;
 	}
 
 	public ProdutoBean getProduto() {

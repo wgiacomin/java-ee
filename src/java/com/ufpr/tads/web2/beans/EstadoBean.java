@@ -12,15 +12,15 @@ package com.ufpr.tads.web2.beans;
 public class EstadoBean {
 	private int id;
 	private String nome;
-	private String UF;
+	private String uf;
 
 	public EstadoBean() {
 	}
 
-	public EstadoBean(int id, String nome, String UF) {
+	public EstadoBean(int id, String nome, String uf) {
 		this.id = id;
 		this.nome = nome;
-		this.UF = UF;
+		this.uf = uf;
 	}
 
 	public int getId() {
@@ -40,10 +40,10 @@ public class EstadoBean {
 	}
 
 	public String getUF() {
-		return UF;
+		return uf;
 	}
 
 	public void setUF(String UF) {
-		this.UF = UF;
+		this.uf = uf;
 	}
 }
