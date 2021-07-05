@@ -39,4 +39,8 @@ public class LoginBean implements Serializable {
         this.senha = senha;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
 }

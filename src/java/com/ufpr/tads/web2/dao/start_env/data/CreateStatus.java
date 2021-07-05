@@ -1,6 +1,6 @@
 package com.ufpr.tads.web2.dao.start_env.data;
 
-import com.ufpr.tads.web2.dao.ConnectionFactory;
+import com.ufpr.tads.web2.dao.utils.ConnectionFactory;
 import java.sql.Connection;
 import java.sql.Statement;
 

@@ -1,5 +1,6 @@
 package com.ufpr.tads.web2.dao;
 
+import com.ufpr.tads.web2.dao.utils.ConnectionFactory;
 import java.sql.Connection;
 import org.junit.Test;
 

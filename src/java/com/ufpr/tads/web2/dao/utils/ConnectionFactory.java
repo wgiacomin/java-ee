@@ -1,4 +1,4 @@
-package com.ufpr.tads.web2.dao;
+package com.ufpr.tads.web2.dao.utils;
 
 import com.ufpr.tads.web2.exceptions.DAOException;
 import java.sql.Connection;

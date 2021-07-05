@@ -1,5 +1,6 @@
 package com.ufpr.tads.web2.dao;
 
+import com.ufpr.tads.web2.dao.utils.ConnectionFactory;
 import com.ufpr.tads.web2.beans.LoginBean;
 import org.junit.Test;
 import static org.junit.Assert.*;

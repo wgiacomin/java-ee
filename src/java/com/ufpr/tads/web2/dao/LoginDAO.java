@@ -1,14 +1,16 @@
 package com.ufpr.tads.web2.dao;
 
 import com.ufpr.tads.web2.beans.LoginBean;
+import com.ufpr.tads.web2.dao.utils.DAOInterface;
 import com.ufpr.tads.web2.exceptions.DAOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import org.apache.commons.codec.digest.DigestUtils;
 
-public class LoginDAO {
+public class LoginDAO implements DAOInterface {
 
     private static final String QUERY_BUSCAR = "SELECT id FROM login WHERE login=? and senha=?";
 
@@ -21,7 +23,7 @@ public class LoginDAO {
         this.con = con;
     }
 
-    public int buscar(LoginBean usuario) throws DAOException {
+    public LoginBean buscar(LoginBean usuario) throws DAOException {
         try (PreparedStatement st = con.prepareStatement(QUERY_BUSCAR)) {
             String sha256hex = DigestUtils.sha256Hex(usuario.getSenha());
 
@@ -30,13 +32,33 @@ public class LoginDAO {
 
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
-                return rs.getInt("id");
+                try {
+                    usuario.setId(rs.getInt("id"));
+                    return usuario;
+                } catch (NumberFormatException e){
+                    throw new DAOException("Erro buscando login: " + usuario.getLogin(), e);
+                }
             } else {
-                return -1;
+                return null;
             }
         } catch (SQLException e) {
             throw new DAOException("Erro buscando login: " + usuario.getLogin(), e);
         }
+    }
+
+    @Override
+    public List buscarTodos() throws DAOException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void inserir(Object t) throws DAOException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void remover(Object t) throws DAOException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
