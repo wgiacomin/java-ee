@@ -16,7 +16,7 @@ import org.junit.runners.MethodSorters;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class LoginDAOTest {
 
-    private LoginBean usuario = new LoginBean(1, "wgiacomin", "123");
+    private final LoginBean usuario = new LoginBean(1, "wgiacomin", "123");
     private LoginBean usuario2 = new LoginBean(2, "wgiacomin2", "1234");
 
     @BeforeClass
@@ -24,10 +24,10 @@ public class LoginDAOTest {
         try {
             Connection con = new ConnectionFactory().getConnection();
             LoginDAO dao = new LoginDAO(con);
-            LoginBean usuario2 = new LoginBean(2, "wgiacomin2", "1234");
+            LoginBean usuario2 = new LoginBean("wgiacomin2", "1234");
             usuario2 = dao.buscar(usuario2);
             dao.remover(usuario2);
-        } catch (DAOException e) {
+        } catch (Exception e) {
 
         }
     }

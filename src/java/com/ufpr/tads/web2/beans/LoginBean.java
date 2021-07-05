@@ -17,6 +17,11 @@ public class LoginBean implements Serializable {
         this.senha = senha;
     }
 
+    public LoginBean(String login, String senha) {
+        this.login = login;
+        this.senha = senha;
+    }
+
     public int getId() {
         return id;
     }
