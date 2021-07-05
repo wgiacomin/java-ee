@@ -68,4 +68,39 @@
     nbproject/build-impl.xml file. 
 
     -->
+    <path id="compile.classpath">
+    <fileset dir="${lib}">
+        <include name="**/*.jar"/>
+    </fileset>
+    <fileset dir="${junit_home}">
+        <include name="**/*.jar"/>
+    </fileset>
+</path>
+
+<path id="test.classpath">
+    <pathelement location="${bin}" />
+    <fileset dir="${lib}">
+         <include name="**/*.jar"/>
+     </fileset>
+    <fileset dir="${junit_home}">
+        <include name="**/*.jar"/>
+    </fileset>
+</path>
+
+<target name="compile">
+    <mkdir dir="${bin}" />
+    <echo Message="Compiling src folder..." />
+    <javac includeantruntime="no" classpathref="compile.classpath" srcdir="${src}" destdir="${bin}" />
+    <echo Message="Compiling test folder..." />
+    <javac includeantruntime="no" classpathref="compile.classpath" srcdir="${test}" destdir="${bin}" />
+</target>
+
+<target name="test">
+    <mkdir dir="${test.reports}" />
+    <junit fork="yes" printsummary="yes" haltonfailure="yes">
+        <test name="${test.class.name}" todir="${test.reports}" />
+        <formatter type="xml" />
+        <classpath refid="test.classpath" />
+    </junit>
+</target>
 </project>
