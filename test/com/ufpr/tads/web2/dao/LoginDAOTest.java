@@ -6,7 +6,6 @@ import com.ufpr.tads.web2.exceptions.DAOException;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import java.sql.Connection;
-import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Rule;
