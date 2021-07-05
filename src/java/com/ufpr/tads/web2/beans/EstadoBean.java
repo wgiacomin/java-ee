@@ -39,11 +39,11 @@ public class EstadoBean {
 		this.nome = nome;
 	}
 
-	public String getUF() {
+	public String getUf() {
 		return uf;
 	}
 
-	public void setUF(String UF) {
+	public void setUf(String uf) {
 		this.uf = uf;
 	}
 }
