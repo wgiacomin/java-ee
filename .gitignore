@@ -6,3 +6,5 @@ nbproject/
 hs_err_pid*
 
 
+/dist/
+${bin}/
