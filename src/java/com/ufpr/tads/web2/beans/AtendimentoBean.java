@@ -1,98 +1,95 @@
 package com.ufpr.tads.web2.beans;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Timestamp;
 
 public class AtendimentoBean implements Serializable {
 
     private int id;
-    private Date data_hora;
+    private Timestamp dataHora;
     private String descricao;
     private String solucao;
-    private int fk_cliente;
-    private int fk_status;
-    private int fk_tipo_atendimento;
-    private int fk_produto;
+    private LoginBean login;
+    private StatusBean status;
+    private TipoAtendimentoBean tipoAtendimento;
 
-    public AtendimentoBean(int id, Date data_hora, String descricao, String solucao, int fk_cliente, int fk_status, int fk_tipo_atendimento, int fk_produto) {
-        this.id = id;
-        this.data_hora = data_hora;
-        this.descricao = descricao;
-        this.solucao = solucao;
-        this.fk_cliente = fk_cliente;
-        this.fk_status = fk_status;
-        this.fk_tipo_atendimento = fk_tipo_atendimento;
-        this.fk_produto = fk_produto;
-    }
+	public AtendimentoBean() {
+	}
 
-    public AtendimentoBean(Date data_hora, String descricao, String solucao, int fk_cliente, int fk_status, int fk_tipo_atendimento, int fk_produto) {
-        this.data_hora = data_hora;
-        this.descricao = descricao;
-        this.solucao = solucao;
-        this.fk_cliente = fk_cliente;
-        this.fk_status = fk_status;
-        this.fk_tipo_atendimento = fk_tipo_atendimento;
-        this.fk_produto = fk_produto;
-    }
+	public AtendimentoBean(int id, Timestamp dataHora, String descricao, String solucao, LoginBean login, StatusBean status, TipoAtendimentoBean tipoAtendimento, ProdutoBean produto) {
+		this.id = id;
+		this.dataHora = dataHora;
+		this.descricao = descricao;
+		this.solucao = solucao;
+		this.login = login;
+		this.status = status;
+		this.tipoAtendimento = tipoAtendimento;
+		this.produto = produto;
+	}
+    private ProdutoBean produto;
 
-    public int getId() {
-        return id;
-    }
+	public int getId() {
+		return id;
+	}
 
-    public Date getData_hora() {
-        return data_hora;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public String getDescricao() {
-        return descricao;
-    }
+	public Timestamp getDataHora() {
+		return dataHora;
+	}
 
-    public String getSolucao() {
-        return solucao;
-    }
+	public void setDataHora(Timestamp dataHora) {
+		this.dataHora = dataHora;
+	}
 
-    public int getFk_cliente() {
-        return fk_cliente;
-    }
+	public String getDescricao() {
+		return descricao;
+	}
 
-    public int getFk_status() {
-        return fk_status;
-    }
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
 
-    public int getFk_tipo_atendimento() {
-        return fk_tipo_atendimento;
-    }
+	public String getSolucao() {
+		return solucao;
+	}
 
-    public int getFk_produto() {
-        return fk_produto;
-    }
+	public void setSolucao(String solucao) {
+		this.solucao = solucao;
+	}
 
-    public void setData_hora(Date data_hora) {
-        this.data_hora = data_hora;
-    }
+	public LoginBean getLogin() {
+		return login;
+	}
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
+	public void setLogin(LoginBean login) {
+		this.login = login;
+	}
 
-    public void setSolucao(String solucao) {
-        this.solucao = solucao;
-    }
+	public StatusBean getStatus() {
+		return status;
+	}
 
-    public void setFk_cliente(int fk_cliente) {
-        this.fk_cliente = fk_cliente;
-    }
+	public void setStatus(StatusBean status) {
+		this.status = status;
+	}
 
-    public void setFk_status(int fk_status) {
-        this.fk_status = fk_status;
-    }
+	public TipoAtendimentoBean getTipoAtendimento() {
+		return tipoAtendimento;
+	}
 
-    public void setFk_tipo_atendimento(int fk_tipo_atendimento) {
-        this.fk_tipo_atendimento = fk_tipo_atendimento;
-    }
+	public void setTipoAtendimento(TipoAtendimentoBean tipoAtendimento) {
+		this.tipoAtendimento = tipoAtendimento;
+	}
 
-    public void setFk_produto(int fk_produto) {
-        this.fk_produto = fk_produto;
-    }
+	public ProdutoBean getProduto() {
+		return produto;
+	}
 
+	public void setProduto(ProdutoBean produto) {
+		this.produto = produto;
+	}
+	
 }

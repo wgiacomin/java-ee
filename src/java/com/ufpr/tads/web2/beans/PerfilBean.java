@@ -7,6 +7,9 @@ public class PerfilBean implements Serializable {
     private int id;
     private String descricao;
 
+	public PerfilBean() {
+	}
+
     public PerfilBean(int id, String descricao) {
         this.id = id;
         this.descricao = descricao;
