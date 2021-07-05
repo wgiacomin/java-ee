@@ -6,13 +6,12 @@ public class TipoAtendimentoBean implements Serializable {
 
     private int id;
     private String nome;
-
+	
+	public TipoAtendimentoBean() {
+	}
+	
     public TipoAtendimentoBean(int id, String nome) {
         this.id = id;
-        this.nome = nome;
-    }
-
-    public TipoAtendimentoBean(String nome) {
         this.nome = nome;
     }
 
