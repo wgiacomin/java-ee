@@ -10,7 +10,7 @@ public class LoginDAOTest {
 
     @Test
     public void testBuscar() throws Exception {
-        LoginBean usuario = new LoginBean("wgiacomin", "123");
+        LoginBean usuario = new LoginBean(0,"wgiacomin", "123");
         Connection con = new ConnectionFactory().getConnection();
         int id = new LoginDAO(con).buscar(usuario);
         assertEquals(id, 1);
@@ -18,7 +18,7 @@ public class LoginDAOTest {
 
     public void testBuscarFail() throws Exception {
         System.out.println("buscar");
-        LoginBean usuario = new LoginBean("wgiacomin", "1235");
+        LoginBean usuario = new LoginBean(0,"wgiacomin", "1235");
         Connection con = new ConnectionFactory().getConnection();
         int id = new LoginDAO(con).buscar(usuario);
         assertEquals(id, -1);

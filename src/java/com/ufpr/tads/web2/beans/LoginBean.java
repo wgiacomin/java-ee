@@ -8,10 +8,8 @@ public class LoginBean implements Serializable {
     private String login;
     private String senha;
 
-    public LoginBean(String login, String senha) {
-        this.login = login;
-        this.senha = senha;
-    }
+	public LoginBean() {
+	}
 
     public LoginBean(int id, String login, String senha) {
         this.id = id;
@@ -22,6 +20,10 @@ public class LoginBean implements Serializable {
     public int getId() {
         return id;
     }
+	
+	public void setId(int id){
+		this.id = id;
+	}
 
     public String getLogin() {
         return login;

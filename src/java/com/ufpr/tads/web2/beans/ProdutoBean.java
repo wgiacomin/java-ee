@@ -8,23 +8,19 @@ public class ProdutoBean implements Serializable {
     private String nome;
     private String descricao;
     private double peso;
-    private int fk_categoria;
+    private ProdutoCategoriaBean produtoCategoria;
 
-    public ProdutoBean(int id, String nome, String descricao, double peso, int fk_categoria) {
+	public ProdutoBean() {
+	}
+
+    public ProdutoBean(int id, String nome, String descricao, double peso, ProdutoCategoriaBean produtoCategoria) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
         this.peso = peso;
-        this.fk_categoria = fk_categoria;
+        this.produtoCategoria = produtoCategoria;
     }
-
-    public ProdutoBean(String nome, String descricao, double peso, int fk_categoria) {
-        this.nome = nome;
-        this.descricao = descricao;
-        this.peso = peso;
-        this.fk_categoria = fk_categoria;
-    }
-
+	
     public int getId() {
         return id;
     }
@@ -41,10 +37,6 @@ public class ProdutoBean implements Serializable {
         return peso;
     }
 
-    public int getFk_categoria() {
-        return fk_categoria;
-    }
-
     public void setNome(String nome) {
         this.nome = nome;
     }
@@ -57,8 +49,14 @@ public class ProdutoBean implements Serializable {
         this.peso = peso;
     }
 
-    public void setFk_categoria(int fk_categoria) {
-        this.fk_categoria = fk_categoria;
-    }
+	public ProdutoCategoriaBean getProdutoCategoria() {
+		return produtoCategoria;
+	}
+
+	public void setProdutoCategoria(ProdutoCategoriaBean produtoCategoria) {
+		this.produtoCategoria = produtoCategoria;
+	}
+	
+	
 
 }
