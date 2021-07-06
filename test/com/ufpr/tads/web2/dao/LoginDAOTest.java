@@ -32,7 +32,7 @@ public class LoginDAOTest {
     }
 
     @AfterClass
-    public static void destrpy() {
+    public static void destroy() {
         try (Connection con = new ConnectionFactory().getConnection();) {
             LoginDAO dao = new LoginDAO(con);
             LoginBean usuario = new LoginBean(1, "wgiacomin", "123");

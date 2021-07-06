@@ -37,4 +37,5 @@ public class CidadeDAOTest {
         assertEquals(encontrado.size(), 852);
         con.close();
     }
+    
 }

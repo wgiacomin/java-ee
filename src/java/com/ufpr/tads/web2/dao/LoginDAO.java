@@ -38,12 +38,8 @@ public class LoginDAO implements DAOInterface<LoginBean> {
 
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
-                try {
-                    login.setId(rs.getInt("id"));
-                    return login;
-                } catch (NumberFormatException e) {
-                    throw new DAOException("Erro buscando login: " + login.getLogin(), e);
-                }
+                login.setId(rs.getInt("id"));
+                return login;
             } else {
                 return null;
             }
@@ -104,7 +100,7 @@ public class LoginDAO implements DAOInterface<LoginBean> {
             st.setString(1, login.getLogin());
             st.setString(2, sha256hex);
             st.setInt(3, login.getId());
-            System.out.print(st);
+
             st.executeUpdate();
         } catch (SQLException e) {
             throw new DAOException("Erro ao editar login: "
