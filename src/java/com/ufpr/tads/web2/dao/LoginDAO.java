@@ -14,7 +14,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 public class LoginDAO implements DAOInterface<LoginBean> {
 
     private static final String QUERY_BUSCAR = "SELECT id FROM login WHERE login=? and senha=?;";
-    private static final String QUERY_BUSCAR_TODOS = "SELECT id FROM login;";
+    private static final String QUERY_BUSCAR_TODOS = "SELECT id, login FROM login;";
     private static final String QUERY_INSERIR = "INSERT INTO login(login, senha) VALUES (?, ?);";
     private static final String QUERY_REMOVER = "DELETE FROM login WHERE id = ?;";
 
@@ -58,6 +58,7 @@ public class LoginDAO implements DAOInterface<LoginBean> {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 LoginBean user = new LoginBean();
+                user.setLogin(rs.getString("login"));
                 user.setId(rs.getInt("id"));
                 lista.add(user);
             }

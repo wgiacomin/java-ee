@@ -20,8 +20,7 @@ public class LoginDAOTest {
 
     @BeforeClass
     public static void init() {
-        try {
-            Connection con = new ConnectionFactory().getConnection();
+        try(Connection con = new ConnectionFactory().getConnection();) {
             LoginDAO dao = new LoginDAO(con);
             LoginBean usuario2 = new LoginBean("wgiacomin2", "1234");
             usuario2 = dao.buscar(usuario2);
@@ -38,7 +37,8 @@ public class LoginDAOTest {
     public void testABuscarSucesso() throws Exception {
         Connection con = new ConnectionFactory().getConnection();
         LoginBean encontrado = new LoginDAO(con).buscar(usuario);
-        assertEquals(encontrado, usuario);
+        assertEquals(encontrado.getLogin(), "wgiacomin");
+        con.close();
     }
 
     @Test
@@ -46,6 +46,7 @@ public class LoginDAOTest {
         Connection con = new ConnectionFactory().getConnection();
         LoginBean encontrado = new LoginDAO(con).buscar(usuario2);
         assertNull(encontrado);
+        con.close();
     }
 
     @Test
@@ -54,7 +55,8 @@ public class LoginDAOTest {
         LoginDAO dao = new LoginDAO(con);
         dao.inserir(usuario2);
         LoginBean encontrado = new LoginDAO(con).buscar(usuario2);
-        assertEquals(encontrado, usuario2);
+        assertEquals(encontrado.getLogin(), "wgiacomin2");
+        con.close();
     }
 
     @Test
@@ -63,6 +65,7 @@ public class LoginDAOTest {
         LoginDAO dao = new LoginDAO(con);
         thrown.expect(DAOException.class);
         dao.inserir(usuario2);
+        con.close();
     }
 
     @Test
@@ -73,6 +76,7 @@ public class LoginDAOTest {
         dao.remover(usuario2);
         LoginBean encontrado = dao.buscar(usuario2);
         assertNull(encontrado);
+        con.close();
     }
 
 }
