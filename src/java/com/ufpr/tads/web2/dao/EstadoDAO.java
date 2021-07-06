@@ -32,13 +32,9 @@ public class EstadoDAO implements DAOInterface<EstadoBean> {
             st.setInt(1, estado.getId());
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
-                try {
-                    estado.setNome(rs.getString("nome"));
-                    estado.setUf(rs.getString("sigla"));
-                    return estado;
-                } catch (NumberFormatException e) {
-                    throw new DAOException("Erro buscando estado: " + estado.getId(), e);
-                }
+                estado.setNome(rs.getString("nome"));
+                estado.setUf(rs.getString("sigla"));
+                return estado;
             } else {
                 return null;
             }
@@ -69,12 +65,12 @@ public class EstadoDAO implements DAOInterface<EstadoBean> {
 
     @Override
     public void inserir(EstadoBean t) throws DAOException {
-        throw new DAOException("Essa operação não é permitida");
+        throw new DAOException("Essa operação não é permitida.");
     }
 
     @Override
     public void remover(EstadoBean t) throws DAOException {
-        throw new DAOException("Essa operação não é permitida");
+        throw new DAOException("Essa operação não é permitida.");
     }
 
 }
