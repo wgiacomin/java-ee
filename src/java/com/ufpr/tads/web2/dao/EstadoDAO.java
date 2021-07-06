@@ -14,8 +14,6 @@ public class EstadoDAO implements DAOInterface<EstadoBean> {
 
     private static final String QUERY_BUSCAR = "SELECT nome, sigla FROM estado WHERE id = ?;";
     private static final String QUERY_BUSCAR_TODOS = "SELECT id, nome, sigla FROM estado;";
-    private static final String QUERY_INSERIR = "INSERT INTO estado(nome, sigla) VALUES (?, ?);";
-    private static final String QUERY_REMOVER = "DELETE FROM estado WHERE id = ?;";
 
     private Connection con = null;
 
@@ -70,6 +68,11 @@ public class EstadoDAO implements DAOInterface<EstadoBean> {
 
     @Override
     public void remover(EstadoBean t) throws DAOException {
+        throw new DAOException("Essa operação não é permitida.");
+    }
+
+    @Override
+    public void editar(EstadoBean t) throws DAOException {
         throw new DAOException("Essa operação não é permitida.");
     }
 

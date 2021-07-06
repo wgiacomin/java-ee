@@ -14,10 +14,7 @@ import java.util.List;
 public class CidadeDAO implements DAOInterface<CidadeBean> {
 
     private static final String QUERY_BUSCAR = "SELECT nome, fk_estado FROM cidade WHERE id = ?;";
-    private static final String QUERY_BUSCAR_TODOS = "SELECT id, nome, fk_estado FROM cidade;";
     private static final String QUERY_BUSCAR_TODOS_POR_ESTADO = "SELECT id, nome FROM cidade WHERE fk_estado = ?;";
-    private static final String QUERY_INSERIR = "INSERT INTO cidade(nome, fk_estado) VALUES (?, ?);";
-    private static final String QUERY_REMOVER = "DELETE FROM cidade WHERE id = ?;";
 
     private Connection con = null;
 
@@ -73,7 +70,7 @@ public class CidadeDAO implements DAOInterface<CidadeBean> {
 
     @Override
     public List<CidadeBean> buscarTodos() throws DAOException {
-        throw new DAOException("Essa operação não é permitida.");
+        throw new DAOException("Essa operação não é permitida, utilize buscarTodosPorEstado.");
     }
 
     @Override
@@ -83,6 +80,11 @@ public class CidadeDAO implements DAOInterface<CidadeBean> {
 
     @Override
     public void remover(CidadeBean t) throws DAOException {
+        throw new DAOException("Essa operação não é permitida.");
+    }
+
+    @Override
+    public void editar(CidadeBean t) throws DAOException {
         throw new DAOException("Essa operação não é permitida.");
     }
 

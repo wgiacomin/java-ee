@@ -6,6 +6,7 @@ import com.ufpr.tads.web2.exceptions.DAOException;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import java.sql.Connection;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Rule;
@@ -15,16 +16,27 @@ import org.junit.runners.MethodSorters;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class LoginDAOTest {
 
-    private final LoginBean usuario = new LoginBean(1, "wgiacomin", "123");
+    private LoginBean usuario = new LoginBean(1, "wgiacomin", "123");
     private LoginBean usuario2 = new LoginBean(2, "wgiacomin2", "1234");
 
     @BeforeClass
     public static void init() {
-        try(Connection con = new ConnectionFactory().getConnection();) {
+        try (Connection con = new ConnectionFactory().getConnection();) {
             LoginDAO dao = new LoginDAO(con);
             LoginBean usuario2 = new LoginBean("wgiacomin2", "1234");
             usuario2 = dao.buscar(usuario2);
             dao.remover(usuario2);
+        } catch (Exception e) {
+
+        }
+    }
+
+    @AfterClass
+    public static void destrpy() {
+        try (Connection con = new ConnectionFactory().getConnection();) {
+            LoginDAO dao = new LoginDAO(con);
+            LoginBean usuario = new LoginBean(1, "wgiacomin", "123");
+            dao.editar(usuario);
         } catch (Exception e) {
 
         }
@@ -60,7 +72,18 @@ public class LoginDAOTest {
     }
 
     @Test
-    public void testDInserirFalha() throws Exception {
+    public void testDEditarSucesso() throws Exception {
+        Connection con = new ConnectionFactory().getConnection();
+        LoginDAO dao = new LoginDAO(con);
+        usuario.setLogin("wgiacomin3");
+        dao.editar(usuario);
+        usuario = new LoginDAO(con).buscar(usuario);
+        assertEquals(usuario.getLogin(), "wgiacomin3");
+        con.close();
+    }
+
+    @Test
+    public void testEInserirFalha() throws Exception {
         Connection con = new ConnectionFactory().getConnection();
         LoginDAO dao = new LoginDAO(con);
         thrown.expect(DAOException.class);
@@ -69,7 +92,7 @@ public class LoginDAOTest {
     }
 
     @Test
-    public void testEDeletarSucesso() throws Exception {
+    public void testFDeletarSucesso() throws Exception {
         Connection con = new ConnectionFactory().getConnection();
         LoginDAO dao = new LoginDAO(con);
         usuario2 = dao.buscar(usuario2);
