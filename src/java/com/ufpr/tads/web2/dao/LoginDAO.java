@@ -14,6 +14,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 public class LoginDAO implements DAOInterface<LoginBean> {
 
     private static final String QUERY_BUSCAR = "SELECT id FROM login WHERE login=? AND senha=?;";
+    private static final String QUERY_BUSCAR_LOGIN = "SELECT id FROM login WHERE login=?;";
     private static final String QUERY_BUSCAR_TODOS = "SELECT id, login FROM login;";
     private static final String QUERY_INSERIR = "INSERT INTO login(login, senha) VALUES (?, ?);";
     private static final String QUERY_REMOVER = "DELETE FROM login WHERE id = ?;";
@@ -26,6 +27,22 @@ public class LoginDAO implements DAOInterface<LoginBean> {
             throw new DAOException("Conexão nula ao criar LoginDAO.");
         }
         this.con = con;
+    }
+
+    public LoginBean buscarLogin(LoginBean login) throws DAOException {
+        try (PreparedStatement st = con.prepareStatement(QUERY_BUSCAR)) {
+            st.setString(1, login.getLogin());
+
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                login.setId(rs.getInt("id"));
+                return login;
+            } else {
+                return null;
+            }
+        } catch (SQLException e) {
+            throw new DAOException("Erro buscando login: " + login.getLogin(), e);
+        }
     }
 
     @Override

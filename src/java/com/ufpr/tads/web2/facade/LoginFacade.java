@@ -13,6 +13,19 @@ import java.util.List;
 
 public class LoginFacade {
 
+    public static LoginBean buscarLogin(LoginBean login) throws FacadeException, BeanInvalidoException {
+        try (ConnectionFactory factory = new ConnectionFactory()) {
+            LoginDAO bd = new LoginDAO(factory.getConnection());
+            login = bd.buscar(login);
+            return login;
+
+        } catch (DAOException e) {
+            throw new FacadeException("Erro ao buscar login " + login.getLogin(), e);
+        } catch (NullPointerException e) {
+            throw new BeanInvalidoException();
+        }
+    }
+
     public static LoginBean buscar(LoginBean login) throws FacadeException, BeanInvalidoException, UsuarioSenhaInvalidoException {
         try (ConnectionFactory factory = new ConnectionFactory()) {
             LoginDAO bd = new LoginDAO(factory.getConnection());
@@ -24,7 +37,7 @@ public class LoginFacade {
             return login;
 
         } catch (DAOException e) {
-            throw new FacadeException("Erro ao buscar login " + login.getId(), e);
+            throw new FacadeException("Erro ao buscar login " + login.getLogin(), e);
         } catch (NullPointerException e) {
             throw new BeanInvalidoException();
         }
@@ -38,10 +51,10 @@ public class LoginFacade {
 
         } catch (DAOException e) {
             throw new FacadeException("Erro ao buscar todos os logins: ", e);
-            
+
         } catch (NullPointerException e) {
             throw new BeanInvalidoException();
-            
+
         }
     }
 
