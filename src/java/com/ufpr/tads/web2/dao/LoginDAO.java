@@ -13,10 +13,11 @@ import org.apache.commons.codec.digest.DigestUtils;
 
 public class LoginDAO implements DAOInterface<LoginBean> {
 
-    private static final String QUERY_BUSCAR = "SELECT id FROM login WHERE login=? and senha=?;";
-    private static final String QUERY_BUSCAR_TODOS = "SELECT id FROM login;";
+    private static final String QUERY_BUSCAR = "SELECT id FROM login WHERE login=? AND senha=?;";
+    private static final String QUERY_BUSCAR_TODOS = "SELECT id, login FROM login;";
     private static final String QUERY_INSERIR = "INSERT INTO login(login, senha) VALUES (?, ?);";
     private static final String QUERY_REMOVER = "DELETE FROM login WHERE id = ?;";
+    private static final String QUERY_EDITAR = "UPDATE login SET login = ?, senha = ? WHERE id = ?;";
 
     private Connection con = null;
 
@@ -37,12 +38,8 @@ public class LoginDAO implements DAOInterface<LoginBean> {
 
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
-                try {
-                    login.setId(rs.getInt("id"));
-                    return login;
-                } catch (NumberFormatException e) {
-                    throw new DAOException("Erro buscando login: " + login.getLogin(), e);
-                }
+                login.setId(rs.getInt("id"));
+                return login;
             } else {
                 return null;
             }
@@ -58,6 +55,7 @@ public class LoginDAO implements DAOInterface<LoginBean> {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 LoginBean user = new LoginBean();
+                user.setLogin(rs.getString("login"));
                 user.setId(rs.getInt("id"));
                 lista.add(user);
             }
@@ -91,6 +89,22 @@ public class LoginDAO implements DAOInterface<LoginBean> {
         } catch (SQLException e) {
             throw new DAOException("Erro ao deletar cliente: "
                     + QUERY_REMOVER, e);
+        }
+    }
+
+    @Override
+    public void editar(LoginBean login) throws DAOException {
+        try (PreparedStatement st = con.prepareStatement(QUERY_EDITAR)) {
+            String sha256hex = DigestUtils.sha256Hex(login.getSenha());
+
+            st.setString(1, login.getLogin());
+            st.setString(2, sha256hex);
+            st.setInt(3, login.getId());
+
+            st.executeUpdate();
+        } catch (SQLException e) {
+            throw new DAOException("Erro ao editar login: "
+                    + QUERY_EDITAR, e);
         }
     }
 

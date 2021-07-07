@@ -12,10 +12,12 @@ import com.ufpr.tads.web2.dao.start_env.data.CreateProdutos;
 import com.ufpr.tads.web2.dao.start_env.data.CreateStatus;
 import com.ufpr.tads.web2.dao.start_env.data.CreateTables;
 import com.ufpr.tads.web2.dao.start_env.data.CreateTipoAtendimento;
+import com.ufpr.tads.web2.dao.start_env.data.CreateViews;
 
 public class StartEnv {
     public static void main(String[] args) {
         CreateTables.main(args);
+        CreateViews.main(args);
         CreateLogins.main(args);
         CreateUF.main(args);
         CreateCidades_1.main(args);

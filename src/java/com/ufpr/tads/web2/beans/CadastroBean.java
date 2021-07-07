@@ -1,130 +1,122 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.ufpr.tads.web2.beans;
 
-/**
- *
- * @author nilo-
- */
-public class CadastroBean extends LoginBean{
-	private String cpf;
-	private String nome;
-	private String email;
-	private String rua;
-	private int ruaNumero;
-	private String ruaComplemento;
-	private String bairro;
-	private String cep;
-	private String telefone;
-	private CidadeBean cidade;
-	private PerfilBean  perfil;
+public class CadastroBean extends LoginBean {
 
-	public CadastroBean() {
-	}
-	
-	public CadastroBean(String cpf, String nome, String email, String rua, int ruaNumero, String ruaComplemento, String bairro, String cep, String telefone, CidadeBean cidade, PerfilBean perfil) {
-		this.cpf = cpf;
-		this.nome = nome;
-		this.email = email;
-		this.rua = rua;
-		this.ruaNumero = ruaNumero;
-		this.ruaComplemento = ruaComplemento;
-		this.bairro = bairro;
-		this.cep = cep;
-		this.telefone = telefone;
-		this.cidade = cidade;
-		this.perfil = perfil;
-	}
+    private String cpf;
+    private String nome;
+    private String email;
+    private String rua;
+    private int ruaNumero;
+    private String ruaComplemento;
+    private String bairro;
+    private String cep;
+    private String telefone;
+    private CidadeBean cidade;
+    private PerfilBean perfil;
 
-	public String getCpf() {
-		return cpf;
-	}
+    public CadastroBean() {
+    }
 
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
+    public CadastroBean(String cpf, String nome, String email, String rua, int ruaNumero, String ruaComplemento, String bairro, String cep, String telefone, CidadeBean cidade, PerfilBean perfil) {
+        this.cpf = cpf;
+        this.nome = nome;
+        this.email = email;
+        this.rua = rua;
+        this.ruaNumero = ruaNumero;
+        this.ruaComplemento = ruaComplemento;
+        this.bairro = bairro;
+        this.cep = cep;
+        this.telefone = telefone;
+        this.cidade = cidade;
+        this.perfil = perfil;
+    }
 
-	public String getNome() {
-		return nome;
-	}
+    public String getCpf() {
+        return cpf;
+    }
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public String getNome() {
+        return nome;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
-	public String getRua() {
-		return rua;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public void setRua(String rua) {
-		this.rua = rua;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public int getRuaNumero() {
-		return ruaNumero;
-	}
+    public String getRua() {
+        return rua;
+    }
 
-	public void setRuaNumero(int ruaNumero) {
-		this.ruaNumero = ruaNumero;
-	}
+    public void setRua(String rua) {
+        this.rua = rua;
+    }
 
-	public String getRuaComplemento() {
-		return ruaComplemento;
-	}
+    public int getRuaNumero() {
+        return ruaNumero;
+    }
 
-	public void setRuaComplemento(String ruaComplemento) {
-		this.ruaComplemento = ruaComplemento;
-	}
+    public void setRuaNumero(int ruaNumero) {
+        this.ruaNumero = ruaNumero;
+    }
 
-	public String getBairro() {
-		return bairro;
-	}
+    public String getRuaComplemento() {
+        return ruaComplemento;
+    }
 
-	public void setBairro(String bairro) {
-		this.bairro = bairro;
-	}
+    public void setRuaComplemento(String ruaComplemento) {
+        this.ruaComplemento = ruaComplemento;
+    }
 
-	public String getCep() {
-		return cep;
-	}
+    public String getBairro() {
+        return bairro;
+    }
 
-	public void setCep(String cep) {
-		this.cep = cep;
-	}
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
+    }
 
-	public String getTelefone() {
-		return telefone;
-	}
+    public String getCep() {
+        return cep;
+    }
 
-	public void setTelefone(String telefone) {
-		this.telefone = telefone;
-	}
+    public void setCep(String cep) {
+        this.cep = cep;
+    }
 
-	public CidadeBean getCidade() {
-		return cidade;
-	}
+    public String getTelefone() {
+        return telefone;
+    }
 
-	public void setCidade(CidadeBean cidade) {
-		this.cidade = cidade;
-	}
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
 
-	public PerfilBean getPerfil() {
-		return perfil;
-	}
+    public CidadeBean getCidade() {
+        return cidade;
+    }
 
-	public void setPerfil(PerfilBean perfil) {
-		this.perfil = perfil;
-	}
-	
+    public void setCidade(CidadeBean cidade) {
+        this.cidade = cidade;
+    }
+
+    public PerfilBean getPerfil() {
+        return perfil;
+    }
+
+    public void setPerfil(PerfilBean perfil) {
+        this.perfil = perfil;
+    }
+
 }

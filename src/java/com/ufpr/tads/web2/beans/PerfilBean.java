@@ -7,8 +7,8 @@ public class PerfilBean implements Serializable {
     private int id;
     private String descricao;
 
-	public PerfilBean() {
-	}
+    public PerfilBean() {
+    }
 
     public PerfilBean(int id, String descricao) {
         this.id = id;
@@ -25,6 +25,10 @@ public class PerfilBean implements Serializable {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
 }
