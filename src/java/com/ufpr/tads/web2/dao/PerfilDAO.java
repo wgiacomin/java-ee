@@ -22,7 +22,7 @@ public class PerfilDAO implements DAOInterface<PerfilBean> {
 
     public PerfilDAO(Connection con) throws DAOException {
         if (con == null) {
-            throw new DAOException("Conexão nula ao criar EstadaoDAO.");
+            throw new DAOException("Conexão nula ao criar PerfilDAO.");
         }
         this.con = con;
     }
@@ -91,7 +91,6 @@ public class PerfilDAO implements DAOInterface<PerfilBean> {
 
             st.setString(1, perfil.getDescricao());
             st.setInt(2, perfil.getId());
-            System.out.print(st);
             st.executeUpdate();
         } catch (SQLException e) {
             throw new DAOException("Erro ao editar descricao: "
