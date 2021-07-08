@@ -41,18 +41,18 @@ public class LoginServlet extends HttpServlet {
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
-		LoginBean login = new LoginBean(request.getParameter("login"),request.getParameter("senha"));
-		//index jsp deve conter parametros com estes nomes "login", "senha"
 
         try {
+			LoginBean login = new LoginBean(request.getParameter("login"),request.getParameter("senha"));
+			//index jsp deve conter parametros com estes nomes "login", "senha"
             LoginFacade.buscar(login); //faz o login verificando senha e login
             
 			CadastroBean cadastro = new CadastroBean();
 			cadastro.setId(login.getId());
-			cadastro = CadastroFacade.buscar(cadastro);//busca cadastro dentro do banco de dados
+			cadastro = CadastroFacade.buscarBasico(cadastro);//busca cadastro dentro do banco de dados
 			
 			HttpSession session = request.getSession();
-			session.setAttribute("cadastro", cadastro);//seta cadastro como atributo para escopo da sessão
+			session.setAttribute("logado", cadastro);//seta cadastro como atributo para escopo da sessão
 
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/portal.jsp");
 			rd.forward(request, response); //redirecina para portal.jsp caso login seja realizado sem erros

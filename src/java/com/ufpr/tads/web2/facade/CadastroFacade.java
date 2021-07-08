@@ -17,6 +17,23 @@ import java.util.List;
 
 public class CadastroFacade {
 
+    public static CadastroBean buscarBasico(CadastroBean cadastro) throws FacadeException, CadastroNaoExisteException, BeanInvalidoException {
+        try (ConnectionFactory factory = new ConnectionFactory()) {
+            CadastroDAO bCad = new CadastroDAO(factory.getConnection());
+
+            cadastro = bCad.buscarBasico(cadastro);
+            if (cadastro == null) {
+                throw new CadastroNaoExisteException();
+            }
+            
+            return cadastro;
+        } catch (DAOException e) {
+            throw new FacadeException("Erro ao buscar cadastro " + cadastro.getId(), e);
+        } catch (NullPointerException e) {
+            throw new BeanInvalidoException();
+        }
+    }
+
     public static CadastroBean buscar(CadastroBean cadastro) throws FacadeException, CadastroNaoExisteException, BeanInvalidoException {
         try (ConnectionFactory factory = new ConnectionFactory()) {
             CadastroDAO bCad = new CadastroDAO(factory.getConnection());
@@ -60,11 +77,11 @@ public class CadastroFacade {
             LoginDAO lbd = new LoginDAO(factory.getConnection());
             LoginBean login = (LoginBean) cadastro;
             login = lbd.buscarLogin(login);
-            
+
             if (login != null) {
-                throw new CadastroDuplicadoException();      
+                throw new CadastroDuplicadoException();
             }
-            
+
             lbd.inserir(login);
             login = lbd.buscar(login);
             cadastro.setId(login.getId());
