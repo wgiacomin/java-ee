@@ -30,7 +30,7 @@ public class LoginDAO implements DAOInterface<LoginBean> {
     }
 
     public LoginBean buscarLogin(LoginBean login) throws DAOException {
-        try (PreparedStatement st = con.prepareStatement(QUERY_BUSCAR)) {
+        try (PreparedStatement st = con.prepareStatement(QUERY_BUSCAR_LOGIN)) {
             st.setString(1, login.getLogin());
 
             ResultSet rs = st.executeQuery();
