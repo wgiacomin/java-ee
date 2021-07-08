@@ -30,8 +30,8 @@ public class CadastroFacade {
             }
 
             cadastro.setPerfil(eCad.buscar(cadastro.getPerfil()));
-            cadastro.getCidade().setEstado(dCad.buscar(cadastro.getCidade().getEstado()));
             cadastro.setCidade(cCad.buscar(cadastro.getCidade()));
+            cadastro.getCidade().setEstado(dCad.buscar(cadastro.getCidade().getEstado()));
 
             return cadastro;
         } catch (DAOException e) {
@@ -60,11 +60,11 @@ public class CadastroFacade {
             LoginDAO lbd = new LoginDAO(factory.getConnection());
             LoginBean login = (LoginBean) cadastro;
             login = lbd.buscarLogin(login);
-            
+
             if (login != null) {
-                throw new CadastroDuplicadoException();      
+                throw new CadastroDuplicadoException();
             }
-            
+
             lbd.inserir(login);
             login = lbd.buscar(login);
             cadastro.setId(login.getId());
