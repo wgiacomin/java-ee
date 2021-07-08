@@ -4,7 +4,6 @@ import com.ufpr.tads.web2.beans.LoginBean;
 import com.ufpr.tads.web2.dao.LoginDAO;
 import com.ufpr.tads.web2.dao.utils.ConnectionFactory;
 import com.ufpr.tads.web2.exceptions.BeanInvalidoException;
-import com.ufpr.tads.web2.exceptions.CadastroDuplicadoException;
 import com.ufpr.tads.web2.exceptions.CadastroNaoExisteException;
 import com.ufpr.tads.web2.exceptions.DAOException;
 import com.ufpr.tads.web2.exceptions.FacadeException;

@@ -30,8 +30,8 @@ public class CadastroFacade {
             }
 
             cadastro.setPerfil(eCad.buscar(cadastro.getPerfil()));
+			cadastro.setCidade(cCad.buscar(cadastro.getCidade()));
             cadastro.getCidade().setEstado(dCad.buscar(cadastro.getCidade().getEstado()));
-            cadastro.setCidade(cCad.buscar(cadastro.getCidade()));
 
             return cadastro;
         } catch (DAOException e) {
