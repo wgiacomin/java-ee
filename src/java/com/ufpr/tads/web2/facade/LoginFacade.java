@@ -57,23 +57,4 @@ public class LoginFacade {
         }
     }
 
-    public static void Inserir(LoginBean login) throws FacadeException {
-        throw new FacadeException("Operação não permitida.");
-    }
-
-    public static void Remover(LoginBean login) throws FacadeException, CadastroNaoExisteException, BeanInvalidoException {
-        try (ConnectionFactory factory = new ConnectionFactory()) {
-            LoginDAO bd = new LoginDAO(factory.getConnection());
-            login = bd.buscar(login);
-            if (login == null) {
-                throw new CadastroNaoExisteException();
-            }
-            bd.remover(login);
-        } catch (DAOException e) {
-            throw new FacadeException("Erro ao deletar logins: ", e);
-        } catch (NullPointerException e) {
-            throw new BeanInvalidoException();
-        }
-    }
-
 }

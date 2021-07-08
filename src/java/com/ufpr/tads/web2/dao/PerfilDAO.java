@@ -31,7 +31,6 @@ public class PerfilDAO implements DAOInterface<PerfilBean> {
     public PerfilBean buscar(PerfilBean perfil) throws DAOException {
         try (PreparedStatement st = con.prepareStatement(QUERY_BUSCAR)) {
             st.setInt(1, perfil.getId());
-            System.out.print(st);
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
                 perfil.setDescricao(rs.getString("descricao"));
