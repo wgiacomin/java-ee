@@ -28,18 +28,18 @@ public class CadastroDAO implements DAOInterface<CadastroBean> {
         }
         this.con = con;
     }
-    
-    private CadastroBean extrairCadastro(ResultSet rs) throws SQLException{
+
+    private CadastroBean extrairCadastro(ResultSet rs) throws SQLException {
         CadastroBean cadastro = new CadastroBean();
         CidadeBean cidade = new CidadeBean();
         PerfilBean perfil = new PerfilBean();
-        
+
         cidade.setId(rs.getInt("fk_cidade"));
         cadastro.setCidade(cidade);
-        
+
         perfil.setId(rs.getInt("fk_perfil"));
         cadastro.setPerfil(perfil);
-        
+
         cadastro.setId(rs.getInt("fk_login"));
         cadastro.setCpf(rs.getString("cpf"));
         cadastro.setNome(rs.getString("nome"));
@@ -50,15 +50,34 @@ public class CadastroDAO implements DAOInterface<CadastroBean> {
         cadastro.setBairro(rs.getString("bairro"));
         cadastro.setCep(rs.getString("cep"));
         cadastro.setTelefone(rs.getString("telefone"));
-        
+
         return cadastro;
+    }
+
+    public CadastroBean buscarBasico(CadastroBean cadastro) throws DAOException {
+        try (PreparedStatement st = con.prepareStatement(QUERY_BUSCAR)) {
+            st.setInt(1, cadastro.getId());
+
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                cadastro.setNome(rs.getString("nome"));
+                PerfilBean perfil = new PerfilBean();
+                perfil.setId(rs.getInt("fk_perfil"));
+                cadastro.setPerfil(perfil);
+                return cadastro;
+            } else {
+                return null;
+            }
+        } catch (SQLException e) {
+            throw new DAOException("Erro buscando cadastro: " + cadastro.getId(), e);
+        }
     }
 
     @Override
     public CadastroBean buscar(CadastroBean cadastro) throws DAOException {
         try (PreparedStatement st = con.prepareStatement(QUERY_BUSCAR)) {
             st.setInt(1, cadastro.getId());
-            System.out.print(st);
+
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
                 cadastro = extrairCadastro(rs);
