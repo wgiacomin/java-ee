@@ -47,7 +47,7 @@ public class CadastroFacade {
             }
 
             cadastro.setPerfil(eCad.buscar(cadastro.getPerfil()));
-			cadastro.setCidade(cCad.buscar(cadastro.getCidade()));
+            cadastro.setCidade(cCad.buscar(cadastro.getCidade()));
             cadastro.getCidade().setEstado(dCad.buscar(cadastro.getCidade().getEstado()));
 
             return cadastro;
