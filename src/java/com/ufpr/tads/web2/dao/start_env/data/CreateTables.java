@@ -29,7 +29,7 @@ public class CreateTables {
                     + "senha varchar(255) NOT NULL);");
             query.executeUpdate("CREATE TABLE IF NOT EXISTS perfil ("
                     + "id SERIAL UNIQUE PRIMARY KEY, "
-                    + "descricao varchar(50));");
+                    + "descricao varchar(50) UNIQUE);");
             query.executeUpdate("CREATE TABLE IF NOT EXISTS estado ("
                     + "id SERIAL UNIQUE PRIMARY KEY,"
                     + "nome varchar(100),"
