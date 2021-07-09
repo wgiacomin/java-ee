@@ -7,8 +7,8 @@ public class ProdutoCategoriaBean implements Serializable {
     private int id;
     private String descricao;
 
-	public ProdutoCategoriaBean() {
-	}
+    public ProdutoCategoriaBean() {
+    }
 
     public ProdutoCategoriaBean(int id, String nome) {
         this.id = id;
@@ -25,6 +25,10 @@ public class ProdutoCategoriaBean implements Serializable {
 
     public void setDescricao(String nome) {
         this.descricao = nome;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
 }

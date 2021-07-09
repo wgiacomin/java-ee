@@ -8,7 +8,7 @@ package com.ufpr.tads.web2.servlets;
 import com.ufpr.tads.web2.beans.CadastroBean;
 import com.ufpr.tads.web2.beans.LoginBean;
 import com.ufpr.tads.web2.exceptions.BeanInvalidoException;
-import com.ufpr.tads.web2.exceptions.CadastroNaoExisteException;
+import com.ufpr.tads.web2.exceptions.RegistroInexistenteException;
 import com.ufpr.tads.web2.exceptions.FacadeException;
 import com.ufpr.tads.web2.exceptions.UsuarioSenhaInvalidoException;
 import com.ufpr.tads.web2.facade.CadastroFacade;
@@ -66,7 +66,7 @@ public class LoginServlet extends HttpServlet {
 
 			rd.forward(request, response); //redireciona
 		} 
-		catch (BeanInvalidoException | UsuarioSenhaInvalidoException | CadastroNaoExisteException e) {
+		catch (BeanInvalidoException | UsuarioSenhaInvalidoException | RegistroInexistenteException e) {
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp"); 
 			request.setAttribute("msg", e.getMessage());//mensagem de erro da Exception como atributo para index.jsp
 			rd.forward(request, response); //redirecina para o index.jsp

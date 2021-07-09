@@ -8,19 +8,23 @@ import com.ufpr.tads.web2.dao.utils.ConnectionFactory;
 import com.ufpr.tads.web2.exceptions.BeanInvalidoException;
 import com.ufpr.tads.web2.exceptions.DAOException;
 import com.ufpr.tads.web2.exceptions.FacadeException;
+import com.ufpr.tads.web2.exceptions.RegistroInexistenteException;
 import java.util.List;
-
 
 public class CidadeFacade {
 
-
-    public static CidadeBean buscar(CidadeBean cidade) throws FacadeException, BeanInvalidoException, DAOException {
+    public static CidadeBean buscar(CidadeBean cidade) throws FacadeException, BeanInvalidoException, DAOException, RegistroInexistenteException {
         try (ConnectionFactory factory = new ConnectionFactory()) {
             CidadeDAO bd = new CidadeDAO(factory.getConnection());
             cidade = bd.buscar(cidade);
+
+            if (cidade == null) {
+                throw new RegistroInexistenteException();
+            }
+
             EstadoDAO dbd = new EstadoDAO(factory.getConnection());
             cidade.setEstado(dbd.buscar(cidade.getEstado()));
-            
+
             return cidade;
 
         } catch (DAOException e) {
@@ -46,6 +50,5 @@ public class CidadeFacade {
 
         }
     }
-
 
 }

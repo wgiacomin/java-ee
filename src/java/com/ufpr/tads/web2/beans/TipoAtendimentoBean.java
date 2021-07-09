@@ -5,26 +5,30 @@ import java.io.Serializable;
 public class TipoAtendimentoBean implements Serializable {
 
     private int id;
-    private String nome;
-	
-	public TipoAtendimentoBean() {
-	}
-	
+    private String descricao;
+
+    public TipoAtendimentoBean() {
+    }
+
     public TipoAtendimentoBean(int id, String nome) {
         this.id = id;
-        this.nome = nome;
+        this.descricao = nome;
     }
 
     public int getId() {
         return id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setDescricao(String nome) {
+        this.descricao = nome;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
 }
