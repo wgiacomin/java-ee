@@ -9,21 +9,21 @@ import com.ufpr.tads.web2.dao.LoginDAO;
 import com.ufpr.tads.web2.dao.PerfilDAO;
 import com.ufpr.tads.web2.dao.utils.ConnectionFactory;
 import com.ufpr.tads.web2.exceptions.BeanInvalidoException;
-import com.ufpr.tads.web2.exceptions.CadastroDuplicadoException;
-import com.ufpr.tads.web2.exceptions.CadastroNaoExisteException;
+import com.ufpr.tads.web2.exceptions.RegistroDuplicadoException;
+import com.ufpr.tads.web2.exceptions.RegistroInexistenteException;
 import com.ufpr.tads.web2.exceptions.DAOException;
 import com.ufpr.tads.web2.exceptions.FacadeException;
 import java.util.List;
 
 public class CadastroFacade {
 
-    public static CadastroBean buscarBasico(CadastroBean cadastro) throws FacadeException, CadastroNaoExisteException, BeanInvalidoException {
+    public static CadastroBean buscarBasico(CadastroBean cadastro) throws FacadeException, BeanInvalidoException, RegistroInexistenteException {
         try (ConnectionFactory factory = new ConnectionFactory()) {
             CadastroDAO bCad = new CadastroDAO(factory.getConnection());
 
             cadastro = bCad.buscarBasico(cadastro);
             if (cadastro == null) {
-                throw new CadastroNaoExisteException();
+                throw new RegistroInexistenteException();
             }
             
             return cadastro;
@@ -34,7 +34,7 @@ public class CadastroFacade {
         }
     }
 
-    public static CadastroBean buscar(CadastroBean cadastro) throws FacadeException, CadastroNaoExisteException, BeanInvalidoException {
+    public static CadastroBean buscar(CadastroBean cadastro) throws FacadeException, RegistroInexistenteException, BeanInvalidoException {
         try (ConnectionFactory factory = new ConnectionFactory()) {
             CadastroDAO bCad = new CadastroDAO(factory.getConnection());
             CidadeDAO cCad = new CidadeDAO(factory.getConnection());
@@ -43,7 +43,7 @@ public class CadastroFacade {
 
             cadastro = bCad.buscar(cadastro);
             if (cadastro == null) {
-                throw new CadastroNaoExisteException();
+                throw new RegistroInexistenteException();
             }
 
             cadastro.setPerfil(eCad.buscar(cadastro.getPerfil()));
@@ -71,7 +71,7 @@ public class CadastroFacade {
         }
     }
 
-    public static void Inserir(CadastroBean cadastro) throws FacadeException, BeanInvalidoException, CadastroDuplicadoException {
+    public static void Inserir(CadastroBean cadastro) throws FacadeException, BeanInvalidoException, RegistroDuplicadoException {
         try (ConnectionFactory factory = new ConnectionFactory()) {
             CadastroDAO bd = new CadastroDAO(factory.getConnection());
             LoginDAO lbd = new LoginDAO(factory.getConnection());
@@ -79,7 +79,7 @@ public class CadastroFacade {
             login = lbd.buscarLogin(login);
 
             if (login != null) {
-                throw new CadastroDuplicadoException();
+                throw new RegistroDuplicadoException();
             }
 
             lbd.inserir(login);
@@ -93,7 +93,7 @@ public class CadastroFacade {
         }
     }
 
-    public static void Remover(CadastroBean cadastro) throws FacadeException, CadastroNaoExisteException, BeanInvalidoException {
+    public static void Remover(CadastroBean cadastro) throws FacadeException, RegistroInexistenteException, BeanInvalidoException {
         try (ConnectionFactory factory = new ConnectionFactory()) {
             CadastroDAO bd = new CadastroDAO(factory.getConnection());
             LoginDAO lbd = new LoginDAO(factory.getConnection());
@@ -101,7 +101,7 @@ public class CadastroFacade {
             
             cadastro = bd.buscar(cadastro);
             if (cadastro == null) {
-                throw new CadastroNaoExisteException();
+                throw new RegistroInexistenteException();
             }
             
 //            TODO: check de atendimento antes de apagar cadastro

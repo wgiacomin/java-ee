@@ -9,18 +9,18 @@ import com.ufpr.tads.web2.exceptions.CadastrosComPerfilException;
 import com.ufpr.tads.web2.exceptions.DAOException;
 import com.ufpr.tads.web2.exceptions.FacadeException;
 import com.ufpr.tads.web2.exceptions.PerfilDuplicadoException;
-import com.ufpr.tads.web2.exceptions.UsuarioSenhaInvalidoException;
+import com.ufpr.tads.web2.exceptions.RegistroInexistenteException;
 import java.util.List;
 
 public class PerfilFacade {
 
-    public static PerfilBean buscar(PerfilBean perfil) throws FacadeException, BeanInvalidoException, UsuarioSenhaInvalidoException {
+    public static PerfilBean buscar(PerfilBean perfil) throws FacadeException, BeanInvalidoException, RegistroInexistenteException  {
         try (ConnectionFactory factory = new ConnectionFactory()) {
             PerfilDAO bd = new PerfilDAO(factory.getConnection());
             perfil = bd.buscar(perfil);
 
             if (perfil == null) {
-                throw new UsuarioSenhaInvalidoException();
+                throw new RegistroInexistenteException();
             }
             return perfil;
 

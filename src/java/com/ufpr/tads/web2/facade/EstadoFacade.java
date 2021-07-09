@@ -6,16 +6,21 @@ import com.ufpr.tads.web2.dao.utils.ConnectionFactory;
 import com.ufpr.tads.web2.exceptions.BeanInvalidoException;
 import com.ufpr.tads.web2.exceptions.DAOException;
 import com.ufpr.tads.web2.exceptions.FacadeException;
+import com.ufpr.tads.web2.exceptions.RegistroInexistenteException;
 import java.util.List;
 
 
 public class EstadoFacade {
 
 
-    public static EstadoBean buscar(EstadoBean estado) throws FacadeException, BeanInvalidoException, DAOException {
+    public static EstadoBean buscar(EstadoBean estado) throws FacadeException, BeanInvalidoException, DAOException, RegistroInexistenteException {
         try (ConnectionFactory factory = new ConnectionFactory()) {
             EstadoDAO bd = new EstadoDAO(factory.getConnection());
             estado = bd.buscar(estado);
+            
+            if (estado == null) {
+                throw new RegistroInexistenteException();
+            }
             return estado;
 
         } catch (DAOException e) {
