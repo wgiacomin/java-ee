@@ -5,7 +5,7 @@ import com.ufpr.tads.web2.dao.CadastroDAO;
 import com.ufpr.tads.web2.dao.PerfilDAO;
 import com.ufpr.tads.web2.dao.utils.ConnectionFactory;
 import com.ufpr.tads.web2.exceptions.BeanInvalidoException;
-import com.ufpr.tads.web2.exceptions.CadastrosComPerfilException;
+import com.ufpr.tads.web2.exceptions.RegistroComUsoException;
 import com.ufpr.tads.web2.exceptions.DAOException;
 import com.ufpr.tads.web2.exceptions.FacadeException;
 import com.ufpr.tads.web2.exceptions.RegistroDuplicadoException;
@@ -64,14 +64,14 @@ public class PerfilFacade {
         }
     }
 
-    public static void Remover(PerfilBean perfil) throws FacadeException, BeanInvalidoException, CadastrosComPerfilException {
+    public static void Remover(PerfilBean perfil) throws FacadeException, BeanInvalidoException, RegistroComUsoException {
         try (ConnectionFactory factory = new ConnectionFactory()) {
             PerfilDAO bd = new PerfilDAO(factory.getConnection());
             CadastroDAO cbd = new CadastroDAO(factory.getConnection());
             
             int registros = cbd.buscarPorPerfil(perfil);
             if (registros > 0) {
-                throw new CadastrosComPerfilException(registros);
+                throw new RegistroComUsoException(registros);
             }
             
             bd.remover(perfil);

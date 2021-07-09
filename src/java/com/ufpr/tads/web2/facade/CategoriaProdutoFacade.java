@@ -2,10 +2,12 @@ package com.ufpr.tads.web2.facade;
 
 import com.ufpr.tads.web2.beans.ProdutoCategoriaBean;
 import com.ufpr.tads.web2.dao.ProdutoCategoriaDAO;
+import com.ufpr.tads.web2.dao.ProdutoDAO;
 import com.ufpr.tads.web2.dao.utils.ConnectionFactory;
 import com.ufpr.tads.web2.exceptions.BeanInvalidoException;
 import com.ufpr.tads.web2.exceptions.DAOException;
 import com.ufpr.tads.web2.exceptions.FacadeException;
+import com.ufpr.tads.web2.exceptions.RegistroComUsoException;
 import com.ufpr.tads.web2.exceptions.RegistroDuplicadoException;
 import com.ufpr.tads.web2.exceptions.RegistroInexistenteException;
 import java.util.List;
@@ -63,17 +65,16 @@ public class CategoriaProdutoFacade {
         }
     }
 
-    public static void Remover(ProdutoCategoriaBean produtoCategoria) throws FacadeException, BeanInvalidoException, RegistroDuplicadoException {
+    public static void Remover(ProdutoCategoriaBean produtoCategoria) throws FacadeException, BeanInvalidoException, RegistroDuplicadoException, RegistroComUsoException {
         try (ConnectionFactory factory = new ConnectionFactory()) {
             ProdutoCategoriaDAO bd = new ProdutoCategoriaDAO(factory.getConnection());
 
-//            TODO: atendimento check
-//            CadastroDAO cbd = new CadastroDAO(factory.getConnection());
-//            
-//            int registros = cbd.buscarPorProdutoCategoria(produtoCategoria);
-//            if (registros > 0) {
-//                throw new CadastrosComProdutoCategoriaException(registros);
-//            }
+            ProdutoDAO cbd = new ProdutoDAO(factory.getConnection());
+
+            int registros = cbd.buscarPorCategoria(produtoCategoria);
+            if (registros > 0) {
+                throw new RegistroComUsoException(registros);
+            }
             bd.remover(produtoCategoria);
         } catch (DAOException e) {
             throw new FacadeException("Erro ao deletar categoria de produto: ", e);
