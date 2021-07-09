@@ -1,11 +1,13 @@
 package com.ufpr.tads.web2.facade;
 
 import com.ufpr.tads.web2.beans.StatusBean;
+import com.ufpr.tads.web2.dao.AtendimentoDAO;
 import com.ufpr.tads.web2.dao.StatusDAO;
 import com.ufpr.tads.web2.dao.utils.ConnectionFactory;
 import com.ufpr.tads.web2.exceptions.BeanInvalidoException;
 import com.ufpr.tads.web2.exceptions.DAOException;
 import com.ufpr.tads.web2.exceptions.FacadeException;
+import com.ufpr.tads.web2.exceptions.RegistroComUsoException;
 import com.ufpr.tads.web2.exceptions.RegistroDuplicadoException;
 import com.ufpr.tads.web2.exceptions.RegistroInexistenteException;
 import java.util.List;
@@ -62,17 +64,16 @@ public class StatusFacade {
         }
     }
 
-    public static void Remover(StatusBean status) throws FacadeException, BeanInvalidoException {
+    public static void Remover(StatusBean status) throws FacadeException, BeanInvalidoException, RegistroComUsoException {
         try (ConnectionFactory factory = new ConnectionFactory()) {
             StatusDAO bd = new StatusDAO(factory.getConnection());
             
-//            TODO: atendimento
-//            CadastroDAO cbd = new CadastroDAO(factory.getConnection());
-//            
-//            int registros = cbd.buscarPorPerfil(status);
-//            if (registros > 0) {
-//                throw new CadastrosComPerfilException(registros);
-//            }
+            AtendimentoDAO cbd = new AtendimentoDAO(factory.getConnection());
+            int registros = cbd.buscarPorStatus(status);
+            
+            if (registros > 0) {
+                throw new RegistroComUsoException(registros);
+            }
             
             bd.remover(status);
         } catch (DAOException e) {

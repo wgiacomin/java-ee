@@ -2,6 +2,7 @@ package com.ufpr.tads.web2.facade;
 
 import com.ufpr.tads.web2.beans.CadastroBean;
 import com.ufpr.tads.web2.beans.LoginBean;
+import com.ufpr.tads.web2.dao.AtendimentoDAO;
 import com.ufpr.tads.web2.dao.CadastroDAO;
 import com.ufpr.tads.web2.dao.CidadeDAO;
 import com.ufpr.tads.web2.dao.EstadoDAO;
@@ -13,6 +14,7 @@ import com.ufpr.tads.web2.exceptions.RegistroDuplicadoException;
 import com.ufpr.tads.web2.exceptions.RegistroInexistenteException;
 import com.ufpr.tads.web2.exceptions.DAOException;
 import com.ufpr.tads.web2.exceptions.FacadeException;
+import com.ufpr.tads.web2.exceptions.RegistroComUsoException;
 import java.util.List;
 
 public class CadastroFacade {
@@ -25,7 +27,7 @@ public class CadastroFacade {
             if (cadastro == null) {
                 throw new RegistroInexistenteException();
             }
-            
+
             return cadastro;
         } catch (DAOException e) {
             throw new FacadeException("Erro ao buscar cadastro " + cadastro.getId(), e);
@@ -93,18 +95,23 @@ public class CadastroFacade {
         }
     }
 
-    public static void Remover(CadastroBean cadastro) throws FacadeException, RegistroInexistenteException, BeanInvalidoException {
+    public static void Remover(CadastroBean cadastro) throws FacadeException, RegistroInexistenteException, BeanInvalidoException, RegistroComUsoException {
         try (ConnectionFactory factory = new ConnectionFactory()) {
             CadastroDAO bd = new CadastroDAO(factory.getConnection());
-            LoginDAO lbd = new LoginDAO(factory.getConnection());
-            LoginBean login = (LoginBean) cadastro;
-            
+
             cadastro = bd.buscar(cadastro);
             if (cadastro == null) {
                 throw new RegistroInexistenteException();
             }
-            
-//            TODO: check de atendimento antes de apagar cadastro
+
+            LoginDAO lbd = new LoginDAO(factory.getConnection());
+            LoginBean login = (LoginBean) cadastro;
+            AtendimentoDAO dbd = new AtendimentoDAO(factory.getConnection());
+            int registros = dbd.buscarPorCliente(login);
+            if (registros > 0) {
+                throw new RegistroComUsoException();
+            }
+
             bd.remover(cadastro);
             lbd.remover(login);
         } catch (DAOException e) {
