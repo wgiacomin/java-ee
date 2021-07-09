@@ -7,7 +7,6 @@ import com.ufpr.tads.web2.exceptions.BeanInvalidoException;
 import com.ufpr.tads.web2.exceptions.RegistroComUsoException;
 import com.ufpr.tads.web2.exceptions.DAOException;
 import com.ufpr.tads.web2.exceptions.FacadeException;
-import com.ufpr.tads.web2.exceptions.RegistroDuplicadoException;
 import com.ufpr.tads.web2.exceptions.RegistroInexistenteException;
 import java.util.List;
 
