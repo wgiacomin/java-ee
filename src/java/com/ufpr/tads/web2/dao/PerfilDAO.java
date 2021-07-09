@@ -13,6 +13,7 @@ import java.util.List;
 public class PerfilDAO implements DAOInterface<PerfilBean> {
 
     private static final String QUERY_BUSCAR = "SELECT descricao FROM perfil WHERE id = ?;";
+    private static final String QUERY_BUSCAR_POR_NOME = "SELECT id FROM perfil WHERE descricao = ?;";
     private static final String QUERY_BUSCAR_TODOS = "SELECT id, descricao FROM perfil;";
     private static final String QUERY_INSERIR = "INSERT INTO perfil(descricao) VALUES (?);";
     private static final String QUERY_REMOVER = "DELETE FROM perfil WHERE id = ?;";
@@ -27,11 +28,25 @@ public class PerfilDAO implements DAOInterface<PerfilBean> {
         this.con = con;
     }
 
+    public PerfilBean buscarPorNome(PerfilBean perfil) throws DAOException {
+        try (PreparedStatement st = con.prepareStatement(QUERY_BUSCAR_POR_NOME)) {
+            st.setString(1, perfil.getDescricao());
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                perfil.setId(rs.getInt("id"));
+                return perfil;
+            } else {
+                return null;
+            }
+        } catch (SQLException e) {
+            throw new DAOException("Erro buscando perfil: " + perfil.getDescricao(), e);
+        }
+    }
+
     @Override
     public PerfilBean buscar(PerfilBean perfil) throws DAOException {
         try (PreparedStatement st = con.prepareStatement(QUERY_BUSCAR)) {
             st.setInt(1, perfil.getId());
-            System.out.print(st);
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
                 perfil.setDescricao(rs.getString("descricao"));

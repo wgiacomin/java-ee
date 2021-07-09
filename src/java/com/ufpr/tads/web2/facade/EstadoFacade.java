@@ -1,55 +1,38 @@
 package com.ufpr.tads.web2.facade;
 
-import com.ufpr.tads.web2.beans.LoginBean;
-import com.ufpr.tads.web2.dao.LoginDAO;
+import com.ufpr.tads.web2.beans.EstadoBean;
+import com.ufpr.tads.web2.dao.EstadoDAO;
 import com.ufpr.tads.web2.dao.utils.ConnectionFactory;
 import com.ufpr.tads.web2.exceptions.BeanInvalidoException;
-import com.ufpr.tads.web2.exceptions.CadastroNaoExisteException;
 import com.ufpr.tads.web2.exceptions.DAOException;
 import com.ufpr.tads.web2.exceptions.FacadeException;
-import com.ufpr.tads.web2.exceptions.UsuarioSenhaInvalidoException;
 import java.util.List;
+
 
 public class EstadoFacade {
 
-    public static LoginBean buscarLogin(LoginBean login) throws FacadeException, BeanInvalidoException {
+
+    public static EstadoBean buscar(EstadoBean estado) throws FacadeException, BeanInvalidoException, DAOException {
         try (ConnectionFactory factory = new ConnectionFactory()) {
-            LoginDAO bd = new LoginDAO(factory.getConnection());
-            login = bd.buscar(login);
-            return login;
+            EstadoDAO bd = new EstadoDAO(factory.getConnection());
+            estado = bd.buscar(estado);
+            return estado;
 
         } catch (DAOException e) {
-            throw new FacadeException("Erro ao buscar login " + login.getLogin(), e);
+            throw new FacadeException("Erro ao buscar estado " + estado.getId(), e);
         } catch (NullPointerException e) {
             throw new BeanInvalidoException();
         }
     }
 
-    public static LoginBean buscar(LoginBean login) throws FacadeException, BeanInvalidoException, UsuarioSenhaInvalidoException {
+    public static List<EstadoBean> buscarTodos() throws FacadeException, BeanInvalidoException {
         try (ConnectionFactory factory = new ConnectionFactory()) {
-            LoginDAO bd = new LoginDAO(factory.getConnection());
-            login = bd.buscar(login);
-
-            if (login == null) {
-                throw new UsuarioSenhaInvalidoException();
-            }
-            return login;
+            EstadoDAO bd = new EstadoDAO(factory.getConnection());
+            List<EstadoBean> estados = bd.buscarTodos();
+            return estados;
 
         } catch (DAOException e) {
-            throw new FacadeException("Erro ao buscar login " + login.getLogin(), e);
-        } catch (NullPointerException e) {
-            throw new BeanInvalidoException();
-        }
-    }
-
-    public static List<LoginBean> buscarTodos() throws FacadeException, BeanInvalidoException {
-        try (ConnectionFactory factory = new ConnectionFactory()) {
-            LoginDAO bd = new LoginDAO(factory.getConnection());
-            List<LoginBean> logins = bd.buscarTodos();
-            return logins;
-
-        } catch (DAOException e) {
-            throw new FacadeException("Erro ao buscar todos os logins: ", e);
+            throw new FacadeException("Erro ao buscar todos os estados: ", e);
 
         } catch (NullPointerException e) {
             throw new BeanInvalidoException();
@@ -57,23 +40,5 @@ public class EstadoFacade {
         }
     }
 
-    public static void Inserir(LoginBean login) throws FacadeException {
-        throw new FacadeException("Operação não permitida.");
-    }
-
-    public static void Remover(LoginBean login) throws FacadeException, CadastroNaoExisteException, BeanInvalidoException {
-        try (ConnectionFactory factory = new ConnectionFactory()) {
-            LoginDAO bd = new LoginDAO(factory.getConnection());
-            login = bd.buscar(login);
-            if (login == null) {
-                throw new CadastroNaoExisteException();
-            }
-            bd.remover(login);
-        } catch (DAOException e) {
-            throw new FacadeException("Erro ao deletar logins: ", e);
-        } catch (NullPointerException e) {
-            throw new BeanInvalidoException();
-        }
-    }
 
 }

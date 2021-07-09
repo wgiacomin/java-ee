@@ -96,11 +96,17 @@ public class CadastroFacade {
     public static void Remover(CadastroBean cadastro) throws FacadeException, CadastroNaoExisteException, BeanInvalidoException {
         try (ConnectionFactory factory = new ConnectionFactory()) {
             CadastroDAO bd = new CadastroDAO(factory.getConnection());
+            LoginDAO lbd = new LoginDAO(factory.getConnection());
+            LoginBean login = (LoginBean) cadastro;
+            
             cadastro = bd.buscar(cadastro);
             if (cadastro == null) {
                 throw new CadastroNaoExisteException();
             }
+            
+//            TODO: check de atendimento antes de apagar cadastro
             bd.remover(cadastro);
+            lbd.remover(login);
         } catch (DAOException e) {
             throw new FacadeException("Erro ao deletar cadastros: ", e);
         } catch (NullPointerException e) {

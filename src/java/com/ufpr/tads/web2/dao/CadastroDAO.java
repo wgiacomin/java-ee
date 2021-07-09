@@ -16,6 +16,7 @@ public class CadastroDAO implements DAOInterface<CadastroBean> {
 
     private static final String QUERY_BUSCAR = "SELECT fk_login, cpf, nome, email, rua, rua_numero, rua_complemento, bairro, cep, telefone, fk_cidade, fk_perfil FROM cadastro WHERE fk_login = ?;";
     private static final String QUERY_BUSCAR_TODOS = "SELECT fk_login, cpf, nome, email, rua, rua_numero, rua_complemento, bairro, cep, telefone, fk_cidade, fk_perfil FROM cadastro;";
+    private static final String QUERY_BUSCAR_POR_PERFIL = "SELECT COUNT(*) FROM cadastro WHEHRE fk_perfil = ?;";
     private static final String QUERY_INSERIR = "INSERT INTO cadastro(fk_login, cpf, nome, email, rua, rua_numero, rua_complemento, bairro, cep, telefone, fk_cidade, fk_perfil) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
     private static final String QUERY_REMOVER = "DELETE FROM cadastro WHERE fk_login = ?;";
     private static final String QUERY_EDITAR = "UPDATE cadastro SET cpf = ?, nome = ?, email = ?, rua = ?, rua_numero = ?, rua_complemento = ?, bairro = ?, cep = ?, telefone = ?, fk_cidade = ? WHERE fk_perfil = ?;";
@@ -52,6 +53,21 @@ public class CadastroDAO implements DAOInterface<CadastroBean> {
         cadastro.setTelefone(rs.getString("telefone"));
 
         return cadastro;
+    }
+
+    public int buscarPorPerfil(PerfilBean perfil) throws DAOException {
+        try (PreparedStatement st = con.prepareStatement(QUERY_BUSCAR_POR_PERFIL)) {
+            st.setInt(1, perfil.getId());
+
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            } else {
+                throw new DAOException("Erro buscando cadastros com perfil: " + perfil.getId());
+            }
+        } catch (SQLException e) {
+            throw new DAOException("Erro buscando cadastros com perfil: " + perfil.getId(), e);
+        }
     }
 
     public CadastroBean buscarBasico(CadastroBean cadastro) throws DAOException {
