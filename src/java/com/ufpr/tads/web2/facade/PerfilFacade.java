@@ -8,7 +8,7 @@ import com.ufpr.tads.web2.exceptions.BeanInvalidoException;
 import com.ufpr.tads.web2.exceptions.CadastrosComPerfilException;
 import com.ufpr.tads.web2.exceptions.DAOException;
 import com.ufpr.tads.web2.exceptions.FacadeException;
-import com.ufpr.tads.web2.exceptions.PerfilDuplicadoException;
+import com.ufpr.tads.web2.exceptions.RegistroDuplicadoException;
 import com.ufpr.tads.web2.exceptions.RegistroInexistenteException;
 import java.util.List;
 
@@ -46,14 +46,14 @@ public class PerfilFacade {
         }
     }
     
-     public static void Inserir(PerfilBean perfil) throws FacadeException, BeanInvalidoException, PerfilDuplicadoException {
+     public static void Inserir(PerfilBean perfil) throws FacadeException, BeanInvalidoException, RegistroDuplicadoException {
         try (ConnectionFactory factory = new ConnectionFactory()) {
             
             PerfilDAO bd = new PerfilDAO(factory.getConnection());
             perfil = bd.buscarPorNome(perfil);
             
             if (perfil != null) {
-                throw new PerfilDuplicadoException();
+                throw new RegistroDuplicadoException();
             }
 
             bd.inserir(perfil);
