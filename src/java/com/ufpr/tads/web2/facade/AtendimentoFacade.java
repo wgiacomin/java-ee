@@ -12,6 +12,7 @@ import com.ufpr.tads.web2.exceptions.RegistroInexistenteException;
 import com.ufpr.tads.web2.exceptions.DAOException;
 import com.ufpr.tads.web2.exceptions.DAOVException;
 import com.ufpr.tads.web2.exceptions.FacadeException;
+import com.ufpr.tads.web2.exceptions.OrdenacaoInvalidaException;
 import com.ufpr.tads.web2.exceptions.RegistroComUsoException;
 import java.util.List;
 
@@ -47,7 +48,11 @@ public class AtendimentoFacade {
         }
     }
 
-    public static List<AtendimentoBean> buscarTodosComFiltroPessoa(LoginBean login) throws FacadeException, BeanInvalidoException {
+    public static List<AtendimentoBean> buscarTodosComFiltroPessoa(LoginBean login, String order) throws FacadeException, BeanInvalidoException, OrdenacaoInvalidaException, OrdenacaoInvalidaException {
+        if (!order.equals("DESC") || !order.equals("ASC")) {
+            throw new OrdenacaoInvalidaException();
+        }
+
         try (ConnectionFactory factory = new ConnectionFactory()) {
             AtendimentoDAOV bd = new AtendimentoDAOV(factory.getConnection());
             List<AtendimentoBean> atendimentos = bd.buscarTodosComPessoa(login);
@@ -60,7 +65,10 @@ public class AtendimentoFacade {
         }
     }
 
-    public static List<AtendimentoBean> buscarTodosComFiltroStatus(StatusBean status, LoginBean login) throws FacadeException, BeanInvalidoException {
+    public static List<AtendimentoBean> buscarTodosComFiltroStatus(StatusBean status, LoginBean login, String order) throws FacadeException, BeanInvalidoException, OrdenacaoInvalidaException {
+        if (!order.equals("DESC") || !order.equals("ASC")) {
+            throw new OrdenacaoInvalidaException();
+        }
         try (ConnectionFactory factory = new ConnectionFactory()) {
             AtendimentoDAOV bd = new AtendimentoDAOV(factory.getConnection());
             List<AtendimentoBean> atendimentos = bd.buscarTodosComStatusEPessoa(status, login);
