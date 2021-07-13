@@ -1,0 +1,52 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 13/07/2021, 11:18:11
+    Author     : nilo-
+*/
+html,body{
+    height: 100%;
+    
+}
+
+body{
+    display: flex;
+    align-items: center;
+    background-color: #fbfbfb !important;
+}
+
+h1{
+    color: #333333;
+}
+
+.form-signin{
+    width: 100%;
+    max-width: 330px;
+    padding: 35px;
+    margin: auto;
+    border: #e1e1e1 solid 1px;
+    border-radius: 7px;
+    box-shadow: 5px 7px 20px #cfcfcf;
+    background-color: #fdfdfd;    
+}
+
+.form-signin .form-floating:focus-within {
+  z-index: 2;
+}
+
+.form-signin input[type="text"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+
