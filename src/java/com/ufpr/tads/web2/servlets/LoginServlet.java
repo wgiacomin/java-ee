@@ -64,15 +64,13 @@ public class LoginServlet extends HttpServlet {
 			request.setAttribute("javax.servlet.error.status_code", 500);
 			request.setAttribute("page", "index.jsp");
 
-			rd.forward(request, response); //redireciona
+			rd.forward(request, response); //redireciona para erro.jsp
 		} 
 		catch (BeanInvalidoException | UsuarioSenhaInvalidoException | RegistroInexistenteException e) {
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp"); 
 			request.setAttribute("msg", e.getMessage());//mensagem de erro da Exception como atributo para index.jsp
 			rd.forward(request, response); //redirecina para o index.jsp
-		}
-		//redirecina para o index.jsp
-		
+		}	
 		
 	}
 
