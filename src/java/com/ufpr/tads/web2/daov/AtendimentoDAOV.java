@@ -18,7 +18,7 @@ public class AtendimentoDAOV {
 
     private static final String QUERY_BUSCAR_TODOS = "SELECT id, data_hora, descricao, solucao, fk_cliente, fk_status, fk_tipo_atendimento, fk_produto "
             + " tipo_atendimento, status, produto_categoria, id_categoria, produto_descricao, peso, produto_nome "
-            + " FROM atendimento_daov;";
+            + " FROM atendimento_daov ORDER BY data_hora ASC;";
 
     private static final String QUERY_BUSCAR_TODOS_POR_STATUS_E_PESSOA = "SELECT id, data_hora, descricao, solucao, fk_cliente, fk_status, fk_tipo_atendimento, fk_produto "
             + " tipo_atendimento, status, produto_categoria, id_categoria, produto_descricao, peso, produto_nome "
