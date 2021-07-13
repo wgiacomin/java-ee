@@ -105,7 +105,7 @@ public class AtendimentoDAOV {
 
     public List<AtendimentoBean> buscarTodosComFiltro(StatusBean status, LoginBean login, String order) throws DAOVException {
         List<AtendimentoBean> lista = new ArrayList<>();
-        try (PreparedStatement st = con.prepareStatement(QUERY_BUSCAR_TODOS)) {
+        try (PreparedStatement st = con.prepareStatement(QUERY_BUSCAR_TODOS_POR_STATUS_E_PESSOA)) {
             ResultSet rs = st.executeQuery();
             st.setInt(1, login.getId());
             st.setInt(2, status.getId());
@@ -116,7 +116,7 @@ public class AtendimentoDAOV {
             return lista;
         } catch (SQLException e) {
             throw new DAOVException("Erro buscando todas os atendimentos com filtro: "
-                    + QUERY_BUSCAR_TODOS, e);
+                    + QUERY_BUSCAR_TODOS_POR_STATUS_E_PESSOA, e);
 
         }
     }
