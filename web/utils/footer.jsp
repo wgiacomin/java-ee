@@ -1,17 +1,6 @@
-<%-- 
-    Document   : footer
-    Created on : 13-Jul-2021, 12:33:08
-    Author     : wande
---%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <h1>Hello World!</h1>
+        </div>
+        <footer class="footer">
+            Integrantes: Filipe, Gabriel, Nickolas e Wanderson
+        </footer>
     </body>
 </html>
