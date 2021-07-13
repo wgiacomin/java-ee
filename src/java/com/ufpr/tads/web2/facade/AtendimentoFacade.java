@@ -55,7 +55,7 @@ public class AtendimentoFacade {
 
         try (ConnectionFactory factory = new ConnectionFactory()) {
             AtendimentoDAOV bd = new AtendimentoDAOV(factory.getConnection());
-            List<AtendimentoBean> atendimentos = bd.buscarTodosComPessoa(login);
+            List<AtendimentoBean> atendimentos = bd.buscarTodosComPessoa(login, order);
             return atendimentos;
 
         } catch (DAOException | DAOVException e) {
@@ -71,7 +71,7 @@ public class AtendimentoFacade {
         }
         try (ConnectionFactory factory = new ConnectionFactory()) {
             AtendimentoDAOV bd = new AtendimentoDAOV(factory.getConnection());
-            List<AtendimentoBean> atendimentos = bd.buscarTodosComStatusEPessoa(status, login);
+            List<AtendimentoBean> atendimentos = bd.buscarTodosComStatusEPessoa(status, login, order);
             return atendimentos;
 
         } catch (DAOException | DAOVException e) {
