@@ -42,14 +42,14 @@ public class LoginServlet extends HttpServlet {
 			throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
 
-        try {
-            String login = (String)request.getAttribute("login");
-            String senha = (String)request.getAttribute("senha");
+    try {
+         String login = (String)request.getAttribute("login");
+         String senha = (String)request.getAttribute("senha");
             
-            if((login == null || login.isEmpty()) || (senha == null || senha.isEmpty())){
-                login = request.getParameter("login");
-                senha = request.getParameter("senha");
-            }
+         if((login == null || login.isEmpty()) || (senha == null || senha.isEmpty())){
+            login = request.getParameter("login");
+            senha = request.getParameter("senha");
+      }
             
 			LoginBean loginBean = new LoginBean(login,senha);
 			//index jsp deve conter parametros com estes nomes "login", "senha"
