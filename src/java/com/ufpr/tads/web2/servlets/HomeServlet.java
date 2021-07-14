@@ -9,6 +9,7 @@ import com.ufpr.tads.web2.beans.CadastroBean;
 import com.ufpr.tads.web2.beans.StatusBean;
 import com.ufpr.tads.web2.exceptions.BeanInvalidoException;
 import com.ufpr.tads.web2.exceptions.FacadeException;
+import com.ufpr.tads.web2.exceptions.HomeServletException;
 import com.ufpr.tads.web2.exceptions.OrdenacaoInvalidaException;
 import com.ufpr.tads.web2.facade.AtendimentoFacade;
 import java.io.IOException;
@@ -72,9 +73,11 @@ public class HomeServlet extends HttpServlet {
 					RequestDispatcher rd3 = getServletContext().getRequestDispatcher("/homeGerente.jsp");
 					rd3.forward(request, response); //redirecina para o home  					
 					break;
+				default:
+					throw new HomeServletException();
 			}
 		}	
-		catch (FacadeException | BeanInvalidoException | OrdenacaoInvalidaException e) {
+		catch (FacadeException | BeanInvalidoException | OrdenacaoInvalidaException | HomeServletException e) {
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/erro.jsp");
 			request.setAttribute("javax.servlet.jsp.jspException", e);
 			request.setAttribute("javax.servlet.error.status_code", 500);
