@@ -79,11 +79,12 @@ public class CadastroFacade {
             LoginDAO lbd = new LoginDAO(factory.getConnection());
             LoginBean login = (LoginBean) cadastro;
             login = lbd.buscarLogin(login);
-
+            
             if (login != null) {
                 throw new RegistroDuplicadoException();
             }
 
+            login = (LoginBean) cadastro;
             lbd.inserir(login);
             login = lbd.buscar(login);
             cadastro.setId(login.getId());
