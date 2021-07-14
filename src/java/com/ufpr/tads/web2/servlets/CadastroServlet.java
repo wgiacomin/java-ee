@@ -119,7 +119,6 @@ public class CadastroServlet extends HttpServlet {
             request.setAttribute("javax.servlet.jsp.jspException", e);
             request.setAttribute("javax.servlet.error.status_code", 500);
             request.setAttribute("page", "index.jsp");
-
             rd.forward(request, response); //redireciona para erro.jsp
         } catch (BeanInvalidoException | RegistroDuplicadoException | RegistroInexistenteException e) {
             RequestDispatcher rd = getServletContext().getRequestDispatcher("/cadastro.jsp");
