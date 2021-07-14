@@ -54,7 +54,7 @@ public class LoginServlet extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("logado", cadastro);//seta cadastro como atributo para escopo da sessão
 
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/portal.jsp");
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/HomeServlet");
 			rd.forward(request, response); //redirecina para portal.jsp caso login seja realizado sem erros
             
         }

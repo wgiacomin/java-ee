@@ -49,7 +49,7 @@ public class AtendimentoFacade {
     }
 
     public static List<AtendimentoBean> buscarTodosComFiltroPessoa(LoginBean login, String order) throws FacadeException, BeanInvalidoException, OrdenacaoInvalidaException, OrdenacaoInvalidaException {
-        if (!order.equals("DESC") || !order.equals("ASC")) {
+        if (!order.equals("DESC") && !order.equals("ASC")) {
             throw new OrdenacaoInvalidaException();
         }
 
