@@ -72,8 +72,8 @@
                 <div class="form-floating">
                     <input type="text" class="form-control" id="telefone" placeholder="Telefone" name="telefone" value="${cadastro.telefone}">
                     <label for="telefone">Telefone</label>
-                </div>
-                
+                </div> 
+                    
                 <div class="form-floating">
                     <select class="form-control" id="uf" placeholder="Estado" name="uf">
                         <c:forEach var="estado" items="${estados}">

@@ -32,7 +32,12 @@
                     <input type="password" class="form-control" id="floatingPassword" placeholder="Senha" name="senha">
                     <label for="floatingPassword">Senha</label>
                 </div>
+                
+                
                 <input type="submit" value="Login" class="w-100 btn btn-lg btn-primary mt-3" />
+                
+                <a href="CadastroServlet?action=formNovoCliente" id="cadastro" name="cadastro" class="w-100 btn btn-lg btn-primary mt-3">Cadastro</a>
+                
             </form>
         </div>
     </body>

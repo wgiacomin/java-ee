@@ -103,6 +103,11 @@ public class CadastroServlet extends HttpServlet {
                     
                     CidadeBean cidadeBean = new CidadeBean();
                     cidadeBean.setId(Integer.parseInt(request.getParameter("cidade")));
+                    
+                    EstadoBean estadoBean = new EstadoBean();
+                    estadoBean.setId(Integer.parseInt(request.getParameter("uf")));
+                    cidadeBean.setEstado(estadoBean);
+                    
                     cadastro.setCidade(cidadeBean);
                     PerfilBean perfilBean = new PerfilBean();
                     perfilBean.setId(Integer.parseInt(request.getParameter("perfil")));
@@ -115,8 +120,14 @@ public class CadastroServlet extends HttpServlet {
                         request.setAttribute("msg", msg);
                         rd.forward(request, response);
                     }else{
-                        CadastroFacade.Inserir(cadastro);
+                        CadastroFacade.Inserir(cadastro); //cadastra cliente no banco
                         
+                        login = LoginFacade.buscarLogin(cadastro); //pega login com id do cliente que acabou de ser cadastrado
+                        cadastro.setId(login.getId());
+                        
+                        cadastro = CadastroFacade.buscarBasico(cadastro); //busca cadastro dentro do banco de dados
+                        session = request.getSession();
+                        session.setAttribute("logado", cadastro);//seta cadastro como atributo para escopo da sessão
                         RequestDispatcher rd = getServletContext().getRequestDispatcher("HomeServlet");
                         rd.forward(request, response);
                     }
@@ -133,7 +144,7 @@ public class CadastroServlet extends HttpServlet {
 			request.setAttribute("page", "index.jsp");
 
 			rd.forward(request, response); //redireciona para erro.jsp
-		} catch (BeanInvalidoException | RegistroDuplicadoException e) {
+		} catch (BeanInvalidoException | RegistroDuplicadoException | RegistroInexistenteException e) {
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/cadastro.jsp"); 
 			request.setAttribute("msg", e.getMessage());
 			rd.forward(request, response); 
