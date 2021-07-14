@@ -33,7 +33,6 @@ public class CadastroServlet extends HttpServlet {
             String action = request.getParameter("action");
             HttpSession session = request.getSession();
             LoginBean login = (LoginBean) session.getAttribute("logado");
-
             if (action.equals("formNovoCliente")) { // ir de index.jsp para form de novo cliente
                 if (login == null) { // se usuário não estiver logado, enviar para form de novo cliente
                     List<EstadoBean> estados = EstadoFacade.buscarTodos();
@@ -52,7 +51,6 @@ public class CadastroServlet extends HttpServlet {
 
                     List<EstadoBean> estados = EstadoFacade.buscarTodos();
                     request.setAttribute("estados", estados);
-
                     if (!senha.equals(senhaConfirm)) {
                         msg = "Senhas não coincidem";
                         throw new CampoInvalidoException();
