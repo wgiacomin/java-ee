@@ -28,7 +28,7 @@ public class CadastroServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String msg;
+        String msg = null;
         try {
             String action = request.getParameter("action");
             HttpSession session = request.getSession();
