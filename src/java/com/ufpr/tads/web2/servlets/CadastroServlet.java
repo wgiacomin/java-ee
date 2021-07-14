@@ -6,6 +6,7 @@ import com.ufpr.tads.web2.beans.EstadoBean;
 import com.ufpr.tads.web2.beans.LoginBean;
 import com.ufpr.tads.web2.beans.PerfilBean;
 import com.ufpr.tads.web2.exceptions.BeanInvalidoException;
+import com.ufpr.tads.web2.exceptions.CampoInvalidoException;
 import com.ufpr.tads.web2.exceptions.FacadeException;
 import com.ufpr.tads.web2.exceptions.RegistroDuplicadoException;
 import com.ufpr.tads.web2.exceptions.RegistroInexistenteException;
@@ -27,11 +28,12 @@ public class CadastroServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String msg;
         try {
             String action = request.getParameter("action");
             HttpSession session = request.getSession();
             LoginBean login = (LoginBean) session.getAttribute("logado");
-            System.out.print("formNovoCliente session null");
+
             if (action.equals("formNovoCliente")) { // ir de index.jsp para form de novo cliente
                 if (login == null) { // se usuário não estiver logado, enviar para form de novo cliente
                     List<EstadoBean> estados = EstadoFacade.buscarTodos();
@@ -44,10 +46,7 @@ public class CadastroServlet extends HttpServlet {
                 }
             } else if (action.equals("novoCliente")) {
                 if (login == null) { // se usuário não estiver logado, enviar para form de novo cliente
-                    String msg = null;
-
                     CadastroBean cadastro = new CadastroBean();
-
                     String senha = request.getParameter("senha");
                     String senhaConfirm = request.getParameter("senhaConfirm");
 
@@ -55,14 +54,12 @@ public class CadastroServlet extends HttpServlet {
                     request.setAttribute("estados", estados);
 
                     if (!senha.equals(senhaConfirm)) {
-                        if (msg == null) {
-                            msg = "Senhas não coincidem";
-                        }
+                        msg = "Senhas não coincidem";
+                        throw new CampoInvalidoException();
                     } else if (senha.length() <= 6) {
-                        if (msg == null) {
-                            msg = "Senhas deve ser maior que 6 caracteres";
-                        }
-                    } 
+                        msg = "Senhas deve ser maior que 6 caracteres";
+                        throw new CampoInvalidoException();
+                    }
 
                     cadastro.setLogin(request.getParameter("email"));
                     cadastro.setSenha(request.getParameter("senha"));
@@ -74,9 +71,8 @@ public class CadastroServlet extends HttpServlet {
                     try {
                         cadastro.setRuaNumero(Integer.parseInt(request.getParameter("nr")));
                     } catch (NumberFormatException e) {
-                        if (msg == null) {
-                            msg = "Número de rua inválido";
-                        }
+                        msg = "Número de rua inválido";
+                        throw new CampoInvalidoException();
                     }
 
                     cadastro.setRuaComplemento(request.getParameter("complemento"));
@@ -98,29 +94,26 @@ public class CadastroServlet extends HttpServlet {
 
                     request.setAttribute("cadastro", cadastro);
 
-                    if (msg != null) {
-                        RequestDispatcher rd = getServletContext().getRequestDispatcher("/cadastro.jsp");
-                        request.setAttribute("msg", msg);
-                        rd.forward(request, response);
-                    } else {
-                        CadastroFacade.Inserir(cadastro); //cadastra cliente no banco
+                    CadastroFacade.Inserir(cadastro); //cadastra cliente no banco
 
-                        login = LoginFacade.buscarLogin(cadastro); //pega login com id do cliente que acabou de ser cadastrado
-                        cadastro.setId(login.getId());
+                    login = LoginFacade.buscarLogin(cadastro); //pega login com id do cliente que acabou de ser cadastrado
+                    cadastro.setId(login.getId());
 
-                        cadastro = CadastroFacade.buscarBasico(cadastro); //busca cadastro dentro do banco de dados
-                        session = request.getSession();
-                        session.setAttribute("logado", cadastro);//seta cadastro como atributo para escopo da sessão
-                        RequestDispatcher rd = getServletContext().getRequestDispatcher("HomeServlet");
-                        rd.forward(request, response);
-                    }
+                    cadastro = CadastroFacade.buscarBasico(cadastro); //busca cadastro dentro do banco de dados
+                    session = request.getSession();
+                    session.setAttribute("logado", cadastro);//seta cadastro como atributo para escopo da sessão
+                    RequestDispatcher rd = getServletContext().getRequestDispatcher("HomeServlet");
+                    rd.forward(request, response);
 
                 } else { //se usuário já estiver logado, enviar para home
                     RequestDispatcher rd = getServletContext().getRequestDispatcher("HomeServlet");
                     rd.forward(request, response);
                 }
             }
-        } catch (CampoI)
+        } catch (CampoInvalidoException e) {
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/cadastro.jsp");
+            request.setAttribute("msg", msg);
+            rd.forward(request, response);
         } catch (FacadeException e) {
             RequestDispatcher rd = getServletContext().getRequestDispatcher("/erro.jsp");
             request.setAttribute("javax.servlet.jsp.jspException", e);
