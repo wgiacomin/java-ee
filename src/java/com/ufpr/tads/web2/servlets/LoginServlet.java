@@ -42,36 +42,34 @@ public class LoginServlet extends HttpServlet {
 			throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
 
-        try {
-			LoginBean login = new LoginBean(request.getParameter("login"),request.getParameter("senha"));
+		try {
+			LoginBean login = new LoginBean(request.getParameter("login"), request.getParameter("senha"));
 			//index jsp deve conter parametros com estes nomes "login", "senha"
-            LoginFacade.buscar(login); //faz o login verificando senha e login
-            
+			LoginFacade.buscar(login); //faz o login verificando senha e login
+
 			CadastroBean cadastro = new CadastroBean();
 			cadastro.setId(login.getId());
 			cadastro = CadastroFacade.buscarBasico(cadastro);//busca cadastro dentro do banco de dados
-			
+
 			HttpSession session = request.getSession();
 			session.setAttribute("logado", cadastro);//seta cadastro como atributo para escopo da sessão
 
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/HomeServlet");
 			rd.forward(request, response); //redirecina para portal.jsp caso login seja realizado sem erros
-            
-        }
-		catch (FacadeException e) {
+
+		} catch (FacadeException e) {
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/erro.jsp");
 			request.setAttribute("javax.servlet.jsp.jspException", e);
 			request.setAttribute("javax.servlet.error.status_code", 500);
 			request.setAttribute("page", "index.jsp");
 
 			rd.forward(request, response); //redireciona para erro.jsp
-		} 
-		catch (BeanInvalidoException | UsuarioSenhaInvalidoException | RegistroInexistenteException e) {
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp"); 
+		} catch (BeanInvalidoException | UsuarioSenhaInvalidoException | RegistroInexistenteException e) {
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
 			request.setAttribute("msg", e.getMessage());//mensagem de erro da Exception como atributo para index.jsp
 			rd.forward(request, response); //redirecina para o index.jsp
-		}	
-		
+		}
+
 	}
 
 	// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
