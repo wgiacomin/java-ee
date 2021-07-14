@@ -41,7 +41,7 @@ public class CadastroServlet extends HttpServlet {
                     RequestDispatcher rd = getServletContext().getRequestDispatcher("/cadastro.jsp");
                     rd.forward(request, response);
                 } else { //se usuário estiver logado, enviar para home
-                    RequestDispatcher rd = getServletContext().getRequestDispatcher("/home.jsp");
+                    RequestDispatcher rd = getServletContext().getRequestDispatcher("/HomeServlet");
                     rd.forward(request, response);
                 }
             } else if (action.equals("novoCliente")) {
@@ -53,28 +53,12 @@ public class CadastroServlet extends HttpServlet {
                     List<EstadoBean> estados = EstadoFacade.buscarTodos();
                     request.setAttribute("estados", estados);
 
-                    if (!senha.equals(senhaConfirm)) {
-                        msg = "Senhas não coincidem";
-                        throw new CampoInvalidoException();
-                    } else if (senha.length() <= 6) {
-                        msg = "Senhas deve ser maior que 6 caracteres";
-                        throw new CampoInvalidoException();
-                    }
-
                     cadastro.setLogin(request.getParameter("email"));
                     cadastro.setSenha(request.getParameter("senha"));
                     cadastro.setNome(request.getParameter("nome"));
                     cadastro.setEmail(request.getParameter("email"));
                     cadastro.setCpf(request.getParameter("cpf"));
                     cadastro.setRua(request.getParameter("rua"));
-
-                    try {
-                        cadastro.setRuaNumero(Integer.parseInt(request.getParameter("nr")));
-                    } catch (NumberFormatException e) {
-                        msg = "Número de rua inválido";
-                        throw new CampoInvalidoException();
-                    }
-
                     cadastro.setRuaComplemento(request.getParameter("complemento"));
                     cadastro.setBairro(request.getParameter("bairro"));
                     cadastro.setCep(request.getParameter("cep"));
@@ -91,22 +75,35 @@ public class CadastroServlet extends HttpServlet {
                     PerfilBean perfilBean = new PerfilBean();
                     perfilBean.setId(Integer.parseInt(request.getParameter("perfil")));
                     cadastro.setPerfil(perfilBean);
+                    
+                    request.setAttribute("cadastro", cadastro);
+                    
+                    try {
+                        cadastro.setRuaNumero(Integer.parseInt(request.getParameter("nr")));
+                    } catch (NumberFormatException e) {
+                        msg = "Número de rua inválido";
+                        throw new CampoInvalidoException();
+                    }
 
                     request.setAttribute("cadastro", cadastro);
+                    
+                    if (!senha.equals(senhaConfirm)) {
+                        msg = "Senhas não coincidem";
+                        throw new CampoInvalidoException();
+                    } else if (senha.length() <= 6) {
+                        msg = "Senhas deve ser maior que 6 caracteres";
+                        throw new CampoInvalidoException();
+                    }
 
                     CadastroFacade.Inserir(cadastro); //cadastra cliente no banco
 
-                    login = LoginFacade.buscarLogin(cadastro); //pega login com id do cliente que acabou de ser cadastrado
-                    cadastro.setId(login.getId());
-
-                    cadastro = CadastroFacade.buscarBasico(cadastro); //busca cadastro dentro do banco de dados
-                    session = request.getSession();
-                    session.setAttribute("logado", cadastro);//seta cadastro como atributo para escopo da sessão
-                    RequestDispatcher rd = getServletContext().getRequestDispatcher("HomeServlet");
+                    request.setAttribute("login", cadastro.getLogin());
+                    request.setAttribute("senha", cadastro.getSenha());
+                    RequestDispatcher rd = getServletContext().getRequestDispatcher("/LoginServlet");
                     rd.forward(request, response);
 
                 } else { //se usuário já estiver logado, enviar para home
-                    RequestDispatcher rd = getServletContext().getRequestDispatcher("HomeServlet");
+                    RequestDispatcher rd = getServletContext().getRequestDispatcher("/HomeServlet");
                     rd.forward(request, response);
                 }
             }
@@ -120,7 +117,7 @@ public class CadastroServlet extends HttpServlet {
             request.setAttribute("javax.servlet.error.status_code", 500);
             request.setAttribute("page", "index.jsp");
             rd.forward(request, response); //redireciona para erro.jsp
-        } catch (BeanInvalidoException | RegistroDuplicadoException | RegistroInexistenteException e) {
+        } catch (BeanInvalidoException | RegistroDuplicadoException  e) {
             RequestDispatcher rd = getServletContext().getRequestDispatcher("/cadastro.jsp");
             request.setAttribute("msg", e.getMessage());
             rd.forward(request, response);
