@@ -36,8 +36,6 @@ public class CadastroServlet extends HttpServlet {
 
             if (action.equals("formNovoCliente")) { // ir de index.jsp para form de novo cliente
                 if (login == null) { // se usuário não estiver logado, enviar para form de novo cliente
-                    List<EstadoBean> estados = EstadoFacade.buscarTodos();
-                    request.setAttribute("estados", estados);
                     RequestDispatcher rd = getServletContext().getRequestDispatcher("/cadastro.jsp");
                     rd.forward(request, response);
                 } else { //se usuário estiver logado, enviar para home
@@ -49,9 +47,6 @@ public class CadastroServlet extends HttpServlet {
                     CadastroBean cadastro = new CadastroBean();
                     String senha = request.getParameter("senha");
                     String senhaConfirm = request.getParameter("senhaConfirm");
-
-                    List<EstadoBean> estados = EstadoFacade.buscarTodos();
-                    request.setAttribute("estados", estados);
 
                     cadastro.setLogin(request.getParameter("email"));
                     cadastro.setSenha(request.getParameter("senha"));
