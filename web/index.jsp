@@ -25,18 +25,17 @@
                     </span></br> 
                 </c:if>
                 <div class="form-floating">
-                    <input type="text" class="form-control" id="floatingInput" placeholder="Usuário" name="login">
-                    <label for="floatingInput">Usuário</label>
+                    <input type="email" class="form-control" id="floatingInput" placeholder="Email" name="login">
+                    <label for="floatingInput">Email</label>
                 </div>
                 <div class="form-floating mb-4">
                     <input type="password" class="form-control" id="floatingPassword" placeholder="Senha" name="senha">
                     <label for="floatingPassword">Senha</label>
                 </div>
                 
+                <a href="CadastroServlet?action=formNovoCliente" id="cadastro" name="cadastro" class="">Cadastrar-se</a>
                 
                 <input type="submit" value="Login" class="w-100 btn btn-lg btn-primary mt-3" />
-                
-                <a href="CadastroServlet?action=formNovoCliente" id="cadastro" name="cadastro" class="w-100 btn btn-lg btn-primary mt-3">Cadastro</a>
                 
             </form>
         </div>
