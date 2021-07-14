@@ -1,9 +1,3 @@
-<%-- 
-    Document   : newjspindex
-    Created on : 08/07/2021, 09:34:11
-    Author     : nilo-
---%>
-
 <%@page errorPage="/erro.jsp" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -13,7 +7,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Novo cliente</title>
         <link rel="stylesheet" href="css/login.css">
-        <%@include file="bootstrap.jsp"%>
+        <%@include file="utils/bootstrap.jsp"%>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
         <script type="text/javascript" src="jquery.maskedinput-1.1.4.pack.js"/></script>

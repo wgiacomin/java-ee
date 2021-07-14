@@ -37,10 +37,11 @@ public class HomeServlet extends HttpServlet {
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
+		RequestDispatcher rd;		
 		
 		HttpSession session = request.getSession();
         if(session.getAttribute("logado")== null){
-            RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+            rd = getServletContext().getRequestDispatcher("/index.jsp");
             request.setAttribute("msg", "Usuário deve se autenticar para acessar o sistema");
             rd.forward(request, response); //redirecina para o index.jsp
 			return;
@@ -54,8 +55,8 @@ public class HomeServlet extends HttpServlet {
 					ArrayList lista1 = (ArrayList) AtendimentoFacade.buscarTodosComFiltroPessoa(cadastro, "DESC");//busca atendimentos efetuados pelo cliente de forma decrescente por data
 					request.setAttribute("lista", lista1);
 					
-					RequestDispatcher rd1 = getServletContext().getRequestDispatcher("/homeCliente.jsp");
-					rd1.forward(request, response); //redirecina para o home 
+					rd = getServletContext().getRequestDispatcher("/homeCliente.jsp");
+					rd.forward(request, response); //redirecina para o home 
 					break;
 				case 2:
 					StatusBean status = new StatusBean(1,null);//status para atendimentos em aberto
@@ -63,22 +64,22 @@ public class HomeServlet extends HttpServlet {
 					ArrayList lista2 = (ArrayList) AtendimentoFacade.buscarTodosComFiltroStatus(status,cadastro, "ASC");//busca atendimento em aberto para funcionario ordenado de forma crescente por data
 					request.setAttribute("lista", lista2);
 					
-					RequestDispatcher rd2 = getServletContext().getRequestDispatcher("/homeFuncionario.jsp");
-					rd2.forward(request, response); //redirecina para o home 
+					rd = getServletContext().getRequestDispatcher("/homeFuncionario.jsp");
+					rd.forward(request, response); //redirecina para o home 
 					break;
 				case 3:
 					ArrayList lista3 = (ArrayList) AtendimentoFacade.buscarTodos();					
 					request.setAttribute("lista", lista3);
 					
-					RequestDispatcher rd3 = getServletContext().getRequestDispatcher("/homeGerente.jsp");
-					rd3.forward(request, response); //redirecina para o home  					
+					rd = getServletContext().getRequestDispatcher("/homeGerente.jsp");
+					rd.forward(request, response); //redirecina para o home  					
 					break;
 				default:
 					throw new HomeServletException();
 			}
 		}	
 		catch (FacadeException | BeanInvalidoException | OrdenacaoInvalidaException | HomeServletException e) {
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/erro.jsp");
+			rd = getServletContext().getRequestDispatcher("/erro.jsp");
 			request.setAttribute("javax.servlet.jsp.jspException", e);
 			request.setAttribute("javax.servlet.error.status_code", 500);
 			request.setAttribute("page", "index.jsp");

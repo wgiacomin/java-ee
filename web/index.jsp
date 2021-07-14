@@ -13,7 +13,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Login</title>
         <link rel="stylesheet" href="css/login.css">
-        <%@include file="bootstrap.jsp"%>
+        <%@include file="utils/bootstrap.jsp"%>
     </head>
     <body class="text-center">  
         <div class="container">
@@ -21,7 +21,7 @@
                 <h1 class="mb-4 h-3 fw-normal ">Login</h1> 
                 <c:if test="${msg != null}">
                     <span class="alert alert-danger d-sm-inline-flex mb-3" role="alert">
-                           ${msg}
+                        <c:out value="${msg}"/>
                     </span></br> 
                 </c:if>
                 <div class="form-floating">

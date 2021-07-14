@@ -10,7 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Erro</title>
-        <%@include file="bootstrap.jsp"%>
+        <%@include file="utils/bootstrap.jsp"%>
     </head>
     <body class="text-center d-flex flex-column h-100">                
         <div class="align-self-center container-ms mt-5 w-50">
