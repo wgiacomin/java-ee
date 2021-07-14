@@ -14,16 +14,11 @@ import com.ufpr.tads.web2.exceptions.BeanInvalidoException;
 import com.ufpr.tads.web2.exceptions.FacadeException;
 import com.ufpr.tads.web2.exceptions.RegistroDuplicadoException;
 import com.ufpr.tads.web2.exceptions.RegistroInexistenteException;
-import com.ufpr.tads.web2.exceptions.UsuarioSenhaInvalidoException;
 import com.ufpr.tads.web2.facade.CadastroFacade;
 import com.ufpr.tads.web2.facade.EstadoFacade;
 import com.ufpr.tads.web2.facade.LoginFacade;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.text.ParseException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -55,7 +50,7 @@ public class CadastroServlet extends HttpServlet {
             HttpSession session = request.getSession();
             LoginBean login = (LoginBean) session.getAttribute("logado");
             System.out.print("formNovoCliente session null");
-            if(action.equals("formNovoCliente")){ // ir de index.jsp para form de novo cliente
+            if(action.equals("formNovoCliente") || action.equals("")){ // ir de index.jsp para form de novo cliente
                 if(login == null){ // se usuário não estiver logado, enviar para form de novo cliente
                     List<EstadoBean> estados = EstadoFacade.buscarTodos();
                     request.setAttribute("estados", estados);
@@ -80,7 +75,7 @@ public class CadastroServlet extends HttpServlet {
                     if(!senha.equals(senhaConfirm)){
                         if(msg == "") msg = "Senhas não coincidem";
                     }else if(senha.length() <= 6){
-                        if(msg == "") msg = "Senhas deve ser maior que 6 caracteres";
+                        if(msg == "") msg = "Senha deve ser maior que 6 caracteres";
                     }
                     
                     cadastro.setLogin(request.getParameter("email"));
