@@ -21,20 +21,20 @@
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <c:choose>
-                    <c:when test="${sessionScope.logado.perfil == 1}">
+                    <c:when test="${sessionScope.logado.perfil.id == 1}">
                         <ul class="nav navbar-nav">
                             <li><a href="#">Novo Atendimento</a></li>
                             <li><a href="#">Meus Atendimentos</a></li>
                             <li><a href="#">Alterar Dados</a></li>
                         </ul>
                     </c:when>
-                    <c:when test="${sessionScope.logado.perfil == 2}">
+                    <c:when test="${sessionScope.logado.perfil.id == 2}">
                         <ul class="nav navbar-nav">
                             <li><a href="#">Atendimento</a></li>
                             <li><a href="#">Cadastros</a></li>
                         </ul>
                     </c:when>
-                    <c:when test="${sessionScope.logado.perfil == 3}">
+                    <c:when test="${sessionScope.logado.perfil.id == 3}">
                         <ul class="nav navbar-nav">
                             <li><a href="#">Atendimento</a></li>
                             <li><a href="#">Cadastrar Pessoas</a></li>

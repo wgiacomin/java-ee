@@ -1,9 +1,3 @@
-<%-- 
-    Document   : newjspindex
-    Created on : 08/07/2021, 09:34:11
-    Author     : nilo-
---%>
-
 <%@page errorPage="/erro.jsp" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
