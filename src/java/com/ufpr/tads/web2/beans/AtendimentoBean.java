@@ -12,6 +12,7 @@ public class AtendimentoBean implements Serializable {
     private LoginBean login;
     private StatusBean status;
     private TipoAtendimentoBean tipoAtendimento;
+	private ProdutoBean produto;
 
 	public AtendimentoBean() {
 	}
@@ -26,7 +27,6 @@ public class AtendimentoBean implements Serializable {
 		this.tipoAtendimento = tipoAtendimento;
 		this.produto = produto;
 	}
-    private ProdutoBean produto;
 
 	public int getId() {
 		return id;

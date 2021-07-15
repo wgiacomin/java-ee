@@ -1,9 +1,9 @@
 $(document).ready(function() {
     getCidades();
-    $("#cep").mask("99999999");
-    $("#cpf").mask("99999999999");
+    $("#cep").mask("99.999-999");
+    $("#cpf").mask("999.999.999-99");
     $("#nr").mask("9999");
-    $("#telefone").mask("00000000000");
+    $("#telefone").mask("(00)0 0000-0000");
     $("#uf").change(function() {
        getCidades();
     });

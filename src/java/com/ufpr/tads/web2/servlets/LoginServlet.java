@@ -42,6 +42,13 @@ public class LoginServlet extends HttpServlet {
 			throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
 
+		HttpSession session = request.getSession();
+		if (session.getAttribute("logado") != null) {
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/HomeServlet");
+			rd.forward(request, response); //redirecina para o index.jsp
+			return;
+		}
+		
 		try {
 			String login = (String) request.getAttribute("login");
 			String senha = (String) request.getAttribute("senha");
@@ -59,7 +66,6 @@ public class LoginServlet extends HttpServlet {
 			cadastro.setId(loginBean.getId());
 			cadastro = CadastroFacade.buscarBasico(cadastro);//busca cadastro dentro do banco de dados
 
-			HttpSession session = request.getSession();
 			session.setAttribute("logado", cadastro);//seta cadastro como atributo para escopo da sessão
 
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/HomeServlet");
