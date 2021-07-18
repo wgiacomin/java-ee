@@ -10,6 +10,7 @@ import com.ufpr.tads.web2.exceptions.CampoInvalidoException;
 import com.ufpr.tads.web2.exceptions.FacadeException;
 import com.ufpr.tads.web2.exceptions.RegistroComUsoException;
 import com.ufpr.tads.web2.exceptions.RegistroDuplicadoException;
+import com.ufpr.tads.web2.exceptions.RegistroInexistenteException;
 import com.ufpr.tads.web2.facade.CadastroFacade;
 import java.io.IOException;
 
@@ -26,7 +27,7 @@ import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "CadastroServlet", urlPatterns = {"/CadastroServlet"})
 public class CadastroServlet extends HttpServlet {
-
+    
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -110,13 +111,18 @@ public class CadastroServlet extends HttpServlet {
                     if (login != null) { // se usuário estiver logado, enviar para form de Alterar cliente
                         CadastroBean cadastro = new CadastroBean();
                         cadastro.setId(login.getId());
-                        cadastro = CadastroFacade.buscar(cadastro);
+                        try {
+                            cadastro = CadastroFacade.buscar(cadastro);
+                        } catch (RegistroInexistenteException ex) {
+                            RequestDispatcher rd = getServletContext().getRequestDispatcher("/LoginServlet");
+                            rd.forward(request, response);
+                        }
                         request.setAttribute("cadastro",cadastro);
                         RequestDispatcher rd = getServletContext().getRequestDispatcher("/altera_cli.jsp");
                         rd.forward(request, response);
                     }
-                    else { //se usuário não estiver logado, enviar para home
-                        RequestDispatcher rd = getServletContext().getRequestDispatcher("/HomeServlet");
+                    else { //se usuário não estiver logado
+                        RequestDispatcher rd = getServletContext().getRequestDispatcher("/LoginServlet");
                         rd.forward(request, response);
                     }
                     break;
@@ -169,7 +175,7 @@ public class CadastroServlet extends HttpServlet {
                         RequestDispatcher rd = getServletContext().getRequestDispatcher("/HomeServlet");
                         rd.forward(request, response);
                         
-                    } else { //se usuário não estiver logado, enviar para home
+                    } else { //se usuário não estiver logado, enviar para login
                         RequestDispatcher rd = getServletContext().getRequestDispatcher("/LoginServlet");
                         rd.forward(request, response);
                     }
@@ -241,5 +247,5 @@ public class CadastroServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-	
+    
 }
