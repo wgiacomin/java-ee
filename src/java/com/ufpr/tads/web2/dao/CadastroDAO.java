@@ -19,7 +19,7 @@ public class CadastroDAO implements DAOInterface<CadastroBean> {
     private static final String QUERY_BUSCAR_POR_PERFIL = "SELECT COUNT(*) FROM cadastro WHEHRE fk_perfil = ?;";
     private static final String QUERY_INSERIR = "INSERT INTO cadastro(fk_login, cpf, nome, email, rua, rua_numero, rua_complemento, bairro, cep, telefone, fk_cidade, fk_perfil) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
     private static final String QUERY_REMOVER = "DELETE FROM cadastro WHERE fk_login = ?;";
-    private static final String QUERY_EDITAR = "UPDATE cadastro SET cpf = ?, nome = ?, email = ?, rua = ?, rua_numero = ?, rua_complemento = ?, bairro = ?, cep = ?, telefone = ?, fk_cidade = ? WHERE fk_perfil = ?;";
+    private static final String QUERY_EDITAR = "UPDATE cadastro SET nome = ?, rua = ?, rua_numero = ?, rua_complemento = ?, bairro = ?, cep = ?, telefone = ?, fk_cidade = ? WHERE fk_perfil = ?;";
 
     private Connection con = null;
 
@@ -158,18 +158,16 @@ public class CadastroDAO implements DAOInterface<CadastroBean> {
     @Override
     public void editar(CadastroBean cadastro) throws DAOException {
         try (PreparedStatement st = con.prepareStatement(QUERY_EDITAR)) {
-            st.setString(1, cadastro.getCpf());
-            st.setString(2, cadastro.getNome());
-            st.setString(3, cadastro.getEmail());
-            st.setString(4, cadastro.getRua());
-            st.setInt(5, cadastro.getRuaNumero());
-            st.setString(6, cadastro.getRuaComplemento());
-            st.setString(7, cadastro.getBairro());
-            st.setString(8, cadastro.getCep());
-            st.setString(9, cadastro.getTelefone());
-            st.setInt(10, cadastro.getCidade().getId());
-            st.setInt(11, cadastro.getPerfil().getId());
-            st.setInt(12, cadastro.getId());
+            
+            st.setString(1, cadastro.getNome());
+            st.setString(2, cadastro.getRua());
+            st.setInt(3, cadastro.getRuaNumero());
+            st.setString(4, cadastro.getRuaComplemento());
+            st.setString(5, cadastro.getBairro());
+            st.setString(6, cadastro.getCep());
+            st.setString(7, cadastro.getTelefone());
+            st.setInt(8, cadastro.getCidade().getId());
+            st.setInt(9, cadastro.getPerfil().getId());
             st.executeUpdate();
         } catch (SQLException e) {
             throw new DAOException("Erro ao editar cadastro: "

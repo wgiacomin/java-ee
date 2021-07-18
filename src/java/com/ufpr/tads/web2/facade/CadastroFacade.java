@@ -95,6 +95,22 @@ public class CadastroFacade {
             throw new BeanInvalidoException();
         }
     }
+    public static void Editar(CadastroBean cadastro) throws FacadeException, RegistroInexistenteException, BeanInvalidoException, RegistroComUsoException {
+        try (ConnectionFactory factory = new ConnectionFactory()) {
+            CadastroDAO bd = new CadastroDAO(factory.getConnection());
+
+            CadastroBean aux = bd.buscar(cadastro);
+            if (aux == null) {
+                throw new RegistroInexistenteException();
+            }
+            bd.editar(cadastro);  
+        } catch (DAOException e) {
+            throw new FacadeException("Erro ao editar cadastro: ", e);
+        } catch (NullPointerException e) {
+            throw new BeanInvalidoException();
+        }
+    }
+
 
     public static void Remover(CadastroBean cadastro) throws FacadeException, RegistroInexistenteException, BeanInvalidoException, RegistroComUsoException {
         try (ConnectionFactory factory = new ConnectionFactory()) {
