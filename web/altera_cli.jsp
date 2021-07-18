@@ -25,15 +25,15 @@
                 <h1 class="mb-4 h-3 fw-normal ">Alterar Cliente</h1> 
                 <c:if test="${msg != null}">
                     <span class="alert alert-danger d-sm-inline-flex mb-3" role="alert">
-                           ${msg}
+                        <c:out value="${msg}"/>
                     </span></br> 
                 </c:if>
                 <div class="form-floating">
-                    <input type="text" class="form-control" id="nome" placeholder="Nome" name="nome" value="${cadastro.nome}" required>
+                    <input type="text" class="form-control" id="nome" placeholder="Nome" name="nome" value="<c:out value="${cadastro.nome}"/>" required>
                     <label for="nome">Nome</label>
                 </div>
                 <div class="form-floating">
-                    <input type="email" class="form-control" id="email" placeholder="Email" name="email" value="${cadastro.email}"  readonly>
+                    <input type="email" class="form-control" id="email" placeholder="Email" name="email" value="<c:out value="${cadastro.email}"/>"  readonly>
                     <label for="email">Email</label>
                 </div>
                 <div class="form-floating">
@@ -41,47 +41,47 @@
                     <label for="senha">Senha</label>
                 </div>
                 <div class="form-floating">
-                    <input type="password" class="form-control" id="senhaConfirm" placeholder="Confirme sua senha" name="senhaConfirm" value="${cadastro.senha}" required>
+                    <input type="password" class="form-control" id="senhaConfirm" placeholder="Confirme sua senha" name="senhaConfirm"  required>
                     <label for="senhaConfirm">Confirme sua senha</label>
                 </div>
                 <div class="form-floating">
-                    <input type="text" class="form-control" id="cpf" placeholder="CPF" name="cpf" value="${cadastro.cpf}"  readonly>
+                    <input type="text" class="form-control" id="cpf" placeholder="CPF" name="cpf" value="<c:out value="${cadastro.cpf}"/>"  readonly>
                     <label for="cpf">CPF</label>
                 </div>
                 <div class="form-floating">
-                    <input type="text" class="form-control" id="rua" placeholder="Rua" name="rua" value="${cadastro.rua}">
+                    <input type="text" class="form-control" id="rua" placeholder="Rua" name="rua" value="<c:out value="${cadastro.rua}"/>">
                     <label for="rua">Rua</label>
                 </div>
                 <div class="form-floating">
-                    <input type="text" class="form-control" id="nr" placeholder="Número da rua" name="nr" value="${cadastro.ruaNumero}">
+                    <input type="text" class="form-control" id="nr" placeholder="Número da rua" name="nr" value="<c:out value="${cadastro.ruaNumero}"/>">
                     <label for="nr">Número da rua</label>
                 </div>
                 <div class="form-floating">
-                    <input type="text" class="form-control" id="complemento" placeholder="Complemento" name="complemento" value="${cadastro.ruaComplemento}">
+                    <input type="text" class="form-control" id="complemento" placeholder="Complemento" name="complemento" value="<c:out value="${cadastro.ruaComplemento}"/>">
                     <label for="complemento">Complemento</label>
                 </div>
                 <div class="form-floating">
-                    <input type="text" class="form-control" id="bairro" placeholder="Bairro" name="bairro" value="${cadastro.bairro}">
+                    <input type="text" class="form-control" id="bairro" placeholder="Bairro" name="bairro" value="<c:out value="${cadastro.bairro}"/>">
                     <label for="bairro">Bairro</label>
                 </div>
                 <div class="form-floating">
-                    <input type="text" class="form-control" id="cep" placeholder="CEP" name="cep" value="${cadastro.cep}">
+                    <input type="text" class="form-control" id="cep" placeholder="CEP" name="cep" value="<c:out value="${cadastro.cep}"/>">
                     <label for="cep">CEP</label>
                 </div>
                     
                 <div class="form-floating">
-                    <input type="text" class="form-control" id="telefone" placeholder="Telefone" name="telefone" maxlength="9" value="${cadastro.telefone}">
+                    <input type="text" class="form-control" id="telefone" placeholder="Telefone" name="telefone" maxlength="9" value="<c:out value="${cadastro.telefone}"/>">
                     <label for="telefone">Telefone</label>
                 </div> 
                     
                 <div class="form-floating">
                     <select class="form-control" id="uf" placeholder="Estado" name="uf">
                         <c:forEach var="estado" items="${estados}">
-                            <option value="${estado.id}"
+                            <option value="<c:out value="${estado.id}"/>"
                                 <c:if test="${estado.id == cadastro.cidade.estado.id}">
                                   selected
                                 </c:if>
-                            >${estado.nome}</option>
+                            ><c:out value="${estado.nome}"/></option>
                         </c:forEach>
                     </select>
                 </div>
