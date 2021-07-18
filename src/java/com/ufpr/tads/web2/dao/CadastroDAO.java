@@ -158,6 +158,7 @@ public class CadastroDAO implements DAOInterface<CadastroBean> {
     @Override
     public void editar(CadastroBean cadastro) throws DAOException {
         try (PreparedStatement st = con.prepareStatement(QUERY_EDITAR)) {
+            
             st.setString(1, cadastro.getNome());
             st.setString(2, cadastro.getRua());
             st.setInt(3, cadastro.getRuaNumero());
@@ -167,7 +168,6 @@ public class CadastroDAO implements DAOInterface<CadastroBean> {
             st.setString(7, cadastro.getTelefone());
             st.setInt(8, cadastro.getCidade().getId());
             st.setInt(9, cadastro.getPerfil().getId());
-            st.setInt(10, cadastro.getId());
             st.executeUpdate();
         } catch (SQLException e) {
             throw new DAOException("Erro ao editar cadastro: "

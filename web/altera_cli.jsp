@@ -11,7 +11,7 @@
 <html class="h-100">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Novo cliente</title>
+        <title>Alterar Cliente</title>
         <link rel="stylesheet" href="css/login.css">
         <%@include file="bootstrap.jsp"%>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -35,6 +35,14 @@
                 <div class="form-floating">
                     <input type="email" class="form-control" id="email" placeholder="Email" name="email" value="${cadastro.email}"  readonly>
                     <label for="email">Email</label>
+                </div>
+                <div class="form-floating">
+                    <input type="password" class="form-control" id="senha" placeholder="Senha" name="senha" required>
+                    <label for="senha">Senha</label>
+                </div>
+                <div class="form-floating">
+                    <input type="password" class="form-control" id="senhaConfirm" placeholder="Confirme sua senha" name="senhaConfirm" value="${cadastro.senha}" required>
+                    <label for="senhaConfirm">Confirme sua senha</label>
                 </div>
                 <div class="form-floating">
                     <input type="text" class="form-control" id="cpf" placeholder="CPF" name="cpf" value="${cadastro.cpf}"  readonly>
@@ -62,7 +70,7 @@
                 </div>
                     
                 <div class="form-floating">
-                    <input type="text" class="form-control" id="telefone" placeholder="Telefone" name="telefone" value="${cadastro.telefone}">
+                    <input type="text" class="form-control" id="telefone" placeholder="Telefone" name="telefone" maxlength="9" value="${cadastro.telefone}">
                     <label for="telefone">Telefone</label>
                 </div> 
                     
@@ -85,7 +93,7 @@
                 
                 <input type="hidden" id="perfil" value="1" name="perfil">
                 
-                <input type="submit" value="Cadastrar" class="w-100 btn btn-lg btn-primary mt-3" />
+                <input type="submit" value="Alterar" class="w-100 btn btn-lg btn-primary mt-3" />
             </form>
         </div>
     </body>

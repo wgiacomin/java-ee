@@ -105,7 +105,7 @@ public class CadastroFacade {
             }
             bd.editar(cadastro);  
         } catch (DAOException e) {
-            throw new FacadeException("Erro ao deletar cadastros: ", e);
+            throw new FacadeException("Erro ao editar cadastro: ", e);
         } catch (NullPointerException e) {
             throw new BeanInvalidoException();
         }

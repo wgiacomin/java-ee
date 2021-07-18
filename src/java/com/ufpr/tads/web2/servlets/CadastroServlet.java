@@ -109,7 +109,10 @@ public class CadastroServlet extends HttpServlet {
                     break;
                 case "formAlterarCliente":
                     if (login != null) { // se usuário estiver logado, enviar para form de Alterar cliente
-                        
+                        CadastroBean cadastro = new CadastroBean();
+                        cadastro.setId(login.getId());
+                        cadastro = CadastroFacade.buscar(cadastro);
+                        request.setAttribute("cadastro",cadastro);
                         RequestDispatcher rd = getServletContext().getRequestDispatcher("/altera_cli.jsp");
                         rd.forward(request, response);
                     }
@@ -123,8 +126,7 @@ public class CadastroServlet extends HttpServlet {
                         CadastroBean cadastro = new CadastroBean();
                         String senha = request.getParameter("senha");
                         String senhaConfirm = request.getParameter("senhaConfirm");
-                        
-                        cadastro.setLogin(request.getParameter("email"));
+                        cadastro.setId(login.getId());
                         cadastro.setSenha(request.getParameter("senha"));
                         cadastro.setNome(request.getParameter("nome"));
                         cadastro.setRua(request.getParameter("rua"));
@@ -145,8 +147,6 @@ public class CadastroServlet extends HttpServlet {
                         perfilBean.setId(Integer.parseInt(request.getParameter("perfil")));
                         cadastro.setPerfil(perfilBean);
                         
-                        request.setAttribute("alterar", cadastro);
-                        
                         try {
                             cadastro.setRuaNumero(Integer.parseInt(request.getParameter("nr")));
                         } catch (NumberFormatException e) {
@@ -166,13 +166,12 @@ public class CadastroServlet extends HttpServlet {
                         
                         CadastroFacade.Editar(cadastro); //edita cliente no banco
                         
-                        request.setAttribute("login", cadastro.getLogin());
-                        request.setAttribute("senha", cadastro.getSenha());
-                        RequestDispatcher rd = getServletContext().getRequestDispatcher("/LoginServlet");
+                        
+                        RequestDispatcher rd = getServletContext().getRequestDispatcher("/HomeServlet");
                         rd.forward(request, response);
                         
-                    } else { //se usuário já estiver logado, enviar para home
-                        RequestDispatcher rd = getServletContext().getRequestDispatcher("/HomeServlet");
+                    } else { //se usuário não estiver logado, enviar para home
+                        RequestDispatcher rd = getServletContext().getRequestDispatcher("/LoginServlet");
                         rd.forward(request, response);
                     }
                     break;
