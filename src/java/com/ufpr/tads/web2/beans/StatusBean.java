@@ -1,7 +1,7 @@
 package com.ufpr.tads.web2.beans;
 
-
 public class StatusBean {
+
 	private int id;
 	private String descricao;
 
@@ -28,5 +28,5 @@ public class StatusBean {
 	public void setDescricao(String desc) {
 		this.descricao = desc;
 	}
-	
+
 }

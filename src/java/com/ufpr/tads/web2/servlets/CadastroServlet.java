@@ -10,11 +10,9 @@ import com.ufpr.tads.web2.exceptions.CampoInvalidoException;
 import com.ufpr.tads.web2.exceptions.FacadeException;
 import com.ufpr.tads.web2.exceptions.RegistroComUsoException;
 import com.ufpr.tads.web2.exceptions.RegistroDuplicadoException;
-import com.ufpr.tads.web2.exceptions.RegistroInexistenteException;
 import com.ufpr.tads.web2.facade.CadastroFacade;
-import com.ufpr.tads.web2.facade.EstadoFacade;
-import com.ufpr.tads.web2.facade.LoginFacade;
 import java.io.IOException;
+
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,6 +26,7 @@ import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "CadastroServlet", urlPatterns = {"/CadastroServlet"})
 public class CadastroServlet extends HttpServlet {
+
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -242,5 +241,5 @@ public class CadastroServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-    
+	
 }
