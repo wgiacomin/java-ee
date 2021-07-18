@@ -16,10 +16,9 @@ public class CreateLogins {
             query = con.createStatement();
 
             //Creating New Logins
-            query.executeUpdate("DELETE FROM login WHERE 1 = 1;");
             String sha256hex = DigestUtils.sha256Hex("123");
             query.executeUpdate("INSERT INTO login(id, login, senha) VALUES ("
-                    + "1, 'wgiacomin', '"
+                    + "2, 'nick', '"
                     + sha256hex + "');");
 
             System.out.println("Logins criados com sucesso.");
