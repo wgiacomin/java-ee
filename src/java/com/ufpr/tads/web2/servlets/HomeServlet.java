@@ -5,8 +5,10 @@
  */
 package com.ufpr.tads.web2.servlets;
 
+import com.ufpr.tads.web2.beans.AtendimentoBean;
 import com.ufpr.tads.web2.beans.CadastroBean;
 import com.ufpr.tads.web2.beans.StatusBean;
+import com.ufpr.tads.web2.beans.utils.AtendimentoShowGerente;
 import com.ufpr.tads.web2.exceptions.BeanInvalidoException;
 import com.ufpr.tads.web2.exceptions.FacadeException;
 import com.ufpr.tads.web2.exceptions.HomeServletException;
@@ -14,6 +16,7 @@ import com.ufpr.tads.web2.exceptions.OrdenacaoInvalidaException;
 import com.ufpr.tads.web2.facade.AtendimentoFacade;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -38,6 +41,7 @@ public class HomeServlet extends HttpServlet {
 			throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
 		RequestDispatcher rd;
+		List<AtendimentoBean> lista;
 
 		HttpSession session = request.getSession();
 		if (session.getAttribute("logado") == null) {
@@ -52,8 +56,8 @@ public class HomeServlet extends HttpServlet {
 		try {
 			switch (perfil) {
 				case 1:
-					ArrayList lista1 = (ArrayList) AtendimentoFacade.buscarTodosComFiltroPessoa(cadastro, "DESC");//busca atendimentos efetuados pelo cliente de forma decrescente por data
-					request.setAttribute("lista", lista1);
+					lista = AtendimentoFacade.buscarTodosComFiltroPessoa(cadastro, "DESC");//busca atendimentos efetuados pelo cliente de forma decrescente por data
+					request.setAttribute("lista", lista);
 
 					rd = getServletContext().getRequestDispatcher("/homeCliente.jsp");
 					rd.forward(request, response); //redirecina para o home 
@@ -61,19 +65,33 @@ public class HomeServlet extends HttpServlet {
 				case 2:
 					StatusBean status = new StatusBean(1, null);//status para atendimentos em aberto
 
-					ArrayList lista2 = (ArrayList) AtendimentoFacade.buscarTodosComFiltroStatus(status, cadastro, "ASC");//busca atendimento em aberto para funcionario ordenado de forma crescente por data
-					request.setAttribute("lista", lista2);
+					lista = AtendimentoFacade.buscarTodosComFiltroStatus(status, cadastro, "ASC");//busca atendimento em aberto para funcionario ordenado de forma crescente por data
+					request.setAttribute("lista", lista);
 
 					rd = getServletContext().getRequestDispatcher("/homeFuncionario.jsp");
 					rd.forward(request, response); //redirecina para o home 
 					break;
 				case 3:
-					ArrayList lista3 = (ArrayList) AtendimentoFacade.buscarTodos();
-					request.setAttribute("lista", lista3);
+					lista = AtendimentoFacade.buscarTodos();
+					
+					ArrayList<AtendimentoShowGerente> show = new ArrayList<>();
+					for (AtendimentoBean atendimento : lista) {
+						try {
+							show.get(atendimento.getTipoAtendimento().getId()).addAberto();
+							show.get(atendimento.getTipoAtendimento().getId()).addTotal();
+						} catch(Exception e) {
+							String tipo = atendimento.getTipoAtendimento().getDescricao();
+							AtendimentoShowGerente novo = new AtendimentoShowGerente(tipo);
+							show.add(atendimento.getTipoAtendimento().getId(),novo);
+						}
 
+					}
+					
+					request.setAttribute("lista", show);
 					rd = getServletContext().getRequestDispatcher("/homeGerente.jsp");
 					rd.forward(request, response); //redirecina para o home  					
 					break;
+
 				default:
 					throw new HomeServletException();
 			}
