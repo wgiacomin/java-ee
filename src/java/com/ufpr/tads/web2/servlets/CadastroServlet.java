@@ -57,12 +57,12 @@ public class CadastroServlet extends HttpServlet {
                         cadastro.setSenha(request.getParameter("senha"));
                         cadastro.setNome(request.getParameter("nome"));
                         cadastro.setEmail(request.getParameter("email"));
-                        cadastro.setCpf(request.getParameter("cpf"));
+                        cadastro.setCpf(request.getParameter("cpf").replaceAll("\\D+",""));
                         cadastro.setRua(request.getParameter("rua"));
                         cadastro.setRuaComplemento(request.getParameter("complemento"));
                         cadastro.setBairro(request.getParameter("bairro"));
-                        cadastro.setCep(request.getParameter("cep"));
-                        cadastro.setTelefone(request.getParameter("telefone"));
+                        cadastro.setCep(request.getParameter("cep").replaceAll("\\D+",""));
+                        cadastro.setTelefone(request.getParameter("telefone").replaceAll("\\D+",""));
                         
                         CidadeBean cidadeBean = new CidadeBean();
                         cidadeBean.setId(Integer.parseInt(request.getParameter("cidade")));
@@ -91,7 +91,7 @@ public class CadastroServlet extends HttpServlet {
                             msg = "Senhas não coincidem";
                             throw new CampoInvalidoException();
                         } else if (senha.length() <= 6) {
-                            msg = "Senhas deve ser maior que 6 caracteres";
+                            msg = "Senha deve ser maior que 6 caracteres";
                             throw new CampoInvalidoException();
                         }
                         
@@ -118,7 +118,7 @@ public class CadastroServlet extends HttpServlet {
                             rd.forward(request, response);
                         }
                         request.setAttribute("cadastro",cadastro);
-                        RequestDispatcher rd = getServletContext().getRequestDispatcher("/altera_cli.jsp");
+                        RequestDispatcher rd = getServletContext().getRequestDispatcher("/alterarCliente.jsp");
                         rd.forward(request, response);
                     }
                     else { //se usuário não estiver logado
@@ -129,16 +129,13 @@ public class CadastroServlet extends HttpServlet {
                 case "alterarCliente":
                     if (login != null) { // se usuário estiver logado, enviar para form de alterar cliente
                         CadastroBean cadastro = new CadastroBean();
-                        String senha = request.getParameter("senha");
-                        String senhaConfirm = request.getParameter("senhaConfirm");
                         cadastro.setId(login.getId());
-                        cadastro.setSenha(request.getParameter("senha"));
                         cadastro.setNome(request.getParameter("nome"));
                         cadastro.setRua(request.getParameter("rua"));
                         cadastro.setRuaComplemento(request.getParameter("complemento"));
                         cadastro.setBairro(request.getParameter("bairro"));
-                        cadastro.setCep(request.getParameter("cep"));
-                        cadastro.setTelefone(request.getParameter("telefone"));
+                        cadastro.setCep(request.getParameter("cep").replaceAll("\\D+",""));
+                        cadastro.setTelefone(request.getParameter("telefone").replaceAll("\\D+",""));
                         
                         CidadeBean cidadeBean = new CidadeBean();
                         cidadeBean.setId(Integer.parseInt(request.getParameter("cidade")));
@@ -146,11 +143,9 @@ public class CadastroServlet extends HttpServlet {
                         EstadoBean estadoBean = new EstadoBean();
                         estadoBean.setId(Integer.parseInt(request.getParameter("uf")));
                         cidadeBean.setEstado(estadoBean);
-                        
                         cadastro.setCidade(cidadeBean);
-                        PerfilBean perfilBean = new PerfilBean();
-                        perfilBean.setId(Integer.parseInt(request.getParameter("perfil")));
-                        cadastro.setPerfil(perfilBean);
+                        
+                        request.setAttribute("cadastro", cadastro);
                         
                         try {
                             cadastro.setRuaNumero(Integer.parseInt(request.getParameter("nr")));
@@ -161,16 +156,7 @@ public class CadastroServlet extends HttpServlet {
                         
                         request.setAttribute("cadastro", cadastro);
                         
-                        if (!senha.equals(senhaConfirm)) {
-                            msg = "Senhas não coincidem";
-                            throw new CampoInvalidoException();
-                        } else if (senha.length() <= 6) {
-                            msg = "Senhas deve ser maior que 6 caracteres";
-                            throw new CampoInvalidoException();
-                        }
-                        
                         CadastroFacade.Editar(cadastro); //edita cliente no banco
-                        
                         
                         RequestDispatcher rd = getServletContext().getRequestDispatcher("/HomeServlet");
                         rd.forward(request, response);
