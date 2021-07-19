@@ -46,7 +46,7 @@
                         </c:choose>
                     </div>
                     <div class="d-flex">
-                        <button class="btn btn-outline-danger">Sair</button>
+                        <a href="LogoutServlet"><button class="btn btn-outline-danger">Sair</button></a>
                     </div>
                 </div> 
             </nav>
