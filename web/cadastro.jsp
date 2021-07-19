@@ -11,8 +11,8 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
         <script type="text/javascript" src="jquery.maskedinput-1.1.4.pack.js"/></script>
-    <script src="js/validacaoCadastro.js"></script>
-</head>
+        <script src="js/validacaoCadastro.js"></script>
+    </head>
 <body class="text-center">  
     <div class="container">
         <form method="post" action="CadastroServlet?action=novoCliente" class="form-signin">
@@ -23,48 +23,48 @@
                 </span></br> 
             </c:if>
             <div class="form-floating">
-                <input type="text" class="form-control" id="nome" placeholder="Nome" name="nome" value="${cadastro.nome}" required>
+                <input type="text" class="form-control" id="nome" placeholder="Nome" name="nome" value="<c:out value="${cadastro.nome}"/>" required>
                 <label for="nome">Nome</label>
             </div>
             <div class="form-floating">
-                <input type="email" class="form-control" id="email" placeholder="Email" name="email" value="${cadastro.email}" required>
+                <input type="email" class="form-control" id="email" placeholder="Email" name="email" value="<c:out value="${cadastro.email}"/>" required>
                 <label for="email">Email</label>
             </div>
             <div class="form-floating">
-                <input type="password" class="form-control" id="senha" placeholder="Senha" name="senha" value="${cadastro.senha}" required>
+                <input type="password" class="form-control" id="senha" placeholder="Senha" name="senha" value="<c:out value="${cadastro.senha}"/>" required>
                 <label for="senha">Senha</label>
             </div>
             <div class="form-floating">
-                <input type="password" class="form-control" id="senhaConfirm" placeholder="Confirme sua senha" name="senhaConfirm" value="${cadastro.senha}" required>
+                <input type="password" class="form-control" id="senhaConfirm" placeholder="Confirme sua senha" name="senhaConfirm" value="<c:out value="${cadastro.senha}"/>" required>
                 <label for="senhaConfirm">Confirme sua senha</label>
             </div>
             <div class="form-floating">
-                <input type="text" class="form-control" id="cpf" placeholder="CPF" name="cpf" value="${cadastro.cpf}">
+                <input type="text" class="form-control" id="cpf" placeholder="CPF" name="cpf" value="<c:out value="${cadastro.cpf}"/>">
                 <label for="cpf">CPF</label>
             </div>
             <div class="form-floating">
-                <input type="text" class="form-control" id="rua" placeholder="Rua" name="rua" value="${cadastro.rua}">
+                <input type="text" class="form-control" id="rua" placeholder="Rua" name="rua" value="<c:out value="${cadastro.rua}"/>">
                 <label for="rua">Rua</label>
             </div>
             <div class="form-floating">
-                <input type="text" class="form-control" id="nr" placeholder="Número da rua" name="nr" value="${cadastro.ruaNumero}">
+                <input type="text" class="form-control" id="nr" placeholder="Número da rua" name="nr" value="<c:out value="${cadastro.ruaNumero}"/>">
                 <label for="nr">Número da rua</label>
             </div>
             <div class="form-floating">
-                <input type="text" class="form-control" id="complemento" placeholder="Complemento" name="complemento" value="${cadastro.ruaComplemento}">
+                <input type="text" class="form-control" id="complemento" placeholder="Complemento" name="complemento" value="<c:out value="${cadastro.ruaComplemento}"/>">
                 <label for="complemento">Complemento</label>
             </div>
             <div class="form-floating">
-                <input type="text" class="form-control" id="bairro" placeholder="Bairro" name="bairro" value="${cadastro.bairro}">
+                <input type="text" class="form-control" id="bairro" placeholder="Bairro" name="bairro" value="<c:out value="${cadastro.bairro}"/>">
                 <label for="bairro">Bairro</label>
             </div>
             <div class="form-floating">
-                <input type="text" class="form-control" id="cep" placeholder="CEP" name="cep" value="${cadastro.cep}">
+                <input type="text" class="form-control" id="cep" placeholder="CEP" name="cep" value="<c:out value="${cadastro.cep}"/>">
                 <label for="cep">CEP</label>
             </div>
 
             <div class="form-floating">
-                <input type="text" class="form-control" id="telefone" placeholder="Telefone" name="telefone" value="${cadastro.telefone}">
+                <input type="text" class="form-control" id="telefone" placeholder="Telefone" name="telefone" value="<c:out value="${cadastro.telefone}"/>">
                 <label for="telefone">Telefone</label>
             </div> 
 

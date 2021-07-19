@@ -57,12 +57,12 @@ public class CadastroServlet extends HttpServlet {
                         cadastro.setSenha(request.getParameter("senha"));
                         cadastro.setNome(request.getParameter("nome"));
                         cadastro.setEmail(request.getParameter("email"));
-                        cadastro.setCpf(request.getParameter("cpf"));
+                        cadastro.setCpf(request.getParameter("cpf").replaceAll("\\D+",""));
                         cadastro.setRua(request.getParameter("rua"));
                         cadastro.setRuaComplemento(request.getParameter("complemento"));
                         cadastro.setBairro(request.getParameter("bairro"));
-                        cadastro.setCep(request.getParameter("cep"));
-                        cadastro.setTelefone(request.getParameter("telefone"));
+                        cadastro.setCep(request.getParameter("cep").replaceAll("\\D+",""));
+                        cadastro.setTelefone(request.getParameter("telefone").replaceAll("\\D+",""));
                         
                         CidadeBean cidadeBean = new CidadeBean();
                         cidadeBean.setId(Integer.parseInt(request.getParameter("cidade")));
