@@ -91,7 +91,7 @@ public class CadastroServlet extends HttpServlet {
                             msg = "Senhas não coincidem";
                             throw new CampoInvalidoException();
                         } else if (senha.length() <= 6) {
-                            msg = "Senhas deve ser maior que 6 caracteres";
+                            msg = "Senha deve ser maior que 6 caracteres";
                             throw new CampoInvalidoException();
                         }
                         
