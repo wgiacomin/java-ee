@@ -24,7 +24,7 @@
         <tbody>        
             <c:forEach var="a" varStatus="i" items="${lista}" >                        
                 <tr>
-                    <th scope="row">${i.count}</th>
+                    <th scope="row"><c:out value="${i.count}"/></th>
                     <td><c:out value="${a.tipo}"/></td>
                     <td><c:out value="${a.aberto}"/></td>
                     <td><c:out value="${a.total}"/></td>
