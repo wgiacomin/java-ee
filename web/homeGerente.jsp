@@ -1,24 +1,35 @@
 <%@include file="utils/header.jsp" %>
-<div class="container m-5">
-
-    <div class="container mb-2">
+    <div class="container mb-3">
         <p>Atendimentos efetuados:</p>
         <span>${total-aberto}</span>
     </div>
-    <div class="container mb-2">
+    <div class="container mb-3">
         <p>Atendimentos em aberto:</p>
         <span>${aberto}</span>
     </div>
-    <div class="container mb-2"
-        <p>Porcentagem de atendimentos em aberto</p>
+    <div class="container mb-3"
+         <p>Porcentagem de atendimentos em aberto:</p>
         <span>${(aberto/total)*100}%</span>
     </div>
 
-    <c:forEach var="a" varStatus="i" items="${show}">                        
-        <div class="container">
-            <p>${a.tipo}</p>
-            <span>${a.aberto}/${a.total}</span>
-        </div>
-    </c:forEach>
-</div>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Tipo Atendimento</th>
+                <th scope="col">Aberto</th>
+                <th scope="col">Total</th>
+            </tr>
+        </thead>
+        <tbody>        
+            <c:forEach var="a" varStatus="i" items="${lista}" >                        
+                <tr>
+                    <th scope="row">${i.count}</th>
+                    <td><c:out value="${a.tipo}"/></td>
+                    <td><c:out value="${a.aberto}"/></td>
+                    <td><c:out value="${a.total}"/></td>
+                </tr>
+            </c:forEach>
+        </tbody>
+    </table>
 <%@include file="utils/footer.jsp" %>
