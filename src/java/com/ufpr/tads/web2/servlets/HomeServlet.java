@@ -90,6 +90,7 @@ public class HomeServlet extends HttpServlet {
 							String tipo = atendimento.getTipoAtendimento().getDescricao();
 							AtendimentoShowGerente novo = new AtendimentoShowGerente(tipo);
 							if (atendimento.getTipoAtendimento().getId() == 1) {
+								novo.addAberto();
 								aberto++;
 							}
 							show.add(novo);

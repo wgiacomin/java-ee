@@ -10,7 +10,7 @@ import java.io.Serializable;
 
 public class AtendimentoShowGerente implements Serializable {
 	private String tipo = null;
-	private int aberto = 1;
+	private int aberto = 0;
 	private int total = 1;
 
 	public AtendimentoShowGerente(String tipo) {
