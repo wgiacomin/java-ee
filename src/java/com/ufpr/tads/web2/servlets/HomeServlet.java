@@ -15,6 +15,7 @@ import com.ufpr.tads.web2.exceptions.HomeServletException;
 import com.ufpr.tads.web2.exceptions.OrdenacaoInvalidaException;
 import com.ufpr.tads.web2.facade.AtendimentoFacade;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
@@ -74,10 +75,10 @@ public class HomeServlet extends HttpServlet {
 				case 3:
 					lista = AtendimentoFacade.buscarTodos();
 
-					HashMap<String, AtendimentoShowGerente> show = new HashMap<>();
+					HashMap<String, AtendimentoShowGerente> map = new HashMap<String, AtendimentoShowGerente>();
 					int aberto = 0;
 					for (AtendimentoBean atendimento : lista) {
-						AtendimentoShowGerente index = show.get(atendimento.getTipoAtendimento().getDescricao());
+						AtendimentoShowGerente index = map.get(atendimento.getTipoAtendimento().getDescricao());
 						if (index != null) {
 							index.addAberto();
 							aberto++;
@@ -89,9 +90,11 @@ public class HomeServlet extends HttpServlet {
 								novo.addAberto();
 								aberto++;
 							}
-							show.put(novo.getTipo(),novo);
+							map.put(novo.getTipo(),novo);
 						}
 					}
+					ArrayList<AtendimentoShowGerente> show = new ArrayList<>(map.values());
+					
 					request.setAttribute("aberto", aberto);
 					request.setAttribute("total", lista.size());
 					request.setAttribute("lista", show);
