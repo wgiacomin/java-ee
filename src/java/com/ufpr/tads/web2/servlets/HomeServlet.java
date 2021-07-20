@@ -73,20 +73,32 @@ public class HomeServlet extends HttpServlet {
 					break;
 				case 3:
 					lista = AtendimentoFacade.buscarTodos();
-					
+
 					ArrayList<AtendimentoShowGerente> show = new ArrayList<>();
+					int total = 0;
+					int aberto = 0;
 					for (AtendimentoBean atendimento : lista) {
 						try {
-							show.get(atendimento.getTipoAtendimento().getId()).addAberto();
-							show.get(atendimento.getTipoAtendimento().getId()).addTotal();
-						} catch(Exception e) {
+							int index = show.indexOf(atendimento.getTipoAtendimento().getDescricao());
+							if (atendimento.getTipoAtendimento().getId() == 1) {
+								show.get(index).addAberto();
+								aberto++;
+							}
+							show.get(index).addTotal();
+							total++;
+						} catch (IndexOutOfBoundsException e) {
 							String tipo = atendimento.getTipoAtendimento().getDescricao();
 							AtendimentoShowGerente novo = new AtendimentoShowGerente(tipo);
-							show.add(atendimento.getTipoAtendimento().getId(),novo);
+							if (atendimento.getTipoAtendimento().getId() == 1) {
+								aberto++;
+							}
+							show.add(novo);
+							total++;
 						}
-
 					}
 					
+					request.setAttribute("aberto", aberto);
+					request.setAttribute("total", total);
 					request.setAttribute("lista", show);
 					rd = getServletContext().getRequestDispatcher("/homeGerente.jsp");
 					rd.forward(request, response); //redirecina para o home  					

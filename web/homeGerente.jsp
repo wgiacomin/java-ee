@@ -1,27 +1,24 @@
 <%@include file="utils/header.jsp" %>
 <div class="container m-5">
-    <c:set var="total" value="0"/> 
-    <c:set var="aberto" value="0"/>
 
-    <c:forEach var="a" varStatus="i" items="${show}">                        
-        <c:set var="total" value="${total+a.total}"/> 
-        <c:set var="aberto" value="${aberto+a.aberto}"/> 
-    </c:forEach>
-
-    <div class="container">
+    <div class="container mb-2">
         <p>Atendimentos efetuados:</p>
-        <input value="${total-aberto}">
+        <span>${total-aberto}</span>
     </div>
-    <div class="container">
+    <div class="container mb-2">
         <p>Atendimentos em aberto:</p>
-        <input value="${aberto}">
-        <input value="${aberto/total*100}">
+        <span>${aberto}</span>
+    </div>
+    <div class="container mb-2"
+        <p>Porcentagem de atendimentos em aberto</p>
+        <span>${(aberto/total)*100}%</span>
     </div>
 
     <c:forEach var="a" varStatus="i" items="${show}">                        
         <div class="container">
             <p>${a.tipo}</p>
-            <input value="${a.aberto}/${a.total}">
+            <span>${a.aberto}/${a.total}</span>
         </div>
     </c:forEach>
-    <%@include file="utils/footer.jsp" %>
+</div>
+<%@include file="utils/footer.jsp" %>
