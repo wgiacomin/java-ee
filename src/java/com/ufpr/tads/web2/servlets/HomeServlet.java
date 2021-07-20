@@ -79,7 +79,10 @@ public class HomeServlet extends HttpServlet {
 					int aberto = 0;
 					for (AtendimentoBean atendimento : lista) {
 						int index = show.indexOf(atendimento.getTipoAtendimento().getDescricao());
-						if (index < 0) {
+						if (index > 0) {
+							show.get(index).addAberto();
+							aberto++;
+						} else {
 							String tipo = atendimento.getTipoAtendimento().getDescricao();
 							AtendimentoShowGerente novo = new AtendimentoShowGerente(tipo);
 							if (atendimento.getTipoAtendimento().getId() == 1) {
@@ -87,9 +90,6 @@ public class HomeServlet extends HttpServlet {
 								aberto++;
 							}
 							show.add(novo);
-						} else if (atendimento.getTipoAtendimento().getId() == 1) {
-							show.get(index).addAberto();
-							aberto++;
 						}
 						show.get(index).addTotal();
 						total++;
