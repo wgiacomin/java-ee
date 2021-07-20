@@ -19,7 +19,7 @@
                     </span></br> 
                 </c:if>
                 <div class="form-floating">
-                    <input type="email" class="form-control" id="floatingInput" placeholder="Email" name="login">
+                    <input class="form-control" id="floatingInput" placeholder="Email" name="login">
                     <label for="floatingInput">Email</label>
                 </div>
                 <div class="form-floating mb-4">
