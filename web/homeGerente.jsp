@@ -1,15 +1,15 @@
 <%@include file="utils/header.jsp" %>
     <div class="container mb-3">
         <p>Atendimentos efetuados:</p>
-        <span>${total-aberto}</span>
+        <span><c:out value="${total-aberto}"/></span>
     </div>
     <div class="container mb-3">
         <p>Atendimentos em aberto:</p>
-        <span>${aberto}</span>
+        <span><c:out value="${aberto}"/></span>
     </div>
-    <div class="container mb-3"
+    <div class="container mb-3">
          <p>Porcentagem de atendimentos em aberto:</p>
-        <span>${(aberto/total)*100}%</span>
+         <span><c:out value="${(aberto/total)*100}%"/></span>
     </div>
 
     <table class="table table-hover">
