@@ -78,15 +78,8 @@ public class HomeServlet extends HttpServlet {
 					int total = 0;
 					int aberto = 0;
 					for (AtendimentoBean atendimento : lista) {
-						try {
-							int index = show.indexOf(atendimento.getTipoAtendimento().getDescricao());
-							if (atendimento.getTipoAtendimento().getId() == 1) {
-								show.get(index).addAberto();
-								aberto++;
-							}
-							show.get(index).addTotal();
-							total++;
-						} catch (IndexOutOfBoundsException e) {
+						int index = show.indexOf(atendimento.getTipoAtendimento().getDescricao());
+						if (index < 0) {
 							String tipo = atendimento.getTipoAtendimento().getDescricao();
 							AtendimentoShowGerente novo = new AtendimentoShowGerente(tipo);
 							if (atendimento.getTipoAtendimento().getId() == 1) {
@@ -94,10 +87,13 @@ public class HomeServlet extends HttpServlet {
 								aberto++;
 							}
 							show.add(novo);
-							total++;
+						} else if (atendimento.getTipoAtendimento().getId() == 1) {
+							show.get(index).addAberto();
+							aberto++;
 						}
+						show.get(index).addTotal();
+						total++;
 					}
-					
 					request.setAttribute("aberto", aberto);
 					request.setAttribute("total", total);
 					request.setAttribute("lista", show);
@@ -118,7 +114,7 @@ public class HomeServlet extends HttpServlet {
 		}
 	}
 
-	// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 	/**
 	 * Handles the HTTP <code>GET</code> method.
 	 *
