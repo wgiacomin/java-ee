@@ -26,19 +26,19 @@
                             <c:when test="${sessionScope.logado.perfil.id == 1}">
                                 <ul class="navbar-nav me-auto mb-2 mb-md-0">
                                     <li class="nav-item "><a href="#" class="nav-link active">Novo Atendimento</a></li>
-                                    <li class="nav-item"><a href="#" class="nav-link active">Meus Atendimentos</a></li>
+                                    <li class="nav-item"><a href="HomeServlet" class="nav-link active">Meus Atendimentos</a></li>
                                     <li class="nav-item"><a href="CadastroServlet?action=formAlterarCliente" class="nav-link active">Alterar Dados</a></li>
                                 </ul>
                             </c:when>
                             <c:when test="${sessionScope.logado.perfil.id == 2}">
                                 <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                                    <li class="nav-item"><a href="#" class="nav-link active">Atendimento</a></li>
+                                    <li class="nav-item"><a href="HomeServlet" class="nav-link active">Atendimento</a></li>
                                     <li class="nav-item"><a href="#" class="nav-link active">Cadastros</a></li>
                                 </ul>
                             </c:when>
                             <c:when test="${sessionScope.logado.perfil.id == 3}">
                                 <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                                    <li class="nav-item"><a href="#" class="nav-link active">Atendimento</a></li>
+                                    <li class="nav-item"><a href="HomeServlet" class="nav-link active">Atendimentos</a></li>
                                     <li class="nav-item"><a href="#" class="nav-link active">Cadastrar Pessoas</a></li>
                                     <li class="nav-item"><a href="#" class="nav-link active">Relatórios</a></li>
                                 </ul>

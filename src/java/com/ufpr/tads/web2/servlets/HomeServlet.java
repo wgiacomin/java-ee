@@ -101,7 +101,6 @@ public class HomeServlet extends HttpServlet {
 					rd = getServletContext().getRequestDispatcher("/homeGerente.jsp");
 					rd.forward(request, response); //redirecina para o home  					
 					break;
-
 				default:
 					throw new HomeServletException();
 			}
