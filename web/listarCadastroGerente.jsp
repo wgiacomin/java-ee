@@ -2,8 +2,7 @@
 <div class="container my-2">
     <a href="#" class="btn btn-outline-success">Novo</a>
     <select class="form-select mx-3 d-inline w-auto" id="cadastros">
-        <option selected>Selecionar Cadastros</option>
-        <option value="1">Gerente e Funcionario</option>
+        <option value="1" selected>Gerente e Funcionario</option>
         <option value="3">Gerente</option>
         <option value="2">Funcionario</option>
     </select></div>
