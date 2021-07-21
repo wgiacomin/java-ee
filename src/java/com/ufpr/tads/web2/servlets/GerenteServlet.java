@@ -53,18 +53,20 @@ public class GerenteServlet extends HttpServlet {
 		}
 
 		try {
-			switch (action) {
-				case "listar":
-				default:
-					perfil = new PerfilBean(2, null);
-					lista = CadastroFacade.buscarTodosPorPerfil(perfil);
-					perfil.setId(3);
-					lista.addAll(CadastroFacade.buscarTodosPorPerfil(perfil));
-					
-					request.setAttribute("lista", lista);
-					rd = getServletContext().getRequestDispatcher("/listarCadastroGerente.jsp");
-					rd.forward(request, response);
-					break;
+			if (action == null || action.equals("listar")) {
+				perfil = new PerfilBean(2, null);
+				lista = CadastroFacade.buscarTodosPorPerfil(perfil);
+				perfil.setId(3);
+				lista.addAll(CadastroFacade.buscarTodosPorPerfil(perfil));
+
+				request.setAttribute("lista", lista);
+				rd = getServletContext().getRequestDispatcher("/listarCadastroGerente.jsp");
+				rd.forward(request, response);
+			} else {
+				switch (action) {
+
+					default:
+				}
 			}
 		} catch (BeanInvalidoException | FacadeException e) {
 			rd = getServletContext().getRequestDispatcher("/erro.jsp");
@@ -74,7 +76,7 @@ public class GerenteServlet extends HttpServlet {
 
 			rd.forward(request, response); //redireciona para erro.jsp
 
-		} 
+		}
 	}
 
 	// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -1,5 +1,12 @@
 <%@include file="utils/header.jsp" %>
-
+<div class="container my-2">
+    <a href="#" class="btn btn-outline-success">Novo</a>
+    <select class="form-select mx-3 d-inline w-auto" id="cadastros">
+        <option selected>Selecionar Cadastros</option>
+        <option value="1">Gerente e Funcionario</option>
+        <option value="3">Gerente</option>
+        <option value="2">Funcionario</option>
+    </select></div>
 <table class="table table-hoverS">
     <thead>
         <tr>
@@ -17,7 +24,7 @@
             <tr>
                 <th scope="row"><c:out value="${i.count}"/></th>
                 <td><c:out value="${c.nome}"/></td>
-                <td class="cpf" id="cpf"><c:out value="${c.cpf}"/></td>
+                <td class="cpf"><c:out value="${c.cpf}"/></td>
                 <td><c:out value="${c.email}"/></td>
                 <td class="text-center">
                     <a href="GerenteServlet?id=${c.id}&action=show">
@@ -39,7 +46,7 @@
                     </a>
                 </td>
                 <td class="text-center">
-                    <a href="GerenteServlet?id=${c.id}&action=remove" onclick="return confirm('Deseja mesmo deletar este usuário?');">
+                    <a href="GerenteServlet?id=${c.id}&action=remove" id="excluir">
                         <button type="button" class="btn btn-outline-danger">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                                 <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
@@ -52,4 +59,25 @@
         </c:forEach>
     </tbody>
 </table>
+
+<script src="js/gerente.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".cpf").mask("000.000.000-00");
+    });
+    $('#excluir').click(function excluir(e) {
+        var id = $("#excluir").attr("href").replace(/[^\d.]/g, '');
+        id = parseInt(id);
+        if (id !== ${sessionScope.logado.id}) {
+             return confirm('Você deseja excluir este usuário?');
+        } else {
+            alert('Você não pode remover-se.');
+            e.preventDefault();
+            $('#excluir').empty();
+            $('#excluir').replaceWith('<span class="text-secondary">Desabilitado</span>');
+            return false;
+        }
+    });
+
+</script>
 <%@include file="utils/footer.jsp" %>
