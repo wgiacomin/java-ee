@@ -5,7 +5,11 @@
  */
 package com.ufpr.tads.web2.servlets;
 
-import com.ufpr.tads.web2.beans.AtendimentoBean;
+import com.ufpr.tads.web2.beans.CadastroBean;
+import com.ufpr.tads.web2.beans.PerfilBean;
+import com.ufpr.tads.web2.exceptions.BeanInvalidoException;
+import com.ufpr.tads.web2.exceptions.FacadeException;
+import com.ufpr.tads.web2.facade.CadastroFacade;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
@@ -36,8 +40,10 @@ public class GerenteServlet extends HttpServlet {
 			throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
 		RequestDispatcher rd;
-		List<AtendimentoBean> lista;
-		
+		List<CadastroBean> lista;
+		PerfilBean perfil;
+		String action = request.getParameter("action");
+
 		HttpSession session = request.getSession();
 		if (session.getAttribute("logado") == null) {
 			rd = getServletContext().getRequestDispatcher("/index.jsp");
@@ -45,6 +51,30 @@ public class GerenteServlet extends HttpServlet {
 			rd.forward(request, response); //redirecina para o index.jsp
 			return;
 		}
+
+		try {
+			switch (action) {
+				case "listar":
+				default:
+					perfil = new PerfilBean(2, null);
+					lista = CadastroFacade.buscarTodosPorPerfil(perfil);
+					perfil.setId(3);
+					lista.addAll(CadastroFacade.buscarTodosPorPerfil(perfil));
+					
+					request.setAttribute("lista", lista);
+					rd = getServletContext().getRequestDispatcher("/listarCadastroGerente.jsp");
+					rd.forward(request, response);
+					break;
+			}
+		} catch (BeanInvalidoException | FacadeException e) {
+			rd = getServletContext().getRequestDispatcher("/erro.jsp");
+			request.setAttribute("javax.servlet.jsp.jspException", e);
+			request.setAttribute("javax.servlet.error.status_code", 500);
+			request.setAttribute("page", "index.jsp");
+
+			rd.forward(request, response); //redireciona para erro.jsp
+
+		} 
 	}
 
 	// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
