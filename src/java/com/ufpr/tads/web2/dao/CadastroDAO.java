@@ -16,6 +16,7 @@ public class CadastroDAO implements DAOInterface<CadastroBean> {
 
     private static final String QUERY_BUSCAR = "SELECT fk_login, cpf, nome, email, rua, rua_numero, rua_complemento, bairro, cep, telefone, fk_cidade, fk_perfil FROM cadastro WHERE fk_login = ?;";
     private static final String QUERY_BUSCAR_TODOS = "SELECT fk_login, cpf, nome, email, rua, rua_numero, rua_complemento, bairro, cep, telefone, fk_cidade, fk_perfil FROM cadastro;";
+    private static final String QUERY_BUSCAR_TODOS_POR_PERFIL = "SELECT fk_login, cpf, nome, email, rua, rua_numero, rua_complemento, bairro, cep, telefone, fk_cidade, fk_perfil FROM cadastro WHERE fk_perfil = ?;;";
     private static final String QUERY_BUSCAR_POR_PERFIL = "SELECT COUNT(*) FROM cadastro WHERE fk_perfil = ?;";
     private static final String QUERY_INSERIR = "INSERT INTO cadastro(fk_login, cpf, nome, email, rua, rua_numero, rua_complemento, bairro, cep, telefone, fk_cidade, fk_perfil) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
     private static final String QUERY_REMOVER = "DELETE FROM cadastro WHERE fk_login = ?;";
@@ -122,6 +123,22 @@ public class CadastroDAO implements DAOInterface<CadastroBean> {
         }
     }
 
+    public List<CadastroBean> buscarTodosPorPerfil(PerfilBean perfil) throws DAOException {
+        List<CadastroBean> lista = new ArrayList<>();
+        try (PreparedStatement st = con.prepareStatement(QUERY_BUSCAR_TODOS_POR_PERFIL)) {
+            st.setInt(1, perfil.getId());
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                lista.add(extrairCadastro(rs));
+            }
+            return lista;
+        } catch (SQLException e) {
+            throw new DAOException("Erro buscando todas os cadastros por perfil: "
+                    + QUERY_BUSCAR_TODOS_POR_PERFIL, e);
+
+        }
+    }
+
     @Override
     public void inserir(CadastroBean cadastro) throws DAOException {
         try (PreparedStatement st = con.prepareStatement(QUERY_INSERIR)) {
@@ -157,8 +174,8 @@ public class CadastroDAO implements DAOInterface<CadastroBean> {
 
     @Override
     public void editar(CadastroBean cadastro) throws DAOException {
-        try (PreparedStatement st = con.prepareStatement(QUERY_EDITAR)) { 
-            
+        try (PreparedStatement st = con.prepareStatement(QUERY_EDITAR)) {
+
             st.setString(1, cadastro.getNome());
             st.setString(2, cadastro.getRua());
             st.setInt(3, cadastro.getRuaNumero());

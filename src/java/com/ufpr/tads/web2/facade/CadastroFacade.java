@@ -2,6 +2,7 @@ package com.ufpr.tads.web2.facade;
 
 import com.ufpr.tads.web2.beans.CadastroBean;
 import com.ufpr.tads.web2.beans.LoginBean;
+import com.ufpr.tads.web2.beans.PerfilBean;
 import com.ufpr.tads.web2.dao.AtendimentoDAO;
 import com.ufpr.tads.web2.dao.CadastroDAO;
 import com.ufpr.tads.web2.dao.CidadeDAO;
@@ -73,13 +74,25 @@ public class CadastroFacade {
         }
     }
 
+    public static List<CadastroBean> buscarTodosPorPerfil(PerfilBean perfil) throws FacadeException, BeanInvalidoException {
+        try (ConnectionFactory factory = new ConnectionFactory()) {
+            CadastroDAO bd = new CadastroDAO(factory.getConnection());
+            List<CadastroBean> cadastros = bd.buscarTodosPorPerfil(perfil);
+            return cadastros;
+        } catch (DAOException e) {
+            throw new FacadeException("Erro ao buscar todos os cadastros por perfil: ", e);
+        } catch (NullPointerException e) {
+            throw new BeanInvalidoException();
+        }
+    }
+
     public static void Inserir(CadastroBean cadastro) throws FacadeException, BeanInvalidoException, RegistroDuplicadoException {
         try (ConnectionFactory factory = new ConnectionFactory()) {
             CadastroDAO bd = new CadastroDAO(factory.getConnection());
             LoginDAO lbd = new LoginDAO(factory.getConnection());
             LoginBean login = (LoginBean) cadastro;
             login = lbd.buscarLogin(login);
-            
+
             if (login != null) {
                 throw new RegistroDuplicadoException();
             }
@@ -95,6 +108,7 @@ public class CadastroFacade {
             throw new BeanInvalidoException();
         }
     }
+
     public static void Editar(CadastroBean cadastro) throws FacadeException, RegistroInexistenteException, BeanInvalidoException, RegistroComUsoException {
         try (ConnectionFactory factory = new ConnectionFactory()) {
             CadastroDAO bd = new CadastroDAO(factory.getConnection());
@@ -103,14 +117,13 @@ public class CadastroFacade {
             if (aux == null) {
                 throw new RegistroInexistenteException();
             }
-            bd.editar(cadastro);  
+            bd.editar(cadastro);
         } catch (DAOException e) {
             throw new FacadeException("Erro ao editar cadastro: ", e);
         } catch (NullPointerException e) {
             throw new BeanInvalidoException();
         }
     }
-
 
     public static void Remover(CadastroBean cadastro) throws FacadeException, RegistroInexistenteException, BeanInvalidoException, RegistroComUsoException {
         try (ConnectionFactory factory = new ConnectionFactory()) {
