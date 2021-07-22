@@ -1,11 +1,15 @@
 <%@include file="utils/header.jsp" %>
 <div class="container my-2">
     <a href="#" class="btn btn-outline-success">Novo</a>
-    <select class="form-select mx-3 d-inline w-auto" id="cadastros">
-        <option value="1" selected>Gerente e Funcionario</option>
-        <option value="3">Gerente</option>
-        <option value="2">Funcionario</option>
-    </select></div>
+    <div class="input-group mx-3 d-inline-flex w-auto">
+        <label class="input-group-text" for="cadastros">Cadastros</label>
+        <select class="form-select" id="cadastros">
+            <option value="1" selected="">Gerente e Funcionario</option>
+            <option value="3">Gerente</option>
+            <option value="2">Funcionario</option>
+        </select>
+    </div>
+</div>
 <table class="table table-hoverS">
     <thead>
         <tr>
@@ -23,7 +27,7 @@
             <tr>
                 <th scope="row"><c:out value="${i.count}"/></th>
                 <td><c:out value="${c.nome}"/></td>
-                <td class="cpf"><c:out value="${c.cpf}"/></td>
+                <td class="cpf"><c:out value="${c.cpfFormatado}"/></td>
                 <td><c:out value="${c.email}"/></td>
                 <td class="text-center">
                     <a href="GerenteServlet?id=${c.id}&action=show">
@@ -106,7 +110,7 @@
                 $("table tbody").empty();
                 $.each(data, function (i, obj) {
                     $("#cadastros-table").append(
-                            '<tr><th scope="row">1</th>' +
+                            '<tr><th scope="row">'+i+1+'</th>' +
                             '<td>' + obj.nome + '</td>' +
                             ' <td class="cpf" class="cpf">' + obj.cpf + '</td>' +
                             '<td>' + obj.email + '</td>' +
@@ -128,10 +132,10 @@
                             '</svg>' +
                             '</button>' +
                             '</a>' +
-                            '</td>'+
+                            '</td>' +
                             '<td class="text-center" id="excluir-col">');
                     if (obj.id !== ${sessionScope.logado.id}) {
-                        $('#excluir-col').append(                                
+                        $('#excluir-col').append(
                                 '<button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#remove_' + obj.id + '">' +
                                 ' <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">' +
                                 '<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>' +
@@ -157,7 +161,7 @@
                                 '</div>' +
                                 '</td>' +
                                 '</tr>');
-                    } else {    
+                    } else {
                         $('#excluir-col').append(
                                 '<span class="text-muted"> Desabilitado</span>' +
                                 '</td>' +

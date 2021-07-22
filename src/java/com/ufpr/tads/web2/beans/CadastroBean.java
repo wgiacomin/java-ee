@@ -34,7 +34,11 @@ public class CadastroBean extends LoginBean {
     public String getCpf() {
         return cpf;
     }
-
+	
+	public String getCpfFormatado(){
+		return this.cpf.replaceAll("(\\d{3})(\\d{3})(\\d{3})(\\d{2})", "$1.$2.$3-$4");
+	}
+	
     public void setCpf(String cpf) {
         this.cpf = cpf;
     }
