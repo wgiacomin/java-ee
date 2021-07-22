@@ -5,18 +5,12 @@
  */
 package com.ufpr.tads.web2.servlets;
 
-import com.ufpr.tads.web2.beans.AtendimentoBean;
 import com.ufpr.tads.web2.beans.CadastroBean;
-import com.ufpr.tads.web2.beans.StatusBean;
-import com.ufpr.tads.web2.beans.utils.AtendimentoShowGerente;
+import com.ufpr.tads.web2.beans.PerfilBean;
 import com.ufpr.tads.web2.exceptions.BeanInvalidoException;
 import com.ufpr.tads.web2.exceptions.FacadeException;
-import com.ufpr.tads.web2.exceptions.HomeServletException;
-import com.ufpr.tads.web2.exceptions.OrdenacaoInvalidaException;
-import com.ufpr.tads.web2.facade.AtendimentoFacade;
+import com.ufpr.tads.web2.facade.CadastroFacade;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -26,8 +20,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet(name = "HomeServlet", urlPatterns = {"/HomeServlet"})
-public class HomeServlet extends HttpServlet {
+/**
+ *
+ * @author nilo-
+ */
+@WebServlet(name = "GerenteServlet", urlPatterns = {"/GerenteServlet"})
+public class GerenteServlet extends HttpServlet {
 
 	/**
 	 * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,7 +40,9 @@ public class HomeServlet extends HttpServlet {
 			throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
 		RequestDispatcher rd;
-		List<AtendimentoBean> lista;
+		List<CadastroBean> lista;
+		PerfilBean perfil;
+		String action = request.getParameter("action");
 
 		HttpSession session = request.getSession();
 		if (session.getAttribute("logado") == null) {
@@ -51,70 +51,35 @@ public class HomeServlet extends HttpServlet {
 			rd.forward(request, response); //redirecina para o index.jsp
 			return;
 		}
-		CadastroBean cadastro = (CadastroBean) session.getAttribute("logado");
-		int perfil = cadastro.getPerfil().getId();
 
 		try {
-			switch (perfil) {
-				case 1:
-					lista = AtendimentoFacade.buscarTodosComFiltroPessoa(cadastro, "DESC");//busca atendimentos efetuados pelo cliente de forma decrescente por data
-					request.setAttribute("lista", lista);
+			if (action == null || action.equals("listar")) {
+				perfil = new PerfilBean(2, null);
+				lista = CadastroFacade.buscarTodosPorPerfil(perfil);
+				perfil.setId(3);
+				lista.addAll(CadastroFacade.buscarTodosPorPerfil(perfil));
 
-					rd = getServletContext().getRequestDispatcher("/homeCliente.jsp");
-					rd.forward(request, response); //redirecina para o home 
-					break;
-				case 2:
-					StatusBean status = new StatusBean(1, null);//status para atendimentos em aberto
+				request.setAttribute("lista", lista);
+				rd = getServletContext().getRequestDispatcher("/listarCadastroGerente.jsp");
+				rd.forward(request, response);
+			} else {
+				switch (action) {
 
-					lista = AtendimentoFacade.buscarTodosComFiltroStatus(status, cadastro, "ASC");//busca atendimento em aberto para funcionario ordenado de forma crescente por data
-					request.setAttribute("lista", lista);
-
-					rd = getServletContext().getRequestDispatcher("/homeFuncionario.jsp");
-					rd.forward(request, response); //redirecina para o home 
-					break;
-				case 3:
-					lista = AtendimentoFacade.buscarTodos();
-
-					HashMap<String, AtendimentoShowGerente> map = new HashMap<String, AtendimentoShowGerente>();
-					int aberto = 0;
-					for (AtendimentoBean atendimento : lista) {
-						AtendimentoShowGerente index = map.get(atendimento.getTipoAtendimento().getDescricao());
-						if (index != null) {
-							index.addAberto();
-							aberto++;
-							index.addTotal();
-						} else {
-							String tipo = atendimento.getTipoAtendimento().getDescricao();
-							AtendimentoShowGerente novo = new AtendimentoShowGerente(tipo);
-							if (atendimento.getTipoAtendimento().getId() == 1) {
-								novo.addAberto();
-								aberto++;
-							}
-							map.put(novo.getTipo(),novo);
-						}
-					}
-					ArrayList<AtendimentoShowGerente> show = new ArrayList<>(map.values());
-					
-					request.setAttribute("aberto", aberto);
-					request.setAttribute("total", lista.size());
-					request.setAttribute("lista", show);
-					rd = getServletContext().getRequestDispatcher("/homeGerente.jsp");
-					rd.forward(request, response); //redirecina para o home  					
-					break;
-				default:
-					throw new HomeServletException();
+					default:
+				}
 			}
-		} catch (FacadeException | BeanInvalidoException | OrdenacaoInvalidaException | HomeServletException e) {
+		} catch (BeanInvalidoException | FacadeException e) {
 			rd = getServletContext().getRequestDispatcher("/erro.jsp");
 			request.setAttribute("javax.servlet.jsp.jspException", e);
 			request.setAttribute("javax.servlet.error.status_code", 500);
 			request.setAttribute("page", "index.jsp");
 
 			rd.forward(request, response); //redireciona para erro.jsp
+
 		}
 	}
 
-// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+	// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 	/**
 	 * Handles the HTTP <code>GET</code> method.
 	 *

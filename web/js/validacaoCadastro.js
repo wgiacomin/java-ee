@@ -19,7 +19,8 @@ function getCidades(alterar = - 1) {
         $.ajax({
             url: url,
            data: {
-              idEstado: idEstado
+              idEstado: idEstado,
+              action: "cidades"
             },
             dataType: 'json',
             success: function (data) {

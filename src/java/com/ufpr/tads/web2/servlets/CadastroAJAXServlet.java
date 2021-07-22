@@ -6,10 +6,13 @@
 package com.ufpr.tads.web2.servlets;
 
 import com.google.gson.Gson;
+import com.ufpr.tads.web2.beans.CadastroBean;
 import com.ufpr.tads.web2.beans.CidadeBean;
 import com.ufpr.tads.web2.beans.EstadoBean;
+import com.ufpr.tads.web2.beans.PerfilBean;
 import com.ufpr.tads.web2.exceptions.BeanInvalidoException;
 import com.ufpr.tads.web2.exceptions.FacadeException;
+import com.ufpr.tads.web2.facade.CadastroFacade;
 import com.ufpr.tads.web2.facade.CidadeFacade;
 import java.io.IOException;
 import java.util.List;
@@ -38,14 +41,44 @@ public class CadastroAJAXServlet extends HttpServlet {
 	 */
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String idEstadoStr = request.getParameter("idEstado");
+		String action = request.getParameter("action");
+		String json = null;
 		try {
-			EstadoBean estado = new EstadoBean();
-			estado.setId(Integer.parseInt(idEstadoStr));
-			List<CidadeBean> cidades = CidadeFacade.buscarTodosPorEstado(estado);
+			switch (action) {
+				case "cidades":
+					String idEstadoStr = request.getParameter("idEstado");
 
-			String json = new Gson().toJson(cidades);
+					EstadoBean estado = new EstadoBean();
+					estado.setId(Integer.parseInt(idEstadoStr));
+					List<CidadeBean> cidades = CidadeFacade.buscarTodosPorEstado(estado);
 
+					json = new Gson().toJson(cidades);
+					break;
+				case "cadastros":
+					String cadastroValStr = request.getParameter("cadastroVal");
+					int cadastroVal = Integer.parseInt(cadastroValStr);
+					List<CadastroBean> cadastros = null;
+					PerfilBean perfil = new PerfilBean();
+					switch (cadastroVal) {
+						case 2:
+							perfil.setId(2);
+							cadastros = CadastroFacade.buscarTodosPorPerfil(perfil);
+							break;
+						case 3:
+							perfil.setId(3);
+							cadastros = CadastroFacade.buscarTodosPorPerfil(perfil);
+							break;
+						case 1:
+						default:
+							perfil.setId(2);
+							cadastros = CadastroFacade.buscarTodosPorPerfil(perfil);
+
+							perfil.setId(3);
+							cadastros.addAll(CadastroFacade.buscarTodosPorPerfil(perfil));
+					}
+					json = new Gson().toJson(cadastros);
+					break;
+			}
 			response.setContentType("application/json");
 			response.setCharacterEncoding("UTF-8");
 			response.getWriter().write(json);
