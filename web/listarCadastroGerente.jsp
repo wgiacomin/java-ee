@@ -76,7 +76,7 @@
                             </div>
                         </c:when>
                         <c:otherwise>
-                            <span class="text-muted"> Desabilitado</span>
+                            <span class="text-danger"> Desabilitado</span>
                         </c:otherwise>
                     </c:choose>
 
@@ -112,7 +112,7 @@
                     $("#cadastros-table").append(
                             '<tr><th scope="row">'+i+1+'</th>' +
                             '<td>' + obj.nome + '</td>' +
-                            ' <td class="cpf" class="cpf">' + obj.cpf + '</td>' +
+                            ' <td class="cpf" class="cpf">' + obj.cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4") + '</td>' +
                             '<td>' + obj.email + '</td>' +
                             '<td class="text-center">' +
                             '<a href="GerenteServlet?id=' + obj.id + '&action=show">' +
@@ -163,7 +163,7 @@
                                 '</tr>');
                     } else {
                         $('#excluir-col').append(
-                                '<span class="text-muted"> Desabilitado</span>' +
+                                '<span class="text-danger"> Desabilitado</span>' +
                                 '</td>' +
                                 '</tr>');
                     }
