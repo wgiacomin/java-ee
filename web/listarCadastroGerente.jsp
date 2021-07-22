@@ -65,7 +65,7 @@
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body" style="text-align: left;">
-                                            Tem certeza que deseja apagar o usuário ${c.nome}?
+                                            Tem certeza que deseja apagar o usuário <c:out value="${c.nome}?"/>
                                         </div>
                                         <div class="modal-footer">
                                             <a href="GerenteServlet?id=${c.id}&action=remove" class="btn btn-primary">Sim</a>
