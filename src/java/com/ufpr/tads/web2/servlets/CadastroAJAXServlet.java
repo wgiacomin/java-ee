@@ -60,13 +60,6 @@ public class CadastroAJAXServlet extends HttpServlet {
 					List<CadastroBean> cadastros = null;
 					PerfilBean perfil = new PerfilBean();
 					switch (cadastroVal) {
-						case 1:
-							perfil.setId(2);
-							cadastros = CadastroFacade.buscarTodosPorPerfil(perfil);
-
-							perfil.setId(3);
-							cadastros.addAll(CadastroFacade.buscarTodosPorPerfil(perfil));
-							break;
 						case 2:
 							perfil.setId(2);
 							cadastros = CadastroFacade.buscarTodosPorPerfil(perfil);
@@ -75,6 +68,13 @@ public class CadastroAJAXServlet extends HttpServlet {
 							perfil.setId(3);
 							cadastros = CadastroFacade.buscarTodosPorPerfil(perfil);
 							break;
+						case 1:
+						default:
+							perfil.setId(2);
+							cadastros = CadastroFacade.buscarTodosPorPerfil(perfil);
+
+							perfil.setId(3);
+							cadastros.addAll(CadastroFacade.buscarTodosPorPerfil(perfil));
 					}
 					json = new Gson().toJson(cadastros);
 					break;
