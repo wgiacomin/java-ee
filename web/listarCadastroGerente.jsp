@@ -1,7 +1,7 @@
 <%@include file="utils/header.jsp" %>
 <div class="container my-2">
     <a href="#" class="btn btn-outline-success">Novo</a>
-    <select class="form-select mx-3 d-inline w-auto" id="cadastros">
+    <select class="form-select mx-3 d-inline w-auto" id="cadastros" name="cadastros" onchange="getCadastros()">
         <option selected>Selecionar Cadastros</option>
         <option value="1">Gerente e Funcionario</option>
         <option value="3">Gerente</option>
@@ -62,9 +62,6 @@
 
 <script src="js/gerente.js"></script>
 <script type="text/javascript">
-    $(document).ready(function () {
-        $(".cpf").mask("000.000.000-00");
-    });
     $('#excluir').click(function excluir(e) {
         var id = $("#excluir").attr("href").replace(/[^\d.]/g, '');
         id = parseInt(id);

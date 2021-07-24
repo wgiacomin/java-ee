@@ -23,8 +23,32 @@ public class CreateAtendimento {
                     + "     status st"
                     + " WHERE ta.descricao = 'Entrega'"
                     + "  AND pr.nome = 'BB Cream Dermo Expertise Base Clara 30ml'"
-                    + " AND ca.nome='Wanderson'"
+                    + " AND ca.fk_login=2"
                     + " AND st.descricao = 'Aberto';");
+
+            query.executeUpdate("INSERT INTO atendimento(data_hora, descricao, solucao, fk_cliente, fk_status, fk_tipo_atendimento, fk_produto)"
+                    + " SELECT NOW(), 'O produto se encontrava avariado.', 'Foi pedido a devolução do produto.',"
+                    + "       ca.fk_login, st.id, ta.id, pr.id"
+                    + " FROM cadastro ca,"
+                    + "     tipo_atendimento ta,"
+                    + "     produto pr,"
+                    + "     status st"
+                    + " WHERE ta.descricao = 'Entrega'"
+                    + "  AND pr.nome = 'BB Cream Dermo Expertise Base Clara 30ml'"
+                    + " AND ca.fk_login=1"
+                    + " AND st.descricao = 'Aberto';");
+
+            query.executeUpdate("INSERT INTO atendimento(data_hora, descricao, solucao, fk_cliente, fk_status, fk_tipo_atendimento, fk_produto)"
+                    + " SELECT NOW(), 'O produto se encontrava avariado.', 'Foi pedido a devolução do produto.',"
+                    + "       ca.fk_login, st.id, ta.id, pr.id"
+                    + " FROM cadastro ca,"
+                    + "     tipo_atendimento ta,"
+                    + "     produto pr,"
+                    + "     status st"
+                    + " WHERE ta.descricao = 'Entrega'"
+                    + "  AND pr.nome = 'BB Cream Dermo Expertise Base Clara 30ml'"
+                    + " AND ca.fk_login=3"
+                    + " AND st.descricao = 'Fechado';");
 
             System.out.println("Atendimento criados com sucesso.");
         } catch (Exception e) {

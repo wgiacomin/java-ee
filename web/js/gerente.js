@@ -1,10 +1,3 @@
-$(document).ready(function () {
-    $(".cpf").mask("000.000.000-00");
-    $("#cadastros").change(function () {
-        getCadastros();
-    });
-});
-
 function getCadastros() {
     var cadastroVal = $("#cadastros").val();
     var url = "CadastroAJAXServlet";
