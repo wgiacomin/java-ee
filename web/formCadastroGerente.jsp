@@ -8,7 +8,7 @@
             ${msg}
         </span></br> 
     </c:if>
-    <input type="hidden" id="id" value="${cadastro.id}" name="id">
+    <input type="hidden" id="id" value="<c:out value="${cadastro.id}"/>" name="id">
     <div class="form-floating">
         <select class="form-select" id="perfil" name="perfil" placeholder="Perfil">
             <option class="text-muted" selected>Selecione</option>
@@ -64,7 +64,7 @@
                         <c:if test="${estado.id == cadastro.cidade.estado.id}">
                             selected
                         </c:if>
-                        >${estado.nome}</option>
+                        ><c:out value="${estado.nome}"/></option>
             </c:forEach>
         </select>
         <label for="uf">Estado</label>
