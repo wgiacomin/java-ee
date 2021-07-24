@@ -18,7 +18,27 @@ public class CreateLogins {
             //Creating New Logins
             String sha256hex = DigestUtils.sha256Hex("123");
             query.executeUpdate("INSERT INTO login(id, login, senha) VALUES ("
-                    + "2, 'nick', '"
+                    + "1, 'nick', '"
+                    + sha256hex + "');");
+
+            query.executeUpdate("INSERT INTO login(id, login, senha) VALUES ("
+                    + "2, 'wgiacomin', '"
+                    + sha256hex + "');");
+
+            query.executeUpdate("INSERT INTO login(id, login, senha) VALUES ("
+                    + "3, 'wgiacomin3', '"
+                    + sha256hex + "');");
+
+            query.executeUpdate("INSERT INTO login(id, login, senha) VALUES ("
+                    + "4, 'wgiacomin4', '"
+                    + sha256hex + "');");
+
+            query.executeUpdate("INSERT INTO login(id, login, senha) VALUES ("
+                    + "5, 'wgiacomin5', '"
+                    + sha256hex + "');");
+
+            query.executeUpdate("INSERT INTO login(id, login, senha) VALUES ("
+                    + "6, 'wgiacomin6', '"
                     + sha256hex + "');");
 
             System.out.println("Logins criados com sucesso.");

@@ -92,7 +92,7 @@ public class AtendimentoFacade {
 		}
 	}
 
-	public static void Remover(AtendimentoBean atendimento) throws FacadeException, RegistroInexistenteException, BeanInvalidoException, RegistroComUsoException {
+	public static void remover(AtendimentoBean atendimento) throws FacadeException, RegistroInexistenteException, BeanInvalidoException, RegistroComUsoException {
 		try (ConnectionFactory factory = new ConnectionFactory()) {
 			AtendimentoDAO bd = new AtendimentoDAO(factory.getConnection());
 

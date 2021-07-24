@@ -11,8 +11,8 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
         <script type="text/javascript" src="jquery.maskedinput-1.1.4.pack.js"/></script>
-        <script src="js/validacaoCadastro.js"></script>
-    </head>
+    <script src="js/validacaoCadastro.js"></script>
+</head>
 <body class="text-center">  
     <div class="container">
         <form method="post" action="CadastroServlet?action=novoCliente" class="form-signin">
@@ -71,12 +71,12 @@
             <div class="form-floating">
                 <select class="form-control" id="uf" placeholder="Estado" name="uf">
                     <c:forEach var="estado" items="${estados}">
-                        <option value="${estado.id}"
-                                <c:if test="${estado.id == cadastro.cidade.estado.id}">
-                                    selected
-                                </c:if>
-                                >${estado.nome}</option>
-                    </c:forEach>
+                        <option value="<c:out value="${estado.id}>"/>">
+                            <c:if test="${estado.id == cadastro.cidade.estado.id}">
+                                selected
+                            </c:if>
+                            <c:out value="${estado.nome}"/></option>
+                        </c:forEach>
                 </select>
             </div>
 
