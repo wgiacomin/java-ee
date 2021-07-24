@@ -60,7 +60,7 @@
     <div class="form-floating">
         <select class="form-select" id="uf" placeholder="Estado" name="uf">
             <c:forEach var="estado" items="${estados}">
-                <option value="${estado.id}"
+                <option value="<c:out value="${estado.id}"/>"
                         <c:if test="${estado.id == cadastro.cidade.estado.id}">
                             selected
                         </c:if>
