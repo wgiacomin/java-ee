@@ -5,7 +5,7 @@
     <h1 class="mb-4 h-3 fw-normal ">${requestScope.action == 'formNew'? 'Novo Funcionário/Gerente':'Alterar'}</h1> 
     <c:if test="${msg != null}">
         <span class="alert alert-danger d-sm-inline-flex mb-3" role="alert">
-            ${msg}
+            <c:out value="${msg}"/>
         </span></br> 
     </c:if>
     <input type="hidden" id="id" value="<c:out value="${cadastro.id}"/>" name="id">
