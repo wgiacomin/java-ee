@@ -6,9 +6,15 @@
 package com.ufpr.tads.web2.servlets;
 
 import com.ufpr.tads.web2.beans.CadastroBean;
+import com.ufpr.tads.web2.beans.CidadeBean;
+import com.ufpr.tads.web2.beans.EstadoBean;
 import com.ufpr.tads.web2.beans.PerfilBean;
 import com.ufpr.tads.web2.exceptions.BeanInvalidoException;
+import com.ufpr.tads.web2.exceptions.CampoInvalidoException;
 import com.ufpr.tads.web2.exceptions.FacadeException;
+import com.ufpr.tads.web2.exceptions.RegistroComUsoException;
+import com.ufpr.tads.web2.exceptions.RegistroDuplicadoException;
+import com.ufpr.tads.web2.exceptions.RegistroInexistenteException;
 import com.ufpr.tads.web2.facade.CadastroFacade;
 import java.io.IOException;
 import java.util.List;
@@ -42,8 +48,14 @@ public class GerenteServlet extends HttpServlet {
 		RequestDispatcher rd;
 		List<CadastroBean> lista;
 		PerfilBean perfil;
+		String msg = null;
 		String action = request.getParameter("action");
-
+		String idStr = request.getParameter("id");
+		int id;
+		CadastroBean cadastro = new CadastroBean();
+		CidadeBean cidadeBean;
+		EstadoBean estadoBean;
+				
 		HttpSession session = request.getSession();
 		if (session.getAttribute("logado") == null) {
 			rd = getServletContext().getRequestDispatcher("/index.jsp");
@@ -54,9 +66,9 @@ public class GerenteServlet extends HttpServlet {
 
 		try {
 			if (action == null || action.equals("listar")) {
-				perfil = new PerfilBean(2, null);
+				perfil = new PerfilBean(2, null);//funcionario
 				lista = CadastroFacade.buscarTodosPorPerfil(perfil);
-				perfil.setId(3);
+				perfil.setId(3);//gerente
 				lista.addAll(CadastroFacade.buscarTodosPorPerfil(perfil));
 
 				request.setAttribute("lista", lista);
@@ -64,11 +76,112 @@ public class GerenteServlet extends HttpServlet {
 				rd.forward(request, response);
 			} else {
 				switch (action) {
+					case "show":
+						id = Integer.parseInt(idStr);
+						cadastro = new CadastroBean();
+						cadastro.setId(id);
 
+						cadastro = CadastroFacade.buscar(cadastro);
+						request.setAttribute("cadastro", cadastro);
+
+						rd = getServletContext().getRequestDispatcher("/showGerente.jsp");
+						rd.forward(request, response);
+						break;
+					case "formUpdate":
+						id = Integer.parseInt(idStr);
+						cadastro = new CadastroBean();
+						cadastro.setId(id);
+
+						cadastro = CadastroFacade.buscar(cadastro);
+						request.setAttribute("cadastro", cadastro);
+					case "formNew":
+						request.setAttribute("action", action);
+						rd = getServletContext().getRequestDispatcher("/formCadastroGerente.jsp");
+						rd.forward(request, response);
+						break;
+					case "remove":
+						id = Integer.parseInt(idStr);
+						cadastro = new CadastroBean();
+						cadastro.setId(id);
+
+						CadastroFacade.Remover(cadastro);
+						break;
+					case "alterar":
+						cadastro.setId(Integer.parseInt(request.getParameter("id")));
+						cadastro.setNome(request.getParameter("nome"));
+						cadastro.setRua(request.getParameter("rua"));
+						cadastro.setRuaComplemento(request.getParameter("complemento"));
+						cadastro.setBairro(request.getParameter("bairro"));
+						cadastro.setCep(request.getParameter("cep").replaceAll("\\D+", ""));
+						cadastro.setTelefone(request.getParameter("telefone").replaceAll("\\D+", ""));
+
+						cidadeBean = new CidadeBean();
+						cidadeBean.setId(Integer.parseInt(request.getParameter("cidade")));
+
+						estadoBean = new EstadoBean();
+						estadoBean.setId(Integer.parseInt(request.getParameter("uf")));
+						cidadeBean.setEstado(estadoBean);
+						cadastro.setCidade(cidadeBean);
+
+						request.setAttribute("cadastro", cadastro);
+
+						try {
+							cadastro.setRuaNumero(Integer.parseInt(request.getParameter("nr")));
+						} catch (NumberFormatException e) {
+							throw new CampoInvalidoException("Número de rua inválido");
+						}
+
+						request.setAttribute("cadastro", cadastro);
+
+						CadastroFacade.Editar(cadastro); //edita cliente no banco
+
+						rd = getServletContext().getRequestDispatcher("/GerenteServlet?action=listar");
+						rd.forward(request, response);
+						break;
+					case "novo":
+						cadastro.setLogin(request.getParameter("email"));
+						cadastro.setSenha(request.getParameter("email"));
+						cadastro.setNome(request.getParameter("nome"));
+						cadastro.setEmail(request.getParameter("email"));
+						cadastro.setCpf(request.getParameter("cpf").replaceAll("\\D+", ""));
+						cadastro.setRua(request.getParameter("rua"));
+						cadastro.setRuaComplemento(request.getParameter("complemento"));
+						cadastro.setBairro(request.getParameter("bairro"));
+						cadastro.setCep(request.getParameter("cep").replaceAll("\\D+", ""));
+						cadastro.setTelefone(request.getParameter("telefone").replaceAll("\\D+", ""));
+
+						cidadeBean = new CidadeBean();
+						cidadeBean.setId(Integer.parseInt(request.getParameter("cidade")));
+
+						estadoBean = new EstadoBean();
+						estadoBean.setId(Integer.parseInt(request.getParameter("uf")));
+						cidadeBean.setEstado(estadoBean);
+
+						cadastro.setCidade(cidadeBean);
+						perfil = new PerfilBean();
+						perfil.setId(Integer.parseInt(request.getParameter("perfil")));
+						cadastro.setPerfil(perfil);
+
+						request.setAttribute("cadastro", cadastro);
+
+						try {
+							cadastro.setRuaNumero(Integer.parseInt(request.getParameter("nr")));
+						} catch (NumberFormatException e) {
+							throw new CampoInvalidoException("Número de rua inválido");
+						}
+						CadastroFacade.Inserir(cadastro); //cadastra cliente no banco
+
+						rd = getServletContext().getRequestDispatcher("/GerenteServlet?action=listar");
+						rd.forward(request, response);
+						break;
 					default:
 				}
 			}
-		} catch (BeanInvalidoException | FacadeException e) {
+		} catch (CampoInvalidoException|RegistroDuplicadoException e) {
+			rd = getServletContext().getRequestDispatcher("/cadastro.jsp");
+			request.setAttribute("msg", e.getMessage());
+			rd.forward(request, response);
+		} catch (BeanInvalidoException | FacadeException | RegistroInexistenteException | RegistroComUsoException e) {
 			rd = getServletContext().getRequestDispatcher("/erro.jsp");
 			request.setAttribute("javax.servlet.jsp.jspException", e);
 			request.setAttribute("javax.servlet.error.status_code", 500);

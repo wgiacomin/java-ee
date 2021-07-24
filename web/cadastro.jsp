@@ -6,7 +6,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Novo cliente</title>
-        <link rel="stylesheet" href="css/login.css">
+        <link rel="stylesheet" href="css/cadastro.css">
         <%@include file="utils/bootstrap.jsp"%>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
@@ -63,10 +63,10 @@
                 <label for="cep">CEP</label>
             </div>
 
-            <div class="form-floating">
-                <input type="text" class="form-control" id="telefone" placeholder="Telefone" name="telefone" value="<c:out value="${cadastro.telefone}"/>" required>
-                <label for="telefone">Telefone</label>
-            </div> 
+                <div class="form-floating">
+                    <input type="text" class="form-control" id="telefone" placeholder="Telefone" name="telefone" value="<c:out value="${cadastro.telefone}"/>" required>
+                    <label for="telefone">Telefone</label>
+                </div> 
 
             <div class="form-floating">
                 <select class="form-control" id="uf" placeholder="Estado" name="uf">
@@ -80,15 +80,15 @@
                 </select>
             </div>
 
-            <div class="form-floating">
-                <select class="form-control" id="cidade" placeholder="Cidade" name="cidade">
-                </select>
-            </div>
+                <div class="form-floating">
+                    <select class="form-control" id="cidade" placeholder="Cidade" name="cidade">
+                    </select>
+                </div>
 
-            <input type="hidden" id="perfil" value="1" name="perfil">
+                <input type="hidden" id="perfil" value="1" name="perfil">
 
-            <input type="submit" value="Cadastrar" class="w-100 btn btn-lg btn-primary mt-3" />
-        </form>
-    </div>
-</body>
+                <input type="submit" value="${requestScope.action == 'alterar' ? 'Alterar' : 'Cadastrar'}" class="w-100 btn btn-lg btn-primary mt-3" />
+            </form>
+        </div>
+    </body>
 </html>

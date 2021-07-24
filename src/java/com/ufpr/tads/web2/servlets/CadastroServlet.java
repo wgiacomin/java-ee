@@ -113,8 +113,9 @@ public class CadastroServlet extends HttpServlet {
                             RequestDispatcher rd = getServletContext().getRequestDispatcher("/LoginServlet");
                             rd.forward(request, response);
                         }
+						request.setAttribute("action", "alterar");
                         request.setAttribute("cadastro",cadastro);
-                        RequestDispatcher rd = getServletContext().getRequestDispatcher("/alterarCliente.jsp");
+                        RequestDispatcher rd = getServletContext().getRequestDispatcher("/cadastro.jsp");
                         rd.forward(request, response);
                     }
                     else { //se usuário não estiver logado
@@ -176,17 +177,9 @@ public class CadastroServlet extends HttpServlet {
             request.setAttribute("javax.servlet.error.status_code", 500);
             request.setAttribute("page", "index.jsp");
             rd.forward(request, response); //redireciona para erro.jsp
-        } catch (BeanInvalidoException | RegistroDuplicadoException  e) {
+        } catch (BeanInvalidoException | RegistroDuplicadoException | RegistroInexistenteException | RegistroComUsoException  e) {
             RequestDispatcher rd = getServletContext().getRequestDispatcher("/cadastro.jsp");
             request.setAttribute("msg", e.getMessage());
-            rd.forward(request, response);
-        } catch (RegistroInexistenteException ex) {
-            RequestDispatcher rd = getServletContext().getRequestDispatcher("/cadastro.jsp");
-            request.setAttribute("msg", ex.getMessage());
-            rd.forward(request, response);
-        } catch (RegistroComUsoException ex) {
-            RequestDispatcher rd = getServletContext().getRequestDispatcher("/cadastro.jsp");
-            request.setAttribute("msg", ex.getMessage());
             rd.forward(request, response);
         }
     }
