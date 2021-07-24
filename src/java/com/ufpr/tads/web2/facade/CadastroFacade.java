@@ -86,7 +86,7 @@ public class CadastroFacade {
         }
     }
 
-    public static void Inserir(CadastroBean cadastro) throws FacadeException, BeanInvalidoException, RegistroDuplicadoException {
+    public static void inserir(CadastroBean cadastro) throws FacadeException, BeanInvalidoException, RegistroDuplicadoException {
         try (ConnectionFactory factory = new ConnectionFactory()) {
             CadastroDAO bd = new CadastroDAO(factory.getConnection());
             LoginDAO lbd = new LoginDAO(factory.getConnection());
@@ -109,7 +109,7 @@ public class CadastroFacade {
         }
     }
 
-    public static void Editar(CadastroBean cadastro) throws FacadeException, RegistroInexistenteException, BeanInvalidoException, RegistroComUsoException {
+    public static void editar(CadastroBean cadastro) throws FacadeException, RegistroInexistenteException, BeanInvalidoException, RegistroComUsoException {
         try (ConnectionFactory factory = new ConnectionFactory()) {
             CadastroDAO bd = new CadastroDAO(factory.getConnection());
 
