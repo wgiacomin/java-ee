@@ -1,0 +1,20 @@
+.carta{
+    display: flex;
+    justify-content: center;
+    border: solid 1px #ababab;
+    border-radius: 7px;
+    margin-bottom: 20px;
+}
+.carta div:nth-child(3),
+.carta div:nth-child(2){
+    border-left: solid 1px #ababab;
+}
+.carta div{
+    padding-left: 70px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+.carta span{
+    font-size: x-large;
+}
