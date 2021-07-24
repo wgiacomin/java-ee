@@ -48,7 +48,7 @@ public class LoginServlet extends HttpServlet {
 			rd.forward(request, response); //redirecina para o index.jsp
 			return;
 		}
-		
+
 		try {
 			String login = (String) request.getAttribute("login");
 			String senha = (String) request.getAttribute("senha");
