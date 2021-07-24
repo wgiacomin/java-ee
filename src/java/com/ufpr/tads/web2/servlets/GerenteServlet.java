@@ -133,7 +133,7 @@ public class GerenteServlet extends HttpServlet {
 
 						request.setAttribute("cadastro", cadastro);
 
-						CadastroFacade.Editar(cadastro); //edita cliente no banco
+						CadastroFacade.editar(cadastro); //edita cliente no banco
 
 						rd = getServletContext().getRequestDispatcher("/GerenteServlet?action=listar");
 						rd.forward(request, response);
@@ -169,7 +169,7 @@ public class GerenteServlet extends HttpServlet {
 						} catch (NumberFormatException e) {
 							throw new CampoInvalidoException("Número de rua inválido");
 						}
-						CadastroFacade.Inserir(cadastro); //cadastra cliente no banco
+						CadastroFacade.inserir(cadastro); //cadastra cliente no banco
 
 						rd = getServletContext().getRequestDispatcher("/GerenteServlet?action=listar");
 						rd.forward(request, response);
@@ -189,7 +189,7 @@ public class GerenteServlet extends HttpServlet {
 
 			rd.forward(request, response); //redireciona para erro.jsp
 
-		}
+		} 
 	}
 
 	// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

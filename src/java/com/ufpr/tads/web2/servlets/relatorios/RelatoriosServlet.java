@@ -3,21 +3,15 @@ package com.ufpr.tads.web2.servlets.relatorios;
 import com.ufpr.tads.web2.beans.CadastroBean;
 import com.ufpr.tads.web2.dao.utils.ConnectionFactory;
 import com.ufpr.tads.web2.exceptions.DAOException;
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
-import java.nio.file.FileSystems;
-import java.security.CodeSource;
-import java.security.ProtectionDomain;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -26,7 +20,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperRunManager;
-import net.sf.jasperreports.engine.util.JRLoader;
 
 @WebServlet(name = "RelatoriosServlet", urlPatterns = {"/RelatoriosServlet"})
 public class RelatoriosServlet extends HttpServlet {
