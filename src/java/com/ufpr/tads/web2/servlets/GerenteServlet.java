@@ -84,7 +84,7 @@ public class GerenteServlet extends HttpServlet {
 						cadastro = CadastroFacade.buscar(cadastro);
 						request.setAttribute("cadastro", cadastro);
 
-						rd = getServletContext().getRequestDispatcher("/showGerente.jsp");
+						rd = getServletContext().getRequestDispatcher("/showCadastro.jsp");
 						rd.forward(request, response);
 						break;
 					case "formUpdate":
@@ -105,6 +105,8 @@ public class GerenteServlet extends HttpServlet {
 						cadastro.setId(id);
 
 						CadastroFacade.Remover(cadastro);
+						rd = getServletContext().getRequestDispatcher("/GerenteServlet?action=listar");
+						rd.forward(request, response);
 						break;
 					case "alterar":
 						cadastro.setId(Integer.parseInt(request.getParameter("id")));
@@ -120,6 +122,11 @@ public class GerenteServlet extends HttpServlet {
 
 						estadoBean = new EstadoBean();
 						estadoBean.setId(Integer.parseInt(request.getParameter("uf")));
+						
+						perfil = new PerfilBean();
+						perfil.setId(Integer.parseInt(request.getParameter("perfil")));
+						
+						cadastro.setPerfil(perfil);
 						cidadeBean.setEstado(estadoBean);
 						cadastro.setCidade(cidadeBean);
 
@@ -130,8 +137,6 @@ public class GerenteServlet extends HttpServlet {
 						} catch (NumberFormatException e) {
 							throw new CampoInvalidoException("Número de rua inválido");
 						}
-
-						request.setAttribute("cadastro", cadastro);
 
 						CadastroFacade.editar(cadastro); //edita cliente no banco
 
@@ -155,11 +160,12 @@ public class GerenteServlet extends HttpServlet {
 
 						estadoBean = new EstadoBean();
 						estadoBean.setId(Integer.parseInt(request.getParameter("uf")));
-						cidadeBean.setEstado(estadoBean);
-
-						cadastro.setCidade(cidadeBean);
+						
 						perfil = new PerfilBean();
 						perfil.setId(Integer.parseInt(request.getParameter("perfil")));
+						
+						cidadeBean.setEstado(estadoBean);
+						cadastro.setCidade(cidadeBean);						
 						cadastro.setPerfil(perfil);
 
 						request.setAttribute("cadastro", cadastro);

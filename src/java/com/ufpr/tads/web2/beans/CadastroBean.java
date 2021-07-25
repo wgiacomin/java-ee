@@ -38,7 +38,7 @@ public class CadastroBean extends LoginBean {
 	public String getCpfFormatado(){
 		return this.cpf.replaceAll("(\\d{3})(\\d{3})(\\d{3})(\\d{2})", "$1.$2.$3-$4");
 	}
-	
+
     public void setCpf(String cpf) {
         this.cpf = cpf;
     }
@@ -94,7 +94,11 @@ public class CadastroBean extends LoginBean {
     public String getCep() {
         return cep;
     }
-
+	
+	public String getCepFormatado(){
+		return this.cep.replaceAll("(\\d{2})(\\d{3})(\\d{3})", "$1.$2-$3");
+	}
+	
     public void setCep(String cep) {
         this.cep = cep;
     }
@@ -103,6 +107,10 @@ public class CadastroBean extends LoginBean {
         return telefone;
     }
 
+	public String getTelefoneFormatado(){
+		return this.telefone.replaceAll("(\\d{2})(\\d{1})(\\d{4})(\\d{4})", "($1) $2 $3-$4");
+	}
+	
     public void setTelefone(String telefone) {
         this.telefone = telefone;
     }

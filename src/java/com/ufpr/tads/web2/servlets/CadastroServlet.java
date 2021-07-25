@@ -139,9 +139,13 @@ public class CadastroServlet extends HttpServlet {
                         
                         EstadoBean estadoBean = new EstadoBean();
                         estadoBean.setId(Integer.parseInt(request.getParameter("uf")));
+						
+						PerfilBean perfil = new PerfilBean(1, null);
+						
+					
                         cidadeBean.setEstado(estadoBean);
                         cadastro.setCidade(cidadeBean);
-                        
+                        cadastro.setPerfil(perfil);
                         request.setAttribute("cadastro", cadastro);
                         
                         try {

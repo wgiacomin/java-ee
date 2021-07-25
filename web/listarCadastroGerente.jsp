@@ -110,7 +110,7 @@
                 $("table tbody").empty();
                 $.each(data, function (i, obj) {
                     $("#cadastros-table").append(
-                            '<tr><th scope="row">'+i+1+'</th>' +
+                            '<tr><th scope="row">'+(i+1)+'</th>' +
                             '<td>' + obj.nome + '</td>' +
                             ' <td class="cpf" class="cpf">' + obj.cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4") + '</td>' +
                             '<td>' + obj.email + '</td>' +
