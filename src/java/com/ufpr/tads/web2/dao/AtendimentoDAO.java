@@ -26,6 +26,7 @@ public class AtendimentoDAO implements DAOInterface<AtendimentoBean> {
     private static final String QUERY_INSERIR = "INSERT INTO atendimento(data_hora, descricao, solucao, fk_cliente, fk_status, fk_tipo_atendimento, fk_produto) VALUES (?, ?, ?, ?, ?, ?, ?);";
     private static final String QUERY_REMOVER = "DELETE FROM atendimento WHERE id = ?;";
     private static final String QUERY_EDITAR = "UPDATE atendimento SET data_hora = ?, descricao = ?, solucao = ?, fk_cliente = ?, fk_status = ?, fk_tipo_atendimento = ?, fk_produto = ? WHERE id = ?;";
+    private static final String QUERY_RESOLVER = "UPDATE atendimento SET solucao = ?, fk_status = 2 WHERE id = ?;";
 
     private Connection con = null;
 
@@ -193,6 +194,17 @@ public class AtendimentoDAO implements DAOInterface<AtendimentoBean> {
         } catch (SQLException e) {
             throw new DAOException("Erro ao editar atendimento: "
                     + QUERY_EDITAR, e);
+        }
+    }
+
+    public void solucionar(AtendimentoBean atendimento) throws DAOException {
+        try (PreparedStatement st = con.prepareStatement(QUERY_RESOLVER)) {
+            st.setString(1, atendimento.getSolucao());
+            st.setInt(2, atendimento.getId());
+            st.executeUpdate();
+        } catch (SQLException e) {
+            throw new DAOException("Erro ao solucionar atendimento: "
+                    + QUERY_RESOLVER, e);
         }
     }
 
