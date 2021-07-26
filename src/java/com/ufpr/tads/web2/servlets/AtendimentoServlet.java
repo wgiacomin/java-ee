@@ -36,7 +36,7 @@ public class AtendimentoServlet extends HttpServlet {
         int perfil = cadastro.getPerfil().getId();
 
         if (perfil != 2) {
-            rd = getServletContext().getRequestDispatcher("/index.jsp");
+            rd = getServletContext().getRequestDispatcher("HomeServlet");
             request.setAttribute("msg", "Usuário não tem permissão de acesso");
             rd.forward(request, response);
             return;
