@@ -18,94 +18,105 @@ import java.util.List;
 
 public class AtendimentoFacade {
 
-	public static AtendimentoBean buscar(AtendimentoBean atendimento) throws FacadeException, RegistroInexistenteException, BeanInvalidoException {
-		try (ConnectionFactory factory = new ConnectionFactory()) {
-			AtendimentoDAOV bCad = new AtendimentoDAOV(factory.getConnection());
+    public static AtendimentoBean buscar(AtendimentoBean atendimento) throws FacadeException, RegistroInexistenteException, BeanInvalidoException {
+        try (ConnectionFactory factory = new ConnectionFactory()) {
+            AtendimentoDAOV bCad = new AtendimentoDAOV(factory.getConnection());
 
-			atendimento = bCad.buscar(atendimento);
-			if (atendimento == null) {
-				throw new RegistroInexistenteException();
-			}
+            atendimento = bCad.buscar(atendimento);
+            if (atendimento == null) {
+                throw new RegistroInexistenteException();
+            }
 
-			return atendimento;
-		} catch (DAOVException | DAOException e) {
-			throw new FacadeException("Erro ao buscar cadastro " + atendimento.getId(), e);
-		} catch (NullPointerException e) {
-			throw new BeanInvalidoException();
-		}
-	}
+            return atendimento;
+        } catch (DAOVException | DAOException e) {
+            throw new FacadeException("Erro ao buscar cadastro " + atendimento.getId(), e);
+        } catch (NullPointerException e) {
+            throw new BeanInvalidoException();
+        }
+    }
 
-	public static List<AtendimentoBean> buscarTodos() throws FacadeException, BeanInvalidoException {
-		try (ConnectionFactory factory = new ConnectionFactory()) {
-			AtendimentoDAOV bd = new AtendimentoDAOV(factory.getConnection());
-			List<AtendimentoBean> atendimentos = bd.buscarTodos();
-			return atendimentos;
+    public static List<AtendimentoBean> buscarTodos() throws FacadeException, BeanInvalidoException {
+        try (ConnectionFactory factory = new ConnectionFactory()) {
+            AtendimentoDAOV bd = new AtendimentoDAOV(factory.getConnection());
+            List<AtendimentoBean> atendimentos = bd.buscarTodos();
+            return atendimentos;
 
-		} catch (DAOException | DAOVException e) {
-			throw new FacadeException("Erro ao buscar todos os atendimentos: ", e);
-		} catch (NullPointerException e) {
-			throw new BeanInvalidoException();
-		}
-	}
+        } catch (DAOException | DAOVException e) {
+            throw new FacadeException("Erro ao buscar todos os atendimentos: ", e);
+        } catch (NullPointerException e) {
+            throw new BeanInvalidoException();
+        }
+    }
 
-	public static List<AtendimentoBean> buscarTodosComFiltroPessoa(LoginBean login, String order) throws FacadeException, BeanInvalidoException, OrdenacaoInvalidaException, OrdenacaoInvalidaException {
-		if (!order.equals("DESC") && !order.equals("ASC")) {
-			throw new OrdenacaoInvalidaException();
-		}
+    public static List<AtendimentoBean> buscarTodosComFiltroPessoa(LoginBean login, String order) throws FacadeException, BeanInvalidoException, OrdenacaoInvalidaException, OrdenacaoInvalidaException {
+        if (!order.equals("DESC") && !order.equals("ASC")) {
+            throw new OrdenacaoInvalidaException();
+        }
 
-		try (ConnectionFactory factory = new ConnectionFactory()) {
-			AtendimentoDAOV bd = new AtendimentoDAOV(factory.getConnection());
-			List<AtendimentoBean> atendimentos = bd.buscarTodosComPessoa(login, order);
-			return atendimentos;
+        try (ConnectionFactory factory = new ConnectionFactory()) {
+            AtendimentoDAOV bd = new AtendimentoDAOV(factory.getConnection());
+            List<AtendimentoBean> atendimentos = bd.buscarTodosComPessoa(login, order);
+            return atendimentos;
 
-		} catch (DAOException | DAOVException e) {
-			throw new FacadeException("Erro ao buscar todos os atendimentos por pessoa: ", e);
-		} catch (NullPointerException e) {
-			throw new BeanInvalidoException();
-		}
-	}
+        } catch (DAOException | DAOVException e) {
+            throw new FacadeException("Erro ao buscar todos os atendimentos por pessoa: ", e);
+        } catch (NullPointerException e) {
+            throw new BeanInvalidoException();
+        }
+    }
 
-	public static List<AtendimentoBean> buscarTodosComFiltroStatus(StatusBean status, LoginBean login, String order) throws FacadeException, BeanInvalidoException, OrdenacaoInvalidaException {
-		if (!order.equals("DESC") && !order.equals("ASC")) {
-			throw new OrdenacaoInvalidaException();
-		}
-		try (ConnectionFactory factory = new ConnectionFactory()) {
-			AtendimentoDAOV bd = new AtendimentoDAOV(factory.getConnection());
-			List<AtendimentoBean> atendimentos = bd.buscarTodosComStatusEPessoa(status, login, order);
-			return atendimentos;
+    public static List<AtendimentoBean> buscarTodosComFiltroStatus(StatusBean status, LoginBean login, String order) throws FacadeException, BeanInvalidoException, OrdenacaoInvalidaException {
+        if (!order.equals("DESC") && !order.equals("ASC")) {
+            throw new OrdenacaoInvalidaException();
+        }
+        try (ConnectionFactory factory = new ConnectionFactory()) {
+            AtendimentoDAOV bd = new AtendimentoDAOV(factory.getConnection());
+            List<AtendimentoBean> atendimentos = bd.buscarTodosComStatusEPessoa(status, login, order);
+            return atendimentos;
 
-		} catch (DAOException | DAOVException e) {
-			throw new FacadeException("Erro ao buscar todos os atendimentos por pessoa e status: ", e);
-		} catch (NullPointerException e) {
-			throw new BeanInvalidoException();
-		}
-	}
+        } catch (DAOException | DAOVException e) {
+            throw new FacadeException("Erro ao buscar todos os atendimentos por pessoa e status: ", e);
+        } catch (NullPointerException e) {
+            throw new BeanInvalidoException();
+        }
+    }
 
-	public static void Inserir(AtendimentoBean atendimento) throws FacadeException, BeanInvalidoException, RegistroDuplicadoException {
-		try (ConnectionFactory factory = new ConnectionFactory()) {
-			AtendimentoDAO bd = new AtendimentoDAO(factory.getConnection());
-			bd.inserir(atendimento);
-		} catch (DAOException e) {
-			throw new FacadeException("Erro ao inserir atendimento: ", e);
-		} catch (NullPointerException e) {
-			throw new BeanInvalidoException();
-		}
-	}
+    public static void inserir(AtendimentoBean atendimento) throws FacadeException, BeanInvalidoException, RegistroDuplicadoException {
+        try (ConnectionFactory factory = new ConnectionFactory()) {
+            AtendimentoDAO bd = new AtendimentoDAO(factory.getConnection());
+            bd.inserir(atendimento);
+        } catch (DAOException e) {
+            throw new FacadeException("Erro ao inserir atendimento: ", e);
+        } catch (NullPointerException e) {
+            throw new BeanInvalidoException();
+        }
+    }
 
-	public static void remover(AtendimentoBean atendimento) throws FacadeException, RegistroInexistenteException, BeanInvalidoException, RegistroComUsoException {
-		try (ConnectionFactory factory = new ConnectionFactory()) {
-			AtendimentoDAO bd = new AtendimentoDAO(factory.getConnection());
+    public static void solucionar(AtendimentoBean atendimento) throws FacadeException, BeanInvalidoException {
+        try (ConnectionFactory factory = new ConnectionFactory()) {
+            AtendimentoDAO bd = new AtendimentoDAO(factory.getConnection());
+            bd.solucionar(atendimento);
+        } catch (DAOException e) {
+            throw new FacadeException("Erro ao inserir atendimento: ", e);
+        } catch (NullPointerException e) {
+            throw new BeanInvalidoException();
+        }
+    }
 
-			atendimento = bd.buscar(atendimento);
-			if (atendimento == null) {
-				throw new RegistroInexistenteException();
-			}
-			bd.remover(atendimento);
-		} catch (DAOException e) {
-			throw new FacadeException("Erro ao deletar cadastros: ", e);
-		} catch (NullPointerException e) {
-			throw new BeanInvalidoException();
-		}
-	}
+    public static void remover(AtendimentoBean atendimento) throws FacadeException, RegistroInexistenteException, BeanInvalidoException, RegistroComUsoException {
+        try (ConnectionFactory factory = new ConnectionFactory()) {
+            AtendimentoDAO bd = new AtendimentoDAO(factory.getConnection());
+
+            atendimento = bd.buscar(atendimento);
+            if (atendimento == null) {
+                throw new RegistroInexistenteException();
+            }
+            bd.remover(atendimento);
+        } catch (DAOException e) {
+            throw new FacadeException("Erro ao deletar cadastros: ", e);
+        } catch (NullPointerException e) {
+            throw new BeanInvalidoException();
+        }
+    }
 
 }
