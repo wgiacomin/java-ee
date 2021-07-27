@@ -16,43 +16,50 @@
         <title>Portal</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    </head>
-    <body class="d-flex flex-column h-100">
-        <header>
-            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark mb-4">
-                <div class="container-fluid">
-                    <div class="collapse navbar-collapse">
-                        <c:choose>
-                            <c:when test="${sessionScope.logado.perfil.id == 1}">
-                                <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                                    <li class="nav-item "><a href="#" class="nav-link active mx-3">Novo Atendimento</a></li>
-                                    <li class="nav-item"><a href="HomeServlet" class="nav-link active mx-3">Meus Atendimentos</a></li>
-                                    <li class="nav-item"><a href="CadastroServlet?action=formAlterarCliente" class="nav-link active mx-3">Alterar Dados</a></li>
-                                </ul>
-                            </c:when>
-                            <c:when test="${sessionScope.logado.perfil.id == 2}">
-                                <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                                    <li class="nav-item"><a href="HomeServlet" class="nav-link active mx-3">Atendimento</a></li>
-                                    <li class="nav-item"><a href="#" class="nav-link active mx-3">Cadastros</a></li>
-                                </ul>
-                            </c:when>
-                            <c:when test="${sessionScope.logado.perfil.id == 3}">
-                                <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                                    <li class="nav-item"><a href="HomeServlet" class="nav-link active mx-3">Atendimentos</a></li>
-                                    <li class="nav-item"><a href="GerenteServlet" class="nav-link active mx-3">Cadastros</a></li>
-                                    <li class="nav-item"><a href="#" class="nav-link active mx-3">Relatórios</a></li>
-                                </ul>
-                            </c:when>
-                        </c:choose>
-                    </div>
-                    <div class="d-flex">
-                        <a href="LogoutServlet"><button class="btn btn-outline-danger">Sair</button></a>
-                    </div>
-                </div> 
-            </nav>
-        </header>
-        <main class="flex-shrink-0">
-            <div class="p-4"></div>
-            <div class="container my-5">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+        <script type="text/javascript" src="jquery.maskedinput-1.1.4.pack.js"/></script>
+</head>
+<body class="d-flex flex-column h-100">
+    <header>
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark mb-4">
+            <div class="container-fluid">
+                <div class="collapse navbar-collapse">
+                    <c:choose>
+                        <c:when test="${sessionScope.logado.perfil.id == 1}">
+                            <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                                <li class="nav-item "><a href="#" class="nav-link active mx-3">Novo Atendimento</a></li>
+                                <li class="nav-item"><a href="HomeServlet" class="nav-link active mx-3">Meus Atendimentos</a></li>
+                                <li class="nav-item"><a href="CadastroServlet?action=formAlterarCliente" class="nav-link active mx-3">Alterar Dados</a></li>
+                            </ul>
+                        </c:when>
+                        <c:when test="${sessionScope.logado.perfil.id == 2}">
+                            <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                                <li class="nav-item"><a href="HomeServlet" class="nav-link active mx-3">Atendimento</a></li>
+                                <li class="nav-item"><a href="#" class="nav-link active mx-3">Cadastros</a></li>
+                            </ul>
+                        </c:when>
+                        <c:when test="${sessionScope.logado.perfil.id == 3}">
+                            <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                                <li class="nav-item"><a href="HomeServlet" class="nav-link active mx-3">Atendimentos</a></li>
+                                <li class="nav-item"><a href="GerenteServlet" class="nav-link active mx-3">Cadastros</a></li>
+                                <li class="nav-item"><a href="./relatorios.jsp" class="nav-link active mx-3">Relatórios</a></li>
+                            </ul>
+                        </c:when>
+                    </c:choose>
+                </div>
+                <div class="d-flex">
+                    <a href="LogoutServlet"><button class="btn btn-outline-danger">Sair</button></a>
+                </div>
+            </div> 
+        </nav>
+    </header>
+    <main class="flex-shrink-0">
+        <div class="p-4"></div>
+        <div class="container my-4">
+            <c:if test="${msg != null}">
+                <div class="alert alert-danger" role="alert">
+                    <c:out value="${msg}"/>
+                </div>
+            </c:if>
 
 

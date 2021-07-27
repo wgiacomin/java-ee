@@ -46,7 +46,7 @@ public class TipoAtendimentoFacade {
         }
     }
 
-    public static void Inserir(TipoAtendimentoBean tipoAtendimento) throws FacadeException, BeanInvalidoException, RegistroDuplicadoException {
+    public static void inserir(TipoAtendimentoBean tipoAtendimento) throws FacadeException, BeanInvalidoException, RegistroDuplicadoException {
         try (ConnectionFactory factory = new ConnectionFactory()) {
 
             TipoAtendimentoDAO bd = new TipoAtendimentoDAO(factory.getConnection());
@@ -64,7 +64,7 @@ public class TipoAtendimentoFacade {
         }
     }
 
-    public static void Remover(TipoAtendimentoBean tipoAtendimento) throws FacadeException, BeanInvalidoException, RegistroComUsoException {
+    public static void remover(TipoAtendimentoBean tipoAtendimento) throws FacadeException, BeanInvalidoException, RegistroComUsoException {
         try (ConnectionFactory factory = new ConnectionFactory()) {
             TipoAtendimentoDAO bd = new TipoAtendimentoDAO(factory.getConnection());
 

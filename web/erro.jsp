@@ -1,8 +1,3 @@
-<%-- 
-    Document   : erro
-    Created on : 31/05/2021, 15:02:31
-    Author     : nilo-
---%>
 <%@page isErrorPage="true" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -17,7 +12,7 @@
             <h2 class="alert alert-danger mt-3 d-sm-inline-flex">${pageContext.exception.message}</h2> </br>
             <small class=" w-75 text-muted">${pageContext.out.flush()}</small>
             <small class=" w-50 text-muted">${pageContext.exception.printStackTrace(pageContext.response.writer)}</small></br>
-            <a class="btn btn-primary d-sm-inline-flex m-5"href="${page}"> Voltar</a>
+            <a class="btn btn-primary d-sm-inline-flex m-5" href="${page}"> Voltar</a>
         </div>        
     </body>
 </html>

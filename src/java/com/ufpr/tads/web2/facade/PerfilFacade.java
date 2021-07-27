@@ -46,7 +46,7 @@ public class PerfilFacade {
         }
     }
     
-     public static void Inserir(PerfilBean perfil) throws FacadeException, BeanInvalidoException, RegistroDuplicadoException {
+     public static void inserir(PerfilBean perfil) throws FacadeException, BeanInvalidoException, RegistroDuplicadoException {
         try (ConnectionFactory factory = new ConnectionFactory()) {
             
             PerfilDAO bd = new PerfilDAO(factory.getConnection());
@@ -64,7 +64,7 @@ public class PerfilFacade {
         }
     }
 
-    public static void Remover(PerfilBean perfil) throws FacadeException, BeanInvalidoException, RegistroComUsoException {
+    public static void remover(PerfilBean perfil) throws FacadeException, BeanInvalidoException, RegistroComUsoException {
         try (ConnectionFactory factory = new ConnectionFactory()) {
             PerfilDAO bd = new PerfilDAO(factory.getConnection());
             CadastroDAO cbd = new CadastroDAO(factory.getConnection());

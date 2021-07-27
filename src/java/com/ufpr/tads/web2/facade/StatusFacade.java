@@ -46,7 +46,7 @@ public class StatusFacade {
         }
     }
     
-     public static void Inserir(StatusBean status) throws FacadeException, BeanInvalidoException, RegistroDuplicadoException {
+     public static void inserir(StatusBean status) throws FacadeException, BeanInvalidoException, RegistroDuplicadoException {
         try (ConnectionFactory factory = new ConnectionFactory()) {
             
             StatusDAO bd = new StatusDAO(factory.getConnection());
@@ -64,7 +64,7 @@ public class StatusFacade {
         }
     }
 
-    public static void Remover(StatusBean status) throws FacadeException, BeanInvalidoException, RegistroComUsoException {
+    public static void remover(StatusBean status) throws FacadeException, BeanInvalidoException, RegistroComUsoException {
         try (ConnectionFactory factory = new ConnectionFactory()) {
             StatusDAO bd = new StatusDAO(factory.getConnection());
             
