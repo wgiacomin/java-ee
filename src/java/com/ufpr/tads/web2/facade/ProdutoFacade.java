@@ -39,12 +39,16 @@ public class ProdutoFacade {
     }
 
     public static List<ProdutoBean> buscarTodos() throws FacadeException, BeanInvalidoException {
+        
         try (ConnectionFactory factory = new ConnectionFactory()) {
-            ProdutoDAOV bd = new ProdutoDAOV(factory.getConnection());
-            List<ProdutoBean> produtos = bd.buscarTodos();  
+            ProdutoDAO bd = new ProdutoDAO(factory.getConnection());
+            ProdutoCategoriaDAO pcDAO = new ProdutoCategoriaDAO(factory.getConnection());
+            List<ProdutoBean> produtos = bd.buscarTodos();
+            for(ProdutoBean p: produtos){
+                p.setProdutoCategoria(pcDAO.buscar(p.getProdutoCategoria()));
+            }
             return produtos;
-
-        } catch (DAOVException | DAOException e) {
+        } catch ( DAOException e) {
             throw new FacadeException("Erro ao buscar todos os produtos: ", e);
 
         } catch (NullPointerException e) {
@@ -65,7 +69,17 @@ public class ProdutoFacade {
             throw new BeanInvalidoException();
         }
     }
-
+    public static void Editar(ProdutoBean produto) throws FacadeException, BeanInvalidoException, RegistroComUsoException {
+        try (ConnectionFactory factory = new ConnectionFactory()) {
+            ProdutoDAO bd = new ProdutoDAO(factory.getConnection());
+       
+            bd.editar(produto);
+        } catch (DAOException e) {
+            throw new FacadeException("Erro ao alterar produto: ", e);
+        } catch (NullPointerException e) {
+            throw new BeanInvalidoException();
+        }
+    }
     public static void Remover(ProdutoBean produto) throws FacadeException, BeanInvalidoException, RegistroComUsoException {
         try (ConnectionFactory factory = new ConnectionFactory()) {
             ProdutoDAO bd = new ProdutoDAO(factory.getConnection());
