@@ -15,19 +15,19 @@
                 </span></br> 
             </c:if>
               <div class="form-floating">
-                  <input type="text" class="form-control" id="id" placeholder="ID" name="id" value="${produto.id}" readonly>
+                  <input type="text" class="form-control" id="id" placeholder="ID" name="id" value="<c:out value="${produto.id}"/>  " readonly>
                 <label for="id">ID</label>
             </div>
             <div class="form-floating">
-                <input type="text" class="form-control" id="nome" placeholder="Nome" name="nome" value="${produto.nome}"readonly>
+                <input type="text" class="form-control" id="nome" placeholder="Nome" name="nome" value="<c:out value="${produto.nome}"/>  "readonly>
                 <label for="descricao">Nome</label>
             </div>
             <div class="form-floating">
-                <textarea class="form-control" id="descricao" placeholder="Descrição" name="descricao" required>${produto.descricao}</textarea>
+                <textarea class="form-control" id="descricao" placeholder="Descrição" name="descricao" required><c:out value="${produto.descricao}"/>  </textarea>
                 <label for="descricao">Descrição</label>
             </div>
             <div class="form-floating">
-                <input type="text" class="form-control" id="peso" placeholder="Peso" name="peso" value="${produto.peso}" readonly>
+                <input type="text" class="form-control" id="peso" placeholder="Peso" name="peso" value="<c:out value="${produto.peso}"/>  " readonly>
                 <label for="descricao">Peso</label>
             </div>
             <div class="form-floating">
@@ -37,7 +37,7 @@
                         <c:if test="${cat.id == produto.produtoCategoria.id}">
                                         selected
                         </c:if>
-                        >${cat.descricao}</option>
+                        ><c:out value="${cat.descricao}"/>  </option>
                     </c:forEach>
                 </select>
                 <label for="categoria">Categoria</label>

@@ -19,11 +19,11 @@
                 </span></br> 
             </c:if>
             <div class="form-floating">
-                <input type="text" class="form-control" id="id" placeholder="ID" name="id" value="${categoria.id}" readonly>
+                <input type="text" class="form-control" id="id" placeholder="ID" name="id" value="<c:out value="${categoria.id}"/>" readonly>
                 <label for="descricao">ID</label>
             </div>
             <div class="form-floating">
-                <input type="text" class="form-control" id="descricao" placeholder="Descrição" name="descricao" value="${categoria.descricao}" required>
+                <input type="text" class="form-control" id="descricao" placeholder="Descrição" name="descricao" value="<c:out value="${categoria.descricao}"/>  " required>
                 <label for="descricao">Descrição</label>
             </div>
             

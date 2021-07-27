@@ -32,7 +32,7 @@
             <div class="form-floating">
                 <select class="form-control" id="categoria" placeholder="Categoria" name="categoria">
                     <c:forEach var="cat" items="${categoria}">
-                        <option value="${cat.id}">${cat.descricao}</option>
+                        <option value="${cat.id}"><c:out value="${cat.descricao}"/>  </option>
                     </c:forEach>
                 </select>
                 <label for="categoria">Categoria</label>
