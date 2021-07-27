@@ -47,7 +47,7 @@ public class CategoriaProdutoFacade {
         }
     }
 
-    public static void Inserir(ProdutoCategoriaBean produtoCategoria) throws FacadeException, BeanInvalidoException, RegistroDuplicadoException {
+    public static void inserir(ProdutoCategoriaBean produtoCategoria) throws FacadeException, BeanInvalidoException, RegistroDuplicadoException {
         try (ConnectionFactory factory = new ConnectionFactory()) {
             
             ProdutoCategoriaDAO bd = new ProdutoCategoriaDAO(factory.getConnection());
@@ -64,7 +64,7 @@ public class CategoriaProdutoFacade {
             throw new BeanInvalidoException();
         }
     }
-       public static void Editar(ProdutoCategoriaBean produtoCategoria) throws FacadeException, BeanInvalidoException, RegistroDuplicadoException, RegistroComUsoException {
+       public static void editar(ProdutoCategoriaBean produtoCategoria) throws FacadeException, BeanInvalidoException, RegistroDuplicadoException, RegistroComUsoException {
         try (ConnectionFactory factory = new ConnectionFactory()) {
             ProdutoCategoriaDAO bd = new ProdutoCategoriaDAO(factory.getConnection());
             bd.editar(produtoCategoria);
@@ -77,7 +77,7 @@ public class CategoriaProdutoFacade {
 
 
 
-    public static void Remover(ProdutoCategoriaBean produtoCategoria) throws FacadeException, BeanInvalidoException, RegistroDuplicadoException, RegistroComUsoException {
+    public static void remover(ProdutoCategoriaBean produtoCategoria) throws FacadeException, BeanInvalidoException, RegistroDuplicadoException, RegistroComUsoException {
         try (ConnectionFactory factory = new ConnectionFactory()) {
             ProdutoCategoriaDAO bd = new ProdutoCategoriaDAO(factory.getConnection());
 

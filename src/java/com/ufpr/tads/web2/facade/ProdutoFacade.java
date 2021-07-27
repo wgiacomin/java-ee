@@ -57,7 +57,7 @@ public class ProdutoFacade {
         }
     }
 
-    public static void Inserir(ProdutoBean produto) throws FacadeException, BeanInvalidoException {
+    public static void inserir(ProdutoBean produto) throws FacadeException, BeanInvalidoException {
         try (ConnectionFactory factory = new ConnectionFactory()) {
 
             ProdutoDAO bd = new ProdutoDAO(factory.getConnection());
@@ -69,7 +69,7 @@ public class ProdutoFacade {
             throw new BeanInvalidoException();
         }
     }
-    public static void Editar(ProdutoBean produto) throws FacadeException, BeanInvalidoException, RegistroComUsoException {
+    public static void editar(ProdutoBean produto) throws FacadeException, BeanInvalidoException, RegistroComUsoException {
         try (ConnectionFactory factory = new ConnectionFactory()) {
             ProdutoDAO bd = new ProdutoDAO(factory.getConnection());
        
@@ -80,7 +80,7 @@ public class ProdutoFacade {
             throw new BeanInvalidoException();
         }
     }
-    public static void Remover(ProdutoBean produto) throws FacadeException, BeanInvalidoException, RegistroComUsoException {
+    public static void remover(ProdutoBean produto) throws FacadeException, BeanInvalidoException, RegistroComUsoException {
         try (ConnectionFactory factory = new ConnectionFactory()) {
             ProdutoDAO bd = new ProdutoDAO(factory.getConnection());
 

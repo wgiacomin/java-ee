@@ -87,11 +87,11 @@ public class CategoriaProdutoServlet extends HttpServlet {
                 case 3: //gerente
                     switch(action){
                         case "removeC":
-                            CategoriaProdutoFacade.Remover(new ProdutoCategoriaBean(Integer.parseInt(request.getParameter("id"))," "));
+                            CategoriaProdutoFacade.remover(new ProdutoCategoriaBean(Integer.parseInt(request.getParameter("id"))," "));
                             request.setAttribute("tabela", "prod");
                             break;
                         case "removeP":
-                            ProdutoFacade.Remover(new ProdutoBean(Integer.parseInt(request.getParameter("id")),null,null,0,null)); 
+                            ProdutoFacade.remover(new ProdutoBean(Integer.parseInt(request.getParameter("id")),null,null,0,null)); 
                             request.setAttribute("tabela", "cat");
                             break;
                         case "formP":
@@ -113,14 +113,14 @@ public class CategoriaProdutoServlet extends HttpServlet {
                             p.setNome(request.getParameter("nome"));
                             p.setPeso(Double.valueOf(request.getParameter("peso")));
                             p.setProdutoCategoria(c);
-                            ProdutoFacade.Inserir(p);
+                            ProdutoFacade.inserir(p);
                             break;
                         case "novaCategoria":
                             request.setAttribute("tabela", "prod");
                             c = new ProdutoCategoriaBean();
                             c.setDescricao(request.getParameter("descricao"));
                             
-                            CategoriaProdutoFacade.Inserir(c);
+                            CategoriaProdutoFacade.inserir(c);
                             break;
                         case "formAlterarProduto":
                             p = new ProdutoBean();
@@ -169,7 +169,7 @@ public class CategoriaProdutoServlet extends HttpServlet {
                             c.setId(Integer.valueOf(request.getParameter("categoria")));
                             c=CategoriaProdutoFacade.buscar(c);
                             p.setProdutoCategoria(c);
-                            ProdutoFacade.Editar(p);
+                            ProdutoFacade.editar(p);
 
                             break;
                         case "alterarCategoria":
@@ -177,7 +177,7 @@ public class CategoriaProdutoServlet extends HttpServlet {
                             c = new ProdutoCategoriaBean();
                             c.setId(Integer.valueOf(request.getParameter("id")));
                             c.setDescricao(request.getParameter("descricao"));
-                            CategoriaProdutoFacade.Editar(c);
+                            CategoriaProdutoFacade.editar(c);
 
                             break;
                     }  
@@ -190,7 +190,9 @@ public class CategoriaProdutoServlet extends HttpServlet {
                     rd.forward(request, response);
                     break;
                 default:
-                    throw new HomeServletException();
+                    rd = getServletContext().getRequestDispatcher("/HomeServlet");
+                    request.setAttribute("msg", "Comando invalido");
+                    rd.forward(request, response);
             }
         } catch (FacadeException|HomeServletException|BeanInvalidoException|RegistroComUsoException|RegistroDuplicadoException|RegistroInexistenteException e) {
             rd = getServletContext().getRequestDispatcher("/erro.jsp");
