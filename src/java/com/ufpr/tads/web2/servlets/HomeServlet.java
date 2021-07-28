@@ -66,7 +66,7 @@ public class HomeServlet extends HttpServlet {
 				case 2:
 					StatusBean status = new StatusBean(1, null);//status para atendimentos em aberto
 
-					lista = AtendimentoFacade.buscarTodosComFiltroStatus(status, cadastro, "ASC");//busca atendimento em aberto para funcionario ordenado de forma crescente por data
+					lista = AtendimentoFacade.buscarTodosComFiltroStatusEPessoa(status, cadastro, "ASC");//busca atendimento em aberto para funcionario ordenado de forma crescente por data
 					request.setAttribute("lista", lista);
 
 					rd = getServletContext().getRequestDispatcher("/homeFuncionario.jsp");
