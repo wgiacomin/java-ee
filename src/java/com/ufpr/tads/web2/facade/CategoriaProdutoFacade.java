@@ -49,21 +49,33 @@ public class CategoriaProdutoFacade {
 
     public static void inserir(ProdutoCategoriaBean produtoCategoria) throws FacadeException, BeanInvalidoException, RegistroDuplicadoException {
         try (ConnectionFactory factory = new ConnectionFactory()) {
-
+            
             ProdutoCategoriaDAO bd = new ProdutoCategoriaDAO(factory.getConnection());
-            produtoCategoria = bd.buscarPorNome(produtoCategoria);
-
-            if (produtoCategoria != null) {
+            
+            if (bd.buscarPorNome(produtoCategoria) != null) {
                 throw new RegistroDuplicadoException();
             }
-
+            
             bd.inserir(produtoCategoria);
+            
         } catch (DAOException e) {
             throw new FacadeException("Erro ao inserir categoria de produto: ", e);
         } catch (NullPointerException e) {
             throw new BeanInvalidoException();
         }
     }
+       public static void editar(ProdutoCategoriaBean produtoCategoria) throws FacadeException, BeanInvalidoException, RegistroDuplicadoException, RegistroComUsoException {
+        try (ConnectionFactory factory = new ConnectionFactory()) {
+            ProdutoCategoriaDAO bd = new ProdutoCategoriaDAO(factory.getConnection());
+            bd.editar(produtoCategoria);
+        } catch (DAOException e) {
+            throw new FacadeException("Erro ao alterar categoria de produto: ", e);
+        } catch (NullPointerException e) {
+            throw new BeanInvalidoException();
+        }
+    }
+
+
 
     public static void remover(ProdutoCategoriaBean produtoCategoria) throws FacadeException, BeanInvalidoException, RegistroDuplicadoException, RegistroComUsoException {
         try (ConnectionFactory factory = new ConnectionFactory()) {
