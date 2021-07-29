@@ -26,7 +26,7 @@ function getCidades(alterar = - 1) {
             success: function (data) {
                 $("#cidade").empty();
                 $.each(data, function (i, obj) {
-                  if (obj.id == alterar) {
+                  if (obj.id === alterar) {
                     $("#cidade").append('<option value=' + obj.id + ' selected>' + obj.nome + '</option>');
                   } else {
                     $("#cidade").append('<option value=' + obj.id + '>' + obj.nome + '</option>');
