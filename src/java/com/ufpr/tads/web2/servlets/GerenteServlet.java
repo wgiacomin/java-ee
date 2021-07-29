@@ -10,6 +10,7 @@ import com.ufpr.tads.web2.beans.CidadeBean;
 import com.ufpr.tads.web2.beans.EstadoBean;
 import com.ufpr.tads.web2.beans.PerfilBean;
 import com.ufpr.tads.web2.exceptions.BeanInvalidoException;
+import com.ufpr.tads.web2.exceptions.CPFException;
 import com.ufpr.tads.web2.exceptions.CampoInvalidoException;
 import com.ufpr.tads.web2.exceptions.FacadeException;
 import com.ufpr.tads.web2.exceptions.RegistroComUsoException;
@@ -48,7 +49,6 @@ public class GerenteServlet extends HttpServlet {
 		RequestDispatcher rd;
 		List<CadastroBean> lista;
 		PerfilBean perfil;
-		String msg = null;
 		String action = request.getParameter("action");
 		String idStr = request.getParameter("id");
 		int id;
@@ -109,6 +109,14 @@ public class GerenteServlet extends HttpServlet {
 						rd.forward(request, response);
 						break;
 					case "alterar":
+						try {
+							int nr = Integer.parseInt(request.getParameter("nr"));
+							cadastro.setRuaNumero(nr);
+							if(nr < 0)
+								throw new CampoInvalidoException("Número de rua inválido");
+						} catch (NumberFormatException e) {
+							throw new CampoInvalidoException("Número de rua inválido");
+						}
 						cadastro.setId(Integer.parseInt(request.getParameter("id")));
 						cadastro.setNome(request.getParameter("nome"));
 						cadastro.setRua(request.getParameter("rua"));
@@ -129,26 +137,31 @@ public class GerenteServlet extends HttpServlet {
 						cadastro.setPerfil(perfil);
 						cidadeBean.setEstado(estadoBean);
 						cadastro.setCidade(cidadeBean);
-
+				
 						request.setAttribute("cadastro", cadastro);
-
+						request.setAttribute("action", "formUpdate");
 						try {
-							cadastro.setRuaNumero(Integer.parseInt(request.getParameter("nr")));
+							int nr = Integer.parseInt(request.getParameter("nr"));
+							cadastro.setRuaNumero(nr);
+							if(nr < 0)
+								throw new CampoInvalidoException("Número de rua inválido");
 						} catch (NumberFormatException e) {
 							throw new CampoInvalidoException("Número de rua inválido");
 						}
-
+						
 						CadastroFacade.editar(cadastro); //edita cliente no banco
 
 						rd = getServletContext().getRequestDispatcher("/GerenteServlet?action=listar");
 						rd.forward(request, response);
 						break;
-					case "novo":
+					case "novo":						
 						cadastro.setLogin(request.getParameter("email"));
 						cadastro.setSenha(request.getParameter("email"));
 						cadastro.setNome(request.getParameter("nome"));
 						cadastro.setEmail(request.getParameter("email"));
 						cadastro.setCpf(request.getParameter("cpf").replaceAll("\\D+", ""));
+						if(cadastro.getCpf().length() <=11)
+							throw new CPFException();
 						cadastro.setRua(request.getParameter("rua"));
 						cadastro.setRuaComplemento(request.getParameter("complemento"));
 						cadastro.setBairro(request.getParameter("bairro"));
@@ -167,11 +180,14 @@ public class GerenteServlet extends HttpServlet {
 						cidadeBean.setEstado(estadoBean);
 						cadastro.setCidade(cidadeBean);						
 						cadastro.setPerfil(perfil);
-
+						
 						request.setAttribute("cadastro", cadastro);
-
+						request.setAttribute("action", "formNew");
 						try {
-							cadastro.setRuaNumero(Integer.parseInt(request.getParameter("nr")));
+							int nr = Integer.parseInt(request.getParameter("nr"));
+							cadastro.setRuaNumero(nr);
+							if(nr < 0)
+								throw new CampoInvalidoException("Número de rua inválido");
 						} catch (NumberFormatException e) {
 							throw new CampoInvalidoException("Número de rua inválido");
 						}
@@ -183,8 +199,8 @@ public class GerenteServlet extends HttpServlet {
 					default:
 				}
 			}
-		} catch (CampoInvalidoException|RegistroDuplicadoException e) {
-			rd = getServletContext().getRequestDispatcher("/cadastro.jsp");
+		} catch (CampoInvalidoException|RegistroDuplicadoException|CPFException e) {
+			rd = getServletContext().getRequestDispatcher("/formCadastroGerente.jsp");
 			request.setAttribute("msg", e.getMessage());
 			rd.forward(request, response);
 		} catch (BeanInvalidoException | FacadeException | RegistroInexistenteException | RegistroComUsoException e) {

@@ -1,5 +1,5 @@
 <%@include file="utils/header.jsp" %>
-<script src="js/validacaoCadastro.js"></script>
+        <script src="js/validacaoCadastro.js"></script>
 <link rel="stylesheet" href="css/cadastro.css">
 <c:choose>
     <c:when test="${requestScope.action == 'formUpdate' and cadastro.id == sessionScope.logado.id}">
@@ -14,11 +14,6 @@
             </c:choose>
 
             <h1 class="mb-4 h-3 fw-normal ">${requestScope.action == 'formNew'? 'Novo Funcionário/Gerente':'Alterar'}</h1> 
-            <c:if test="${msg != null}">
-                <span class="alert alert-danger d-sm-inline-flex mb-3" role="alert">
-                    <c:out value="${msg}"/>
-                </span></br> 
-            </c:if>
             <div class="form-floating">
                 <c:choose>
                     <c:when test="${cadastro.id == sessionScope.logado.id}">            
@@ -26,8 +21,8 @@
                         <label for="perfil">Perfil</label>
                     </c:when>
                     <c:otherwise>
-                        <select class="form-select" id="perfil" name="perfil" placeholder="Perfil">
-                            <option class="text-muted" selected>Selecione</option>
+                        <select class="form-select" id="perfil" name="perfil" placeholder="Perfil" requiredx>
+                            <option value="0" class="text-muted" selected>Selecione</option>
                             <option value="2" ${cadastro.perfil.id == 2 ? 'selected':''}>Funcionário</option>
                             <option value="3" ${cadastro.perfil.id == 3 ? 'selected':''}>Gerente</option>
                         </select>
@@ -90,9 +85,6 @@
 
             <div class="form-floating">
                 <select class="form-select" id="cidade" placeholder="Cidade" name="cidade">        
-                    <c:if test="${requestScope.action == 'formUpdate'}">
-                        <option value="${cadastro.cidade.id}">${cadastro.cidade.nome}</option>
-                    </c:if>
                 </select>
                 <label for="cidade">Cidade</label>
             </div>
@@ -100,5 +92,5 @@
             <input type="submit" value="${requestScope.action == 'formUpdate' ? 'Alterar' : 'Cadastrar'}" class="w-100 btn btn-lg btn-outline-success" />
             <a href="GerenteServlet?action=listar" class="btn w-100 btn btn-lg btn-danger">Cancelar</a>
         </form>
-
+       
         <%@include file="utils/footer.jsp" %>
