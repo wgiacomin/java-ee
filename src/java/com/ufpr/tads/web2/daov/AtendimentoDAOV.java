@@ -20,9 +20,17 @@ public class AtendimentoDAOV {
             + " tipo_atendimento, status, produto_categoria, id_categoria, produto_descricao, peso, produto_nome "
             + " FROM atendimento_daov ORDER BY data_hora ASC;";
 
+    private static final String QUERY_BUSCAR_TODOS_ORDENADO = "SELECT id, data_hora, descricao, solucao, fk_cliente, fk_status, fk_tipo_atendimento, fk_produto, "
+            + " tipo_atendimento, status, produto_categoria, id_categoria, produto_descricao, peso, produto_nome "
+            + " FROM atendimento_daov ORDER BY data_hora ";
+
     private final String QUERY_BUSCAR_TODOS_POR_STATUS_E_PESSOA = "SELECT id, data_hora, descricao, solucao, fk_cliente, fk_status, fk_tipo_atendimento, fk_produto, "
             + " tipo_atendimento, status, produto_categoria, id_categoria, produto_descricao, peso, produto_nome "
             + " FROM atendimento_daov WHERE fk_cliente = ? AND fk_status = ? ORDER BY data_hora ";
+
+    private final String QUERY_BUSCAR_TODOS_POR_STATUS = "SELECT id, data_hora, descricao, solucao, fk_cliente, fk_status, fk_tipo_atendimento, fk_produto, "
+            + " tipo_atendimento, status, produto_categoria, id_categoria, produto_descricao, peso, produto_nome "
+            + " FROM atendimento_daov WHERE fk_status = ? ORDER BY data_hora ";
 
     private final String QUERY_BUSCAR_TODOS_POR_PESSOA = "SELECT id, data_hora, descricao, solucao, fk_cliente, fk_status, fk_tipo_atendimento, fk_produto, "
             + " tipo_atendimento, status, produto_categoria, id_categoria, produto_descricao, peso, produto_nome "
@@ -107,6 +115,21 @@ public class AtendimentoDAOV {
         }
     }
 
+    public List<AtendimentoBean> buscarTodosOrdenado(String order) throws DAOVException {
+        List<AtendimentoBean> lista = new ArrayList<>();
+        try (PreparedStatement st = con.prepareStatement(QUERY_BUSCAR_TODOS_ORDENADO + order + ";")) {
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                lista.add(extrairAtendimento(rs));
+            }
+            return lista;
+        } catch (SQLException e) {
+            throw new DAOVException("Erro buscando todas os atendimentos: "
+                    + QUERY_BUSCAR_TODOS, e);
+
+        }
+    }
+
     public List<AtendimentoBean> buscarTodosComStatusEPessoa(StatusBean status, LoginBean login, String order) throws DAOVException {
         List<AtendimentoBean> lista = new ArrayList<>();
         try (PreparedStatement st = con.prepareStatement(QUERY_BUSCAR_TODOS_POR_STATUS_E_PESSOA + order + ";")) {
@@ -124,11 +147,27 @@ public class AtendimentoDAOV {
         }
     }
 
+    public List<AtendimentoBean> buscarTodosComStatus(StatusBean status, String order) throws DAOVException {
+        List<AtendimentoBean> lista = new ArrayList<>();
+        try (PreparedStatement st = con.prepareStatement(QUERY_BUSCAR_TODOS_POR_STATUS + order + ";")) {
+            st.setInt(1, status.getId());
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                lista.add(extrairAtendimento(rs));
+            }
+            return lista;
+        } catch (SQLException e) {
+            throw new DAOVException("Erro buscando todas os atendimentos com filtro de pessoa e status: "
+                    + QUERY_BUSCAR_TODOS_POR_STATUS + order, e);
+
+        }
+    }
+
     public List<AtendimentoBean> buscarTodosComPessoa(LoginBean login, String order) throws DAOVException {
         List<AtendimentoBean> lista = new ArrayList<>();
         try (PreparedStatement st = con.prepareStatement(QUERY_BUSCAR_TODOS_POR_PESSOA + order + ";")) {
-			st.setInt(1, login.getId());
-            ResultSet rs = st.executeQuery();            
+            st.setInt(1, login.getId());
+            ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 lista.add(extrairAtendimento(rs));
             }
