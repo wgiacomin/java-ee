@@ -14,18 +14,22 @@
         <thead>
             <tr>
                 <th scope="col">#</th>
+                <th scope="col">Data</th>
                 <th scope="col">Tipo Atendimento</th>
-                <th scope="col">Aberto</th>
-                <th scope="col">Total</th>
+                <th scope="col">Descrição</th>
+                <th scope="col">Produto</th>
+                <th scope="col">ver</th>
             </tr>
         </thead>
         <tbody>        
-            <c:forEach var="a" varStatus="i" items="${lista}">                        
+            <c:forEach var="a" varStatus="i" items="${atendimento}">                        
                 <tr>
-                    <th scope="row"><c:out value="${i.count}"/></th>
-                    <td><c:out value="${a.tipo}"/></td>
-                    <td><c:out value="${a.aberto}"/></td>
-                    <td><c:out value="${a.total}"/></td>
+                    <th scope="row"><c:out value="${a.id}"/></th>
+                    <c:if test=""></c:if>
+                    <td><fmt:formatDate value="${a.dataHora}" pattern="dd/MM/yyyy 'às' HH:mm"/></td>
+                    <td><c:out value="${a.tipoAtendimento.descricao}"/></td>
+                    <td><c:out value="${a.descricao}"/></td>
+                    <td><c:out value="${a.produto.nome}"/></td>
                 </tr>
             </c:forEach>
         </tbody>

@@ -43,7 +43,7 @@
                         <c:when test="${sessionScope.logado.perfil.id == 3}">
                             <ul class="navbar-nav me-auto mb-2 mb-md-0">
                                 <li class="nav-item "><a href="HomeServlet" class="nav-link active mx-3">Home</a></li>
-                                <li class="nav-item"><a href="AtendimentoServlet?action=only_open" class="nav-link active mx-3">Atendimentos</a></li>
+                                <li class="nav-item"><a href="ListagemServlet?action=only_open" class="nav-link active mx-3">Atendimentos</a></li>
                                 <li class="nav-item"><a href="GerenteServlet" class="nav-link active mx-3">Cadastros</a></li>
                                 <li class="nav-item"><a href="./relatorios.jsp" class="nav-link active mx-3">Relatórios</a></li>
                             </ul>

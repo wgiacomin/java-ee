@@ -11,8 +11,6 @@ import com.ufpr.tads.web2.facade.AtendimentoFacade;
 import com.ufpr.tads.web2.facade.CadastroFacade;
 import java.io.IOException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -83,13 +81,6 @@ public class AtendimentoServlet extends HttpServlet {
                     AtendimentoFacade.solucionar(atendimento);
                     response.sendRedirect("HomeServlet");
                     break;
-                case "only_open":
-                    StatusBean status = new StatusBean();
-                    status.setId(1);
-                    List<AtendimentoBean> atendimentos = AtendimentoFacade.buscarTodosComFiltroStatus(status, "ASC");
-                    request.setAttribute("atendimento", atendimentos);
-                    rd = getServletContext().getRequestDispatcher("./listarEmAberto.jsp");
-                    rd.forward(request, response);
                 default:
                     response.sendRedirect("HomeServlet");
             }
@@ -109,11 +100,6 @@ public class AtendimentoServlet extends HttpServlet {
             request.setAttribute("javax.servlet.error.status_code", 500);
             request.setAttribute("page", "HomeServlet");
         } catch (RegistroInexistenteException e) {
-            rd = getServletContext().getRequestDispatcher("/erro.jsp");
-            request.setAttribute("javax.servlet.jsp.jspException", e);
-            request.setAttribute("javax.servlet.error.status_code", 500);
-            request.setAttribute("page", "HomeServlet");
-        } catch (OrdenacaoInvalidaException e) {
             rd = getServletContext().getRequestDispatcher("/erro.jsp");
             request.setAttribute("javax.servlet.jsp.jspException", e);
             request.setAttribute("javax.servlet.error.status_code", 500);
