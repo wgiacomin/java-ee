@@ -104,7 +104,7 @@ public class GerenteServlet extends HttpServlet {
 						cadastro = new CadastroBean();
 						cadastro.setId(id);
 
-						CadastroFacade.Remover(cadastro);
+						CadastroFacade.remover(cadastro);
 						rd = getServletContext().getRequestDispatcher("/GerenteServlet?action=listar");
 						rd.forward(request, response);
 						break;
@@ -160,8 +160,6 @@ public class GerenteServlet extends HttpServlet {
 						cadastro.setNome(request.getParameter("nome"));
 						cadastro.setEmail(request.getParameter("email"));
 						cadastro.setCpf(request.getParameter("cpf").replaceAll("\\D+", ""));
-						if(cadastro.getCpf().length() <=11)
-							throw new CPFException();
 						cadastro.setRua(request.getParameter("rua"));
 						cadastro.setRuaComplemento(request.getParameter("complemento"));
 						cadastro.setBairro(request.getParameter("bairro"));

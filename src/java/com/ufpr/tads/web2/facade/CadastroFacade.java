@@ -129,7 +129,7 @@ public class CadastroFacade {
 		}
 	}
 
-	public static void Remover(CadastroBean cadastro) throws FacadeException, RegistroInexistenteException, BeanInvalidoException, RegistroComUsoException {
+	public static void remover(CadastroBean cadastro) throws FacadeException, RegistroInexistenteException, BeanInvalidoException, RegistroComUsoException {
 		try (ConnectionFactory factory = new ConnectionFactory()) {
 			CadastroDAO bd = new CadastroDAO(factory.getConnection());
 
