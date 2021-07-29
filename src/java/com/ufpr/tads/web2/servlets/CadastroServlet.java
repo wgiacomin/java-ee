@@ -6,6 +6,7 @@ import com.ufpr.tads.web2.beans.EstadoBean;
 import com.ufpr.tads.web2.beans.LoginBean;
 import com.ufpr.tads.web2.beans.PerfilBean;
 import com.ufpr.tads.web2.exceptions.BeanInvalidoException;
+import com.ufpr.tads.web2.exceptions.CPFException;
 import com.ufpr.tads.web2.exceptions.CampoInvalidoException;
 import com.ufpr.tads.web2.exceptions.FacadeException;
 import com.ufpr.tads.web2.exceptions.RegistroComUsoException;
@@ -54,6 +55,8 @@ public class CadastroServlet extends HttpServlet {
                         cadastro.setNome(request.getParameter("nome"));
                         cadastro.setEmail(request.getParameter("email"));
                         cadastro.setCpf(request.getParameter("cpf").replaceAll("\\D+",""));
+						if(cadastro.getCpf().length() <=11)
+							throw new CPFException();
                         cadastro.setRua(request.getParameter("rua"));
                         cadastro.setRuaComplemento(request.getParameter("complemento"));
                         cadastro.setBairro(request.getParameter("bairro"));
@@ -180,7 +183,7 @@ public class CadastroServlet extends HttpServlet {
             request.setAttribute("javax.servlet.error.status_code", 500);
             request.setAttribute("page", "index.jsp");
             rd.forward(request, response); //redireciona para erro.jsp
-        } catch (BeanInvalidoException | RegistroDuplicadoException | RegistroInexistenteException | RegistroComUsoException  e) {
+        } catch (BeanInvalidoException | RegistroDuplicadoException | RegistroInexistenteException | RegistroComUsoException |CPFException  e) {
             RequestDispatcher rd = getServletContext().getRequestDispatcher("/cadastro.jsp");
             request.setAttribute("msg", e.getMessage());
             rd.forward(request, response);

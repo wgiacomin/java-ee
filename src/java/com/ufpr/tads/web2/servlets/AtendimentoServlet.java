@@ -81,26 +81,12 @@ public class AtendimentoServlet extends HttpServlet {
                 default:
                     response.sendRedirect("HomeServlet");
             }
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException | FacadeException | BeanInvalidoException | RegistroInexistenteException e) {
             rd = getServletContext().getRequestDispatcher("/erro.jsp");
             request.setAttribute("javax.servlet.jsp.jspException", e);
             request.setAttribute("javax.servlet.error.status_code", 500);
             request.setAttribute("page", "HomeServlet");
-        } catch (FacadeException e) {
-            rd = getServletContext().getRequestDispatcher("/erro.jsp");
-            request.setAttribute("javax.servlet.jsp.jspException", e);
-            request.setAttribute("javax.servlet.error.status_code", 500);
-            request.setAttribute("page", "HomeServlet");
-        } catch (BeanInvalidoException e) {
-            rd = getServletContext().getRequestDispatcher("/erro.jsp");
-            request.setAttribute("javax.servlet.jsp.jspException", e);
-            request.setAttribute("javax.servlet.error.status_code", 500);
-            request.setAttribute("page", "HomeServlet");
-        } catch (RegistroInexistenteException e) {
-            rd = getServletContext().getRequestDispatcher("/erro.jsp");
-            request.setAttribute("javax.servlet.jsp.jspException", e);
-            request.setAttribute("javax.servlet.error.status_code", 500);
-            request.setAttribute("page", "HomeServlet");
+			rd.forward(request, response);
         }
     }
 

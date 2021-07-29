@@ -71,7 +71,7 @@
                 </div> 
 
                 <div class="form-floating">
-                    <select class="form-control" id="uf" placeholder="Estado" name="uf">
+                    <select class="form-select" id="uf" placeholder="Estado" name="uf">
                         <c:forEach var="estado" items="${estados}">
                             <option value="${estado.id}"
                                     <c:if test="${estado.id == cadastro.cidade.estado.id}">
@@ -83,7 +83,7 @@
                 </div>
 
                 <div class="form-floating">
-                    <select class="form-control" id="cidade" placeholder="Cidade" name="cidade">
+                    <select class="form-select" id="cidade" placeholder="Cidade" name="cidade">
                     </select>
                 </div>
 
