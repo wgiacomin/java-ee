@@ -13,6 +13,7 @@ public class AtendimentoBean implements Serializable {
     private StatusBean status;
     private TipoAtendimentoBean tipoAtendimento;
     private ProdutoBean produto;
+    private int clr;
 
     public AtendimentoBean() {
     }
@@ -92,4 +93,13 @@ public class AtendimentoBean implements Serializable {
         this.produto = produto;
     }
 
+    public int getClr() {
+        return clr;
+    }
+
+    public void setClr(int clr) {
+        this.clr = clr;
+    }
+
+    
 }

@@ -4,7 +4,7 @@
 <%@page errorPage="error.jsp" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<c:if test="${empty sessionScope.logado || empty sessionScope.logado.nome || sessionScope.logado.id == 0 || sessionScopre.logado.perfil.id == 0}">
+<c:if test="${empty sessionScope.logado || empty sessionScope.logado.nome || sessionScope.logado.id == 0 || sessionScope.logado.perfil.id == 0}">
     <c:set var="msg" scope="request" value="Usuário deve se autenticar para acessar o sistema."/>
     <jsp:forward page="index.jsp" />
 </c:if>
@@ -36,7 +36,8 @@
                         <c:when test="${sessionScope.logado.perfil.id == 2}">
                             <ul class="navbar-nav me-auto mb-2 mb-md-0">
                                 <li class="nav-item "><a href="HomeServlet" class="nav-link active mx-3">Home</a></li>
-                                <li class="nav-item"><a href="#" class="nav-link active mx-3">Atendimento</a></li>
+                                <li class="nav-item"><a href="#" class="nav-link active mx-3">Novo Atendimento</a></li>
+                                <li class="nav-item"><a href="ListagemServlet?action=only_open" class="nav-link active mx-3">Atendimentos</a></li>
                                 <li class="nav-item"><a href="#" class="nav-link active mx-3">Cadastros</a></li>
                             </ul>
                         </c:when>

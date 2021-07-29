@@ -48,6 +48,23 @@ public class AtendimentoFacade {
         }
     }
 
+    public static List<AtendimentoBean> buscarTodosOrdenado(String order) throws FacadeException, BeanInvalidoException, OrdenacaoInvalidaException {
+        if (!order.equals("DESC") && !order.equals("ASC")) {
+            throw new OrdenacaoInvalidaException();
+        }
+
+        try (ConnectionFactory factory = new ConnectionFactory()) {
+            AtendimentoDAOV bd = new AtendimentoDAOV(factory.getConnection());
+            List<AtendimentoBean> atendimentos = bd.buscarTodosOrdenado(order);
+            return atendimentos;
+
+        } catch (DAOException | DAOVException e) {
+            throw new FacadeException("Erro ao buscar todos os atendimentos: ", e);
+        } catch (NullPointerException e) {
+            throw new BeanInvalidoException();
+        }
+    }
+
     public static List<AtendimentoBean> buscarTodosComFiltroPessoa(LoginBean login, String order) throws FacadeException, BeanInvalidoException, OrdenacaoInvalidaException, OrdenacaoInvalidaException {
         if (!order.equals("DESC") && !order.equals("ASC")) {
             throw new OrdenacaoInvalidaException();

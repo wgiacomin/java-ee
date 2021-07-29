@@ -38,15 +38,15 @@ public class AtendimentoServlet extends HttpServlet {
         CadastroBean cadastro = (CadastroBean) session.getAttribute("logado");
         int perfil = cadastro.getPerfil().getId();
 
-        if (perfil != 2) {
-            rd = getServletContext().getRequestDispatcher("HomeServlet");
+        if (perfil != 2 && perfil != 3) {
+            rd = getServletContext().getRequestDispatcher("/HomeServlet");
             request.setAttribute("msg", "Usuário não tem permissão de acesso");
             rd.forward(request, response);
             return;
         }
 
         if (request.getParameter("atendimento_id") == null) {
-            rd = getServletContext().getRequestDispatcher("HomeServlet?action=&");
+            rd = getServletContext().getRequestDispatcher("/HomeServlet?action=&");
             request.setAttribute("msg", "Algo deu errado.");
             rd.forward(request, response);
             return;
@@ -65,12 +65,19 @@ public class AtendimentoServlet extends HttpServlet {
                     cadastro_ = CadastroFacade.buscar(cadastro_);
                     request.setAttribute("atendimento", atendimento);
                     request.setAttribute("cadastro", cadastro_);
-                    rd = getServletContext().getRequestDispatcher("/formResolucaoAtendimento.jsp");
+                    request.setAttribute("page", (String) request.getParameter("page"));
+                    rd = getServletContext().getRequestDispatcher("/detailsAtendimento.jsp");
                     rd.forward(request, response);
                     break;
                 case "solve":
+                    if (perfil != 2) {
+                        rd = getServletContext().getRequestDispatcher("/HomeServlet");
+                        request.setAttribute("msg", "Usuário não tem permissão de solucionar atendimentos.");
+                        rd.forward(request, response);
+                        return;
+                    }
                     if (request.getParameter("solucao") == null) {
-                        rd = getServletContext().getRequestDispatcher("/AtendimentoServlet?action=details");
+                        rd = getServletContext().getRequestDispatcher("AtendimentoServlet?action=details");
                         request.setAttribute("msg", "Nenhuma solução foi digitada.");
                         rd.forward(request, response);
                         return;
@@ -79,17 +86,17 @@ public class AtendimentoServlet extends HttpServlet {
                     atendimento.setId(Integer.parseInt(request.getParameter("atendimento_id")));
                     atendimento.setSolucao(request.getParameter("solucao"));
                     AtendimentoFacade.solucionar(atendimento);
-                    response.sendRedirect("HomeServlet");
+                    response.sendRedirect("/HomeServlet");
                     break;
                 default:
-                    response.sendRedirect("HomeServlet");
+                    response.sendRedirect("/HomeServlet");
             }
         } catch (NumberFormatException | FacadeException | BeanInvalidoException | RegistroInexistenteException e) {
             rd = getServletContext().getRequestDispatcher("/erro.jsp");
             request.setAttribute("javax.servlet.jsp.jspException", e);
             request.setAttribute("javax.servlet.error.status_code", 500);
             request.setAttribute("page", "HomeServlet");
-			rd.forward(request, response);
+            rd.forward(request, response);
         }
     }
 
