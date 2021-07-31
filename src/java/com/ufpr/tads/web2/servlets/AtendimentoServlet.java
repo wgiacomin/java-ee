@@ -6,11 +6,14 @@ import com.ufpr.tads.web2.beans.StatusBean;
 import com.ufpr.tads.web2.exceptions.BeanInvalidoException;
 import com.ufpr.tads.web2.exceptions.FacadeException;
 import com.ufpr.tads.web2.exceptions.OrdenacaoInvalidaException;
+import com.ufpr.tads.web2.exceptions.RegistroComUsoException;
 import com.ufpr.tads.web2.exceptions.RegistroInexistenteException;
 import com.ufpr.tads.web2.facade.AtendimentoFacade;
 import com.ufpr.tads.web2.facade.CadastroFacade;
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -39,11 +42,40 @@ public class AtendimentoServlet extends HttpServlet {
         int perfil = cadastro.getPerfil().getId();
 
         if (perfil != 2 && perfil != 3) {
-            rd = getServletContext().getRequestDispatcher("/HomeServlet");
-            request.setAttribute("msg", "Usuário não tem permissão de acesso");
+             
+            try {
+                String action = request.getParameter("action");
+                if(action == null)
+                        action="";
+                AtendimentoBean atendimento;
+                switch (action) {
+                    case "details":
+                        request.setAttribute("cadastro", cadastro);
+                        atendimento = new AtendimentoBean();
+                        atendimento.setId(Integer.valueOf(request.getParameter("id")));
+                        atendimento=AtendimentoFacade.buscar(atendimento);
+                        request.setAttribute("atendimento", atendimento);
+                        rd = getServletContext().getRequestDispatcher("/detailsAtendimento.jsp");
+                        rd.forward(request, response);
+                        break;
+                    case "remove":
+                        atendimento = new AtendimentoBean();
+                        atendimento.setId(Integer.valueOf(request.getParameter("id")));
+                        AtendimentoFacade.remover(atendimento);
+                    default:
+                        List<AtendimentoBean> atendimentos = AtendimentoFacade.buscarTodosComFiltroPessoa(cadastro,"DESC");
+                        request.setAttribute("lista", atendimentos);
+                        rd = getServletContext().getRequestDispatcher("/HomeCliente.jsp");
+                        rd.forward(request, response);
+                }
+            } catch (FacadeException|BeanInvalidoException|OrdenacaoInvalidaException|RegistroInexistenteException|RegistroComUsoException ex) {
+            rd = getServletContext().getRequestDispatcher("/erro.jsp");
+            request.setAttribute("javax.servlet.jsp.jspException", ex);
+            request.setAttribute("javax.servlet.error.status_code", 500);
+            request.setAttribute("page", "HomeServlet");
             rd.forward(request, response);
-            return;
-        }
+            }
+        }else{
 
         if (request.getParameter("atendimento_id") == null) {
             rd = getServletContext().getRequestDispatcher("/HomeServlet?action=&");
@@ -98,7 +130,9 @@ public class AtendimentoServlet extends HttpServlet {
             request.setAttribute("page", "HomeServlet");
             rd.forward(request, response);
         }
+       }
     }
+    
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

@@ -77,7 +77,7 @@ public class AtendimentoDAO implements DAOInterface<AtendimentoBean> {
             throw new DAOException("Erro buscando por login: " + login.getId(), e);
         }
     }
-
+    
     public int buscarPorStatus(StatusBean status) throws DAOException {
         try (PreparedStatement st = con.prepareStatement(QUERY_BUSCAR_POR_STATUS)) {
             st.setInt(1, status.getId());
