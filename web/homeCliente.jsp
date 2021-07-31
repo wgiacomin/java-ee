@@ -20,7 +20,7 @@
                         <td><c:out value="${a.tipoAtendimento.descricao}"/></td>
                         <td><c:out value="${a.produto.nome}"/></td>
                         <td class="text-center">
-                            <a href="AtendimentoServlet?id=${a.id}&action=show" class="btn btn-primary"> 
+                            <a href="AtendimentoServlet?id=<c:out value="${a.id}"/>&action=details" class="btn btn-primary"> 
                                 Detalhes
                             </a>
                         </td>

@@ -7,7 +7,6 @@ package com.ufpr.tads.web2.servlets;
 
 import com.ufpr.tads.web2.beans.AtendimentoBean;
 import com.ufpr.tads.web2.beans.CadastroBean;
-import com.ufpr.tads.web2.beans.StatusBean;
 import com.ufpr.tads.web2.beans.utils.AtendimentoShowGerente;
 import com.ufpr.tads.web2.exceptions.BeanInvalidoException;
 import com.ufpr.tads.web2.exceptions.FacadeException;
@@ -64,29 +63,25 @@ public class HomeServlet extends HttpServlet {
 					rd.forward(request, response); //redirecina para o home 
 					break;
 				case 2:
-					StatusBean status = new StatusBean(1, null);//status para atendimentos em aberto
-
-					lista = AtendimentoFacade.buscarTodosComFiltroStatusEPessoa(status, cadastro, "ASC");//busca atendimento em aberto para funcionario ordenado de forma crescente por data
-					request.setAttribute("lista", lista);
-
-					rd = getServletContext().getRequestDispatcher("/homeFuncionario.jsp");
-					rd.forward(request, response); //redirecina para o home 
+					response.sendRedirect("ListagemServlet?action=only_open");
 					break;
 				case 3:
 					lista = AtendimentoFacade.buscarTodos();
 
-					HashMap<String, AtendimentoShowGerente> map = new HashMap<String, AtendimentoShowGerente>();
+					HashMap<String, AtendimentoShowGerente> map = new HashMap<>();
 					int aberto = 0;
 					for (AtendimentoBean atendimento : lista) {
 						AtendimentoShowGerente index = map.get(atendimento.getTipoAtendimento().getDescricao());
 						if (index != null) {
-							index.addAberto();
-							aberto++;
+							if (atendimento.getStatus().getId() == 1) {
+								index.addAberto();
+								aberto++;
+							}							
 							index.addTotal();
 						} else {
 							String tipo = atendimento.getTipoAtendimento().getDescricao();
 							AtendimentoShowGerente novo = new AtendimentoShowGerente(tipo);
-							if (atendimento.getTipoAtendimento().getId() == 1) {
+							if (atendimento.getStatus().getId() == 1) {
 								novo.addAberto();
 								aberto++;
 							}
