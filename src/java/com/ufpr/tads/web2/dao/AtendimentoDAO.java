@@ -19,6 +19,7 @@ public class AtendimentoDAO implements DAOInterface<AtendimentoBean> {
 
     private static final String QUERY_BUSCAR = "SELECT id, data_hora, descricao, solucao, fk_cliente, fk_status, fk_tipo_atendimento, fk_produto FROM atendimento WHERE id = ?;";
     private static final String QUERY_BUSCAR_POR_CLIENTE = "SELECT COUNT(*) FROM atendimento WHERE fk_cliente = ?;";
+    private static final String QUERY_BUSCAR_ATENDIMENTOS_POR_CLIENTE = "SELECT * FROM atendimento WHERE fk_cliente = ?;";
     private static final String QUERY_BUSCAR_POR_STATUS = "SELECT COUNT(*) FROM atendimento WHERE fk_status = ?;";
     private static final String QUERY_BUSCAR_POR_PRODUTO = "SELECT COUNT(*) FROM atendimento WHERE fk_produto = ?;";
     private static final String QUERY_BUSCAR_POR_TIPO_ATENDIMENTO = "SELECT COUNT(*) FROM atendimento WHERE fk_tipo_atendimento = ?;";
@@ -75,6 +76,22 @@ public class AtendimentoDAO implements DAOInterface<AtendimentoBean> {
             }
         } catch (SQLException e) {
             throw new DAOException("Erro buscando por login: " + login.getId(), e);
+        }
+    }
+    
+    public List<AtendimentoBean> buscarAtendimentoPorCliente(LoginBean login) throws DAOException {
+        List<AtendimentoBean> lista = new ArrayList<>();
+        try (PreparedStatement st = con.prepareStatement(QUERY_BUSCAR_ATENDIMENTOS_POR_CLIENTE)) {
+            st.setInt(1, login.getId());
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                lista.add(extrairAtendimento(rs));
+            }
+            return lista;
+        } catch (SQLException e) {
+            throw new DAOException("Erro buscando atendimentos do cliente "+login.getId()+"! "
+                    + QUERY_BUSCAR_TODOS, e);
+
         }
     }
 

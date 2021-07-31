@@ -7,8 +7,8 @@
 <%@include file="utils/header.jsp" %>
     
     <div class="container">
-        <form method="post" action="CategoriaProdutoServlet?action=alterarProduto" class="form-signin">
-            <h1 class="mb-4 h-3 fw-normal ">Entre novo produto:</h1> 
+        <form method="post" class="form-signin">
+            <h1 class="mb-4 h-3 fw-normal ">Produto:</h1> 
             <c:if test="${msg != null}">
                 <span class="alert alert-danger d-sm-inline-flex mb-3" role="alert">
                     ${msg}
