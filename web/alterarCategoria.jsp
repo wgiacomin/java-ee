@@ -1,15 +1,6 @@
-<%-- 
-    Document   : alterarCategoria
-    Created on : Jul 26, 2021, 8:55:28 PM
-    Author     : filipefreitas
---%>
-
-    
 <meta charset="utf-8"/>
-<%@include file="utils/header.jsp" %>
-
-    
-    
+<%@include file="utils/header.jsp" %>    
+    <link rel="stylesheet" href="css/cadastro.css">
     <div class="container">
         <form method="post" action="CategoriaProdutoServlet?action=alterarCategoria" class="form-signin">
             <h1 class="mb-4 h-3 fw-normal ">Categoria:</h1> 

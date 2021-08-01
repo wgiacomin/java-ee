@@ -1,14 +1,6 @@
-<%-- 
-    Document   : cadastroCategoria
-    Created on : Jul 26, 2021, 6:14:25 PM
-    Author     : filipefreitas
---%>
-    
 <meta charset="utf-8"/>
 <%@include file="utils/header.jsp" %>
-
-    
-    
+<link rel="stylesheet" href="css/cadastro.css">
     <div class="container">
         <form method="post" action="CategoriaProdutoServlet?action=novaCategoria" class="form-signin">
             <h1 class="mb-4 h-3 fw-normal ">Entre nova categoria:</h1> 
