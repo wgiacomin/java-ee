@@ -44,7 +44,7 @@
                                     </div>
                                 </div>
                             </div>
-                    <a href="AtendimentoServlet" class="btn btn-secondary">Voltar</a>
+                    <a href="${sessionScope.logado.perfil.id == 1 ? "HomeServlet" : "AtendimentoServlet" }" class="btn btn-secondary">Voltar</a>
                 </div>
             </c:when>
             <c:when test="${sessionScope.logado.perfil.id == 2}">

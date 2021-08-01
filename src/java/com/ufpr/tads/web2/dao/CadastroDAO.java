@@ -18,7 +18,7 @@ public class CadastroDAO implements DAOInterface<CadastroBean> {
     private static final String QUERY_BUSCAR_TODOS = "SELECT fk_login, cpf, nome, email, rua, rua_numero, rua_complemento, bairro, cep, telefone, fk_cidade, fk_perfil FROM cadastro;";
     private static final String QUERY_BUSCAR_TODOS_POR_PERFIL = "SELECT fk_login, cpf, nome, email, rua, rua_numero, rua_complemento, bairro, cep, telefone, fk_cidade, fk_perfil FROM cadastro WHERE fk_perfil = ?;;";
     private static final String QUERY_BUSCAR_POR_PERFIL = "SELECT COUNT(*) FROM cadastro WHERE fk_perfil = ?;";
-	private static final String QUERY_BUSCAR_POR_CPF = "SELECT fk_login, cpf, nome, email, rua, rua_numero, rua_complemento, bairro, cep, telefone, fk_cidade, fk_perfil FROM cadastro WHERE cpf = ?;";
+	private static final String QUERY_BUSCAR_POR_CPF = "SELECT COUNT(*) FROM cadastro WHERE cpf = ?;";
     private static final String QUERY_INSERIR = "INSERT INTO cadastro(fk_login, cpf, nome, email, rua, rua_numero, rua_complemento, bairro, cep, telefone, fk_cidade, fk_perfil) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
     private static final String QUERY_REMOVER = "DELETE FROM cadastro WHERE fk_login = ?;";
     private static final String QUERY_EDITAR = "UPDATE cadastro SET nome = ?, rua = ?, rua_numero = ?, rua_complemento = ?, bairro = ?, cep = ?, telefone = ?, fk_cidade = ?, fk_perfil = ? WHERE fk_login = ?;";
@@ -91,19 +91,18 @@ public class CadastroDAO implements DAOInterface<CadastroBean> {
         }
     }
 	
-	public CadastroBean buscarCpf(CadastroBean cadastro) throws DAOException {
+	public int buscarCpf(CadastroBean cadastro) throws DAOException {
         try (PreparedStatement st = con.prepareStatement(QUERY_BUSCAR_POR_CPF)) {
             st.setString(1, cadastro.getCpf());
 
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
-                cadastro = extrairCadastro(rs);
-                return cadastro;
+                return rs.getInt(1);
             } else {
-                return null;
+                throw new DAOException("Erro buscando cadastros com cpf: " + cadastro.getCpf());
             }
         } catch (SQLException e) {
-            throw new DAOException("Erro buscando cadastro: " + cadastro.getId(), e);
+            throw new DAOException("Erro buscando cadastros com cpf: " + cadastro.getCpf(), e);
         }
     }
 	
