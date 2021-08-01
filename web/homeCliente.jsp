@@ -8,8 +8,7 @@
                 <th scope="col">Status</th>
                 <th scope="col">Tipo de Atendimento</th>
                 <th scope="col">Produto</th>
-                <th scope="col">Visualizar</th>
-                <th class="text-center" scope="col"></th>
+                <th class="text-center" scope="col">Visualizar</th>
             </tr>
         </thead>
         <tbody>        
