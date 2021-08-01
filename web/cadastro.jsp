@@ -87,8 +87,6 @@
                     </select>
                 </div>
 
-                <input type="hidden" id="perfil" value="1" name="perfil">
-
                 <input type="submit" value="${requestScope.action == 'alterar' ? 'Alterar' : 'Cadastrar'}" class="w-100 btn btn-lg btn-primary mt-3" />
             </form>
         </div>

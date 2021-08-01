@@ -3,7 +3,6 @@ package com.ufpr.tads.web2.servlets;
 import com.ufpr.tads.web2.beans.CadastroBean;
 import com.ufpr.tads.web2.beans.CidadeBean;
 import com.ufpr.tads.web2.beans.EstadoBean;
-import com.ufpr.tads.web2.beans.LoginBean;
 import com.ufpr.tads.web2.beans.PerfilBean;
 import com.ufpr.tads.web2.exceptions.BeanInvalidoException;
 import com.ufpr.tads.web2.exceptions.CPFException;
@@ -15,8 +14,6 @@ import com.ufpr.tads.web2.exceptions.RegistroInexistenteException;
 import com.ufpr.tads.web2.facade.CadastroFacade;
 import com.ufpr.tads.web2.facade.LoginFacade;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -34,7 +31,7 @@ public class CadastroServlet extends HttpServlet {
         try {
             String action = request.getParameter("action");
             HttpSession session = request.getSession();
-            LoginBean login = (LoginBean) session.getAttribute("logado");
+            CadastroBean login = (CadastroBean) session.getAttribute("logado");
             switch (action) {
                 case "formNovoCliente":
                     if (login == null) { // se usuário não estiver logado, enviar para form de novo cliente
@@ -71,7 +68,7 @@ public class CadastroServlet extends HttpServlet {
 
                         cadastro.setCidade(cidadeBean);
                         PerfilBean perfilBean = new PerfilBean();
-                        perfilBean.setId(Integer.parseInt(request.getParameter("perfil")));
+                        perfilBean.setId(1);
                         cadastro.setPerfil(perfilBean);
 
                         request.setAttribute("cadastro", cadastro);
@@ -141,8 +138,9 @@ public class CadastroServlet extends HttpServlet {
                         EstadoBean estadoBean = new EstadoBean();
                         estadoBean.setId(Integer.parseInt(request.getParameter("uf")));
 
-                        PerfilBean perfil = new PerfilBean(login.getId(), null);
-
+                        PerfilBean perfil = new PerfilBean();
+						perfil.setId(login.getPerfil().getId());
+						
                         cidadeBean.setEstado(estadoBean);
                         cadastro.setCidade(cidadeBean);
                         cadastro.setPerfil(perfil);
