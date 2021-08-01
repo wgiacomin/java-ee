@@ -55,10 +55,10 @@
                         <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownuser" style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate(-110px, 34px);">
                             <c:choose>
                                 <c:when test="${sessionScope.logado.perfil.id == 1}">
-                                    <li class="dropdown-item"><a href="CadastroServlet?action=formAlterarCliente" class="nav-link active mx-3">Alterar Dados</a></li>
+                                    <a href="CadastroServlet?action=formAlterarCliente" class="dropdown-item">Alterar Dados</a>
                                     </c:when>
                                     <c:when test="${sessionScope.logado.perfil.id == 2}">
-                                    <li class="dropdown-item"><a href="CadastroServlet?action=formAlterarCliente" class="nav-link active mx-3">Alterar Dados</a></li>
+                                    <a href="CadastroServlet?action=formAlterarCliente" class="dropdown-item">Alterar Dados</a>
                                     </c:when>
                                 </c:choose>
                             <li>
