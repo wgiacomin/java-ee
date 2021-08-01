@@ -105,8 +105,7 @@ public class GerenteServlet extends HttpServlet {
 						cadastro.setId(id);
 
 						CadastroFacade.remover(cadastro);
-						rd = getServletContext().getRequestDispatcher("/GerenteServlet?action=listar");
-						rd.forward(request, response);
+						response.sendRedirect("GerenteServlet?action=listar");
 						break;
 					case "alterar":
 						try {
@@ -151,8 +150,7 @@ public class GerenteServlet extends HttpServlet {
 						
 						CadastroFacade.editar(cadastro); //edita cliente no banco
 
-						rd = getServletContext().getRequestDispatcher("/GerenteServlet?action=listar");
-						rd.forward(request, response);
+						response.sendRedirect("GerenteServlet?action=listar");
 						break;
 					case "novo":						
 						cadastro.setLogin(request.getParameter("email"));
@@ -191,10 +189,10 @@ public class GerenteServlet extends HttpServlet {
 						}
 						CadastroFacade.inserir(cadastro); //cadastra cliente no banco
 
-						rd = getServletContext().getRequestDispatcher("/GerenteServlet?action=listar");
-						rd.forward(request, response);
+						response.sendRedirect("GerenteServlet?action=listar");
 						break;
 					default:
+						response.sendRedirect("GerenteServlet?action=listar");
 				}
 			}
 		} catch (CampoInvalidoException|RegistroDuplicadoException|CPFException e) {
