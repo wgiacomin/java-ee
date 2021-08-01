@@ -19,6 +19,7 @@ public class LoginDAO implements DAOInterface<LoginBean> {
     private static final String QUERY_INSERIR = "INSERT INTO login(login, senha) VALUES (?, ?);";
     private static final String QUERY_REMOVER = "DELETE FROM login WHERE id = ?;";
     private static final String QUERY_EDITAR = "UPDATE login SET login = ?, senha = ? WHERE id = ?;";
+    private static final String QUERY_EDITAR_SENHA = "UPDATE login SET senha = ? WHERE id = ?;";
 
     private Connection con = null;
 
@@ -122,6 +123,20 @@ public class LoginDAO implements DAOInterface<LoginBean> {
         } catch (SQLException e) {
             throw new DAOException("Erro ao editar login: "
                     + QUERY_EDITAR, e);
+        }
+    }
+
+    public void editarSenha(LoginBean login) throws DAOException {
+        try (PreparedStatement st = con.prepareStatement(QUERY_EDITAR_SENHA)) {
+            String sha256hex = DigestUtils.sha256Hex(login.getSenha());
+            
+            st.setString(1, sha256hex);
+            st.setInt(2, login.getId());
+
+            st.executeUpdate();
+        } catch (SQLException e) {
+            throw new DAOException("Erro ao editar senha: "
+                    + QUERY_EDITAR_SENHA, e);
         }
     }
 

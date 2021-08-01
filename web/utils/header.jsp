@@ -20,22 +20,20 @@
         <script type="text/javascript" src="jquery.maskedinput-1.1.4.pack.js"/></script>
 </head>
 <body class="d-flex flex-column h-100">
-    <header>
+    <header class="py-3 mb-3 border-bottom">
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark mb-4">
-            <div class="container-fluid">
+            <div class="container-fluid d-grid" style="grid-template-columns: 1fr 1fr;">
                 <div class="collapse navbar-collapse">
                     <c:choose>
                         <c:when test="${sessionScope.logado.perfil.id == 1}">
                             <ul class="navbar-nav me-auto mb-2 mb-md-0">
                                 <li class="nav-item "><a href="HomeServlet" class="nav-link active mx-3">Home</a></li>
-                                <li class="nav-item"><a href="CadastroServlet?action=formAlterarCliente" class="nav-link active mx-3">Alterar Dados</a></li>
                             </ul>
                         </c:when>
                         <c:when test="${sessionScope.logado.perfil.id == 2}">
                             <ul class="navbar-nav me-auto mb-2 mb-md-0">
                                 <li class="nav-item "><a href="HomeServlet" class="nav-link active mx-3">Home</a></li>
                                 <li class="nav-item"><a href="CategoriaProdutoServlet" class="nav-link active mx-3">Cadastrar Produto/Categoria</a></li>
-                                <li class="nav-item"><a href="CadastroServlet?action=formAlterarCliente" class="nav-link active mx-3">Alterar Dados</a></li>
                             </ul>
                         </c:when>
                         <c:when test="${sessionScope.logado.perfil.id == 3}">
@@ -48,8 +46,29 @@
                         </c:when>
                     </c:choose>
                 </div>
-                <div class="d-flex">
-                    <a href="LogoutServlet"><button class="btn btn-outline-danger">Sair</button></a>
+                <div class="d-flex align-items-center justify-content-md-end">     
+                    <div class="flex-shrink-0 dropdown">
+                        <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownuser" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="utils/logo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+                            ::after
+                        </a>
+                        <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownuser" style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate(-110px, 34px);">
+                            <c:choose>
+                                <c:when test="${sessionScope.logado.perfil.id == 1}">
+                                    <li class="dropdown-item"><a href="CadastroServlet?action=formAlterarCliente" class="nav-link active mx-3">Alterar Dados</a></li>
+                                    </c:when>
+                                    <c:when test="${sessionScope.logado.perfil.id == 2}">
+                                    <li class="dropdown-item"><a href="CadastroServlet?action=formAlterarCliente" class="nav-link active mx-3">Alterar Dados</a></li>
+                                    </c:when>
+                                </c:choose>
+                            <li>
+                                <a class="dropdown-item" href="./alterarSenha.jsp">Alterar Senha</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="LogoutServlet">Sair</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div> 
         </nav>

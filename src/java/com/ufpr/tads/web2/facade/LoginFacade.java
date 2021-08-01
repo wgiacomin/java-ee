@@ -56,4 +56,17 @@ public class LoginFacade {
         }
     }
 
+    public static void editarSenha(LoginBean login) throws FacadeException, BeanInvalidoException {
+        try (ConnectionFactory factory = new ConnectionFactory()) {
+            LoginDAO bd = new LoginDAO(factory.getConnection());
+
+            bd.editarSenha(login);
+            
+        } catch (DAOException e) {
+            throw new FacadeException("Erro ao editar senha: ", e);
+        } catch (NullPointerException e) {
+            throw new BeanInvalidoException();
+        }
+    }
+
 }
