@@ -28,8 +28,6 @@
                         <c:when test="${sessionScope.logado.perfil.id == 1}">
                             <ul class="navbar-nav me-auto mb-2 mb-md-0">
                                 <li class="nav-item "><a href="HomeServlet" class="nav-link active mx-3">Home</a></li>
-                                <li class="nav-item "><a href="#" class="nav-link active mx-3">Novo Atendimento</a></li>
-                                <li class="nav-item"><a href="HomeServlet" class="nav-link active mx-3">Meus Atendimentos</a></li>
                                 <li class="nav-item"><a href="CadastroServlet?action=formAlterarCliente" class="nav-link active mx-3">Alterar Dados</a></li>
                             </ul>
                         </c:when>

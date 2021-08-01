@@ -97,7 +97,7 @@ public class CadastroFacade {
 			if (login != null) {
 				throw new RegistroDuplicadoException();
 			}			
-			if ((bd.buscarCpf(cadastro) != null)|| !cadastro.isCPF()) {
+			if ((bd.buscarCpf(cadastro) != 0) || !cadastro.isCPF()) {
 				throw new CPFException();
 			}
 			
