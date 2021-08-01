@@ -27,7 +27,7 @@
             </div>
             <div class="form-floating">
                 <input type="text" class="form-control" id="peso" placeholder="Peso" name="peso" required>
-                <label for="descricao">Peso</label>
+                <label for="descricao">Peso (g)</label>
             </div>
             <div class="form-floating">
                 <select class="form-control" id="categoria" placeholder="Categoria" name="categoria">
