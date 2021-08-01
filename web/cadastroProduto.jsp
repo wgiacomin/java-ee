@@ -1,14 +1,6 @@
-<%-- 
-    Document   : cadastroProduto
-    Created on : Jul 26, 2021, 7:01:01 PM
-    Author     : filipefreitas
---%>
-    
 <meta charset="utf-8"/>
-<%@include file="utils/header.jsp" %>
-
-    
-    
+<%@include file="utils/header.jsp" %>  
+    <link rel="stylesheet" href="css/cadastro.css">
     <div class="container">
         <form method="post" action="CategoriaProdutoServlet?action=novoProduto" class="form-signin">
             <h1 class="mb-4 h-3 fw-normal ">Entre novo produto:</h1> 
@@ -21,16 +13,16 @@
                 <input type="text" class="form-control" id="nome" placeholder="Nome" name="nome" required>
                 <label for="descricao">Nome</label>
             </div>
-            <div class="form-floating">
-                <textarea class="form-control" id="descricao" placeholder="Descrição" name="descricao" required></textarea>
-                <label for="descricao">Descrição</label>
+            <div class="form-textarea">
+                <textarea class="form-control" id="descricao" placeholder="Descrição" name="descricao" rows="3" required></textarea>
             </div>
             <div class="form-floating">
                 <input type="text" class="form-control" id="peso" placeholder="Peso" name="peso" required>
                 <label for="descricao">Peso (g)</label>
             </div>
             <div class="form-floating">
-                <select class="form-control" id="categoria" placeholder="Categoria" name="categoria">
+                <select class="form-select" id="categoria" placeholder="Categoria" name="categoria" required>
+                    <option selected disabled>Selecione</option>
                     <c:forEach var="cat" items="${categoria}">
                         <option value="${cat.id}"><c:out value="${cat.descricao}"/>  </option>
                     </c:forEach>
@@ -39,13 +31,9 @@
             </div>
 
             <input type="submit" value="Cadastrar" class="w-100 btn btn-lg btn-primary mt-3" />
+            <a href="CategoriaProdutoServlet" class="w-100 btn btn-lg btn-outline-danger mt-3">Voltar</a>
         </form>
-        <div>
-            <br>
-        <a href="CategoriaProdutoServlet" class="btn btn-outline-danger">Voltar</a>
-        </div>
-    </div>
-    
+    </div>   
     
 <%@include file="utils/footer.jsp" %>
 
