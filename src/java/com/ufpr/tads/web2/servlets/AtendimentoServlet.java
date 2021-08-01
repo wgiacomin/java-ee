@@ -170,10 +170,10 @@ public class AtendimentoServlet extends HttpServlet {
 						atendimento.setId(Integer.parseInt(request.getParameter("atendimento_id")));
 						atendimento.setSolucao(request.getParameter("solucao"));
 						AtendimentoFacade.solucionar(atendimento);
-						response.sendRedirect("/HomeServlet");
+						response.sendRedirect("HomeServlet");
 						break;
 					default:
-						response.sendRedirect("/HomeServlet");
+						response.sendRedirect("HomeServlet");
 				}
 			} catch (NumberFormatException | FacadeException | BeanInvalidoException | RegistroInexistenteException e) {
 				rd = getServletContext().getRequestDispatcher("/erro.jsp");
