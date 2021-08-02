@@ -1,10 +1,3 @@
-**BEIBE - Beauty Embuste Indústria de Beleza e Estética**
-
-Rua do Embuste, 1313
-
-Curitiba, PR, 13131-313
- (41) 9 1313-1313
-
 # SAC - Sistema de Atendimento ao Cliente
 
 # VISÃO GERAL
@@ -75,16 +68,3 @@ Os dados que são armazenados e manipulados são:
 - **Categoria do Produto** : nome
 - **Tipo do Atendimento** : nome
 - **Atendimento** : data/hora, cliente, situação do atendimento, produto, tipo do atendimento, descrição (texto explicativo), solução apresentada (texto explicativo)
-
-# REQUISITOS NÃO-FUNCIONAIS
-
-- Deve-se usar as tecnologias vistas em aula: Servlets, JSP, JSTL, EL. Bem como as boas práticas de programação: MVC, DAO, etc;
-- As tabelas devem estar normalizadas, inclusive as que não possuem cadastro e devem estar previamente preenchidas: Cidade e Estado;
-- Deve-se usar um framework para desenvolvimento das telas. Sugere-se o **Bootstrap**. Também deve-se usar um conjunto de bibliotecas javascript para alterar o comportamento de telas, de forma dinâmica, quando necessário. Sugere-se o **jQuery** ;
-- Senhas devem ser criptografadas;
-- O leiaute deve seguir preceitos de usabilidade e ergonomia, usar o ErgoList como direcionador (http://www.labiutil.inf.ufsc.br/ergolist/);
-- O leiaute deve ser agradável;
-- Todas as datas e valores monetários devem ser entrados e mostrados no formato brasileiro;
-- Todos os campos que tiverem formatação devem possuir máscara;
-- Todas as datas deverão ser entradas através de calendários;
-- Qualquer tipo de remoção deve ser confirmada antes de ocorrer.
