@@ -10,18 +10,18 @@
                 </span></br> 
             </c:if>
               <div class="form-floating">
-                  <input type="text" class="form-control" id="id" placeholder="ID" name="id" value="<c:out value="${produto.id}"/>  " readonly>
+                  <input type="text" class="form-control" id="id" placeholder="ID" name="id" value="<c:out value="${produto.id}"/>" readonly>
                 <label for="id">ID</label>
             </div>
             <div class="form-floating">
-                <input type="text" class="form-control" id="nome" placeholder="Nome" name="nome" value="<c:out value="${produto.nome}"/>  "required>
+                <input type="text" class="form-control" id="nome" placeholder="Nome" name="nome" value="<c:out value="${produto.nome}"/>" required>
                 <label for="descricao">Nome</label>
             </div>
             <div class="form-textarea">
                 <textarea class="form-control" id="descricao" placeholder="Descrição" name="descricao" rows="5" required><c:out value="${produto.descricao}"/>  </textarea>
             </div>
             <div class="form-floating">
-                <input type="text" class="form-control" id="peso" placeholder="Peso" name="peso" value="<c:out value="${produto.peso}"/>  " required>
+                <input type="text" class="form-control" id="peso" placeholder="Peso" name="peso" value="<c:out value="${produto.peso}"/>" required>
                 <label for="descricao">Peso</label>
             </div>
             <div class="form-floating">
