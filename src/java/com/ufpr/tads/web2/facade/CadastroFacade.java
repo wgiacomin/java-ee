@@ -143,7 +143,7 @@ public class CadastroFacade {
             AtendimentoDAO dbd = new AtendimentoDAO(factory.getConnection());
             int registros = dbd.buscarPorCliente(login);
             if (registros > 0) {
-                throw new RegistroComUsoException();
+                throw new RegistroComUsoException(registros);
             }
 
             bd.remover(cadastro);
