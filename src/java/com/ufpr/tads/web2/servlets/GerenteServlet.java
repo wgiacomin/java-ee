@@ -93,7 +93,6 @@ public class GerenteServlet extends HttpServlet {
 
                         cadastro = CadastroFacade.buscar(cadastro);
                         request.setAttribute("cadastro", cadastro);
-                        break;
                     case "formNew":
                         request.setAttribute("action", action);
                         rd = getServletContext().getRequestDispatcher("/formCadastroGerente.jsp");
